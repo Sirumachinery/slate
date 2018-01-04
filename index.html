@@ -2,9 +2,11 @@
 <!doctype html>
 <html>
   <head>
+    <link href="images/favicon.png" rel="icon" type="image/png" />
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="robots" content="noindex">
     <title>Siru Mobile API reference</title>
 
 <!-- Google Tag Manager -->
@@ -389,11 +391,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </thead><tbody>
 <tr>
 <td>Production</td>
-<td><a href="https://payment.sirumobile.com">https://payment.sirumobile.com</a></td>
+<td>https://payment.sirumobile.com</td>
 </tr>
 <tr>
 <td>Sandbox</td>
-<td><a href="https://staging.sirumobile.com">https://staging.sirumobile.com</a></td>
+<td>https://staging.sirumobile.com</td>
 </tr>
 </tbody></table>
 
@@ -834,8 +836,8 @@ for example) and use it everywhere where the wallet is an accepted payment metho
 
 <table><thead>
 <tr>
-<th></th>
-<th></th>
+<th>Field</th>
+<th>Variants</th>
 </tr>
 </thead><tbody>
 <tr>
@@ -919,7 +921,7 @@ The format is {Language code}_{Country code} i.e. like most POSIX locales. Curre
 <p><strong>Phone number</strong><br>
 A phone number in either MSISDN format or in national format. A leading + character and any spaces are ignored.</p>
 
-<p><strong>More information</strong><br>
+<p>More information<br>
 <a href="http://en.wikipedia.org/wiki/MSISDN">http://en.wikipedia.org/wiki/MSISDN</a></p>
 
 <p><strong>Money</strong><br>
@@ -988,87 +990,85 @@ An UTF-8 string that is a valid URL. The maximum length is 1024 characters. The 
 <p>In very rare (and theoretically unavoidable) corner cases, it is possible for a notification to be delivered more than once. Your system should be prepared to ignore a second notification, preferably with 200 code.</p>
 
 <p><strong>Tax class</strong><br>
-This specifies the Value Added Tax class. If your country is not listed here, leave this field empty.  </p>
-
-<p><strong>Finland</strong><br></p>
+This specifies the Value Added Tax class. If your country is not listed here, leave this field empty.</p>
 
 <table><thead>
 <tr>
 <th>Num.</th>
-<th>Current VAT %</th>
-<th>Finlex</th>
+<th>Countries</th>
+<th>VAT %</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>0</td>
+<td>Finland</td>
 <td>0%</td>
-<td></td>
 </tr>
 <tr>
 <td>1</td>
+<td>Finland</td>
 <td>10%</td>
-<td>30.12.1993/1501 85 a §</td>
 </tr>
 <tr>
 <td>2</td>
+<td>Finland</td>
 <td>14%</td>
-<td>30.12.1993/1501 85 §</td>
 </tr>
 <tr>
 <td>3</td>
+<td>Finland</td>
 <td>24%</td>
-<td>30.12.1993/1501 84 §</td>
 </tr>
 </tbody></table>
 
 <p>Tax classes may be added, changed and removed as legislation changes. Siru will notify merchants in advance of such changes. Tax class number 0 will, however, always mean a 0% VAT.</p>
 
-<p><strong>More information</strong><br></p>
+<p>More information<br></p>
 
 <ul>
-<li><a href="http://www.vero.fi/fi-FI/Yritys_ja_yhteisoasiakkaat/Liikkeen_ja_ammatinharjoittaja/Arvonlisaverotus">http://www.vero.fi/fi-FI/Yritys_ja_yhteisoasiakkaat/Liikkeen_ja_ammatinharjoittaja/Arvonlisaverotus</a>(in Finnish)<br></li>
+<li><a href="http://www.vero.fi/fi-FI/Yritys_ja_yhteisoasiakkaat/Liikkeen_ja_ammatinharjoittaja/Arvonlisaverotus">http://www.vero.fi/fi-FI/Yritys_ja_yhteisoasiakkaat/Liikkeen_ja_ammatinharjoittaja/Arvonlisaverotus</a> (in Finnish)<br></li>
 <li><a href="http://www.vero.fi/en-US/Companies_and_organisations/VAT">http://www.vero.fi/en-US/Companies_and_organisations/VAT</a> (in English)</li>
 </ul>
 
 <p><strong>Service group</strong><br>
 This specifies the service group of the product or service. If your country is not listed here, leave this field empty.</p>
 
-<p><strong>Finland</strong><br>
-The Finnish Communications Regulatory Authority (FICORA) requires paid phone services to be categorized into service groups. A customer&#39;s phone subscription may bar calls to certain service groups. The service groups also show up on the customer&#39;s phone bill breakdown.</p>
-
-<p>The following service groups are currently in use:</p>
-
 <table><thead>
 <tr>
 <th>Num.</th>
+<th>Countries</th>
 <th>FICORA title</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>1</td>
+<td>Finland</td>
 <td>Non-profit services</td>
 </tr>
 <tr>
 <td>2</td>
+<td>Finland</td>
 <td>Online services</td>
 </tr>
 <tr>
 <td>3</td>
+<td>Finland</td>
 <td>Entertainment services</td>
 </tr>
 <tr>
 <td>4</td>
+<td>Finland</td>
 <td>Adult entertainment services</td>
 </tr>
 </tbody></table>
 
-<p>If multiple service groups apply, then the group with the highest number must be chosen.</p>
+<p>A customer&#39;s phone subscription may bar calls to certain service groups. The service groups also show up on the customer&#39;s phone bill breakdown. If multiple service groups apply, then the group with the highest number must be chosen.</p>
 
-<p>Note: The merchant is responsible for specifying the correct service group. Please contact Siru for further advice on the correct service group if you have any doubt.</p>
+<p>The merchant is responsible for specifying the correct service group. Please contact Siru for further advice on the correct service group if you have any doubt.</p>
 
 <p>The service group scheme may change as legislation changes. Siru will notify merchants in advance if any changes are required.</p>
 
-<p><strong>More information</strong><br></p>
+<p>More information<br></p>
 
 <ul>
 <li><a href="http://www.mapel.fi/eettiset_saannot/palveluiden_luokittelu/">http://www.mapel.fi/eettiset_saannot/palveluiden_luokittelu/</a><br></li>
