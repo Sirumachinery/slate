@@ -57,10 +57,10 @@ If you are using Magento or Woocommerce, contact us about our ready-made plugins
 
 We have two environments available: production (the real live deal) and staging, which is a sandbox for you to play in. Production uses real money, staging does not, so we strongly recommend you code against the staging environment until you are ready to go live. Urls are the same for both environments. Only the endpoint changes.
 
-Environment|Endpoint
------- | -----
-Production|<https://payment.sirumobile.com>
-Sandbox|<https://staging.sirumobile.com>
+Environment | Endpoint
+------      | -----
+Production  | https://payment.sirumobile.com
+Sandbox     | https://staging.sirumobile.com
 
 <aside class="notice">
 The production environment imposes limits on how much the customer can purchase during 24h and 30 day periods to prevent misuse. The sandbox environment does not impose such limits.
@@ -108,10 +108,10 @@ Configuration of your production environment (which variants and features are av
 
 Variant | Limitations in sandbox | Limitation in production
 ------- | ------------------ | -------------------
-Variant1|<p>Countries FI, SE and NO</p> <p>Use your own mobile phone number. The numbers you are required to call are in Sweden and calling them costs only the international toll, even if the system says otherwise.</p><p>WARNING: At the moment you can not successfully call sandbox numbers from Sweden. If needed, we can provide a Skype number for testing.</p>|<p>Countries FI, SE and NO </p><p>You must use a mobile phone subscription from selected country and you can not be roaming.This variant may not be available in Norway depending on your business.</p>    
-Variant2|<p>Countries FI</p><p>To simulate a successful purchase, supply a basePrice dividable by 2 and NOT dividable by 6. To simulate failure, supply a basePrice not dividable by 2 OR dividable by 6. The difference between odd and even failing basePrices is the point of failure.</p>|<p>Countries FI</p><p>You must use a mobile connection for variant2 to work.</p>  
-Variant3|<p>Countries FI, SE, NO and GB.</p><p>When using Siru Mobile gateway to topup Wallet, variant1 limitations also apply.</p>|Countries FI, SE, NO and GB   
-Variant4|Countries GB|Countries GB  
+Variant1 | <p>Countries FI, SE and NO</p> <p>Use your own mobile phone number. The numbers you are required to call are in Sweden and calling them costs only the international toll, even if the system says otherwise.</p><p>WARNING: At the moment you can not successfully call sandbox numbers from Sweden. If needed, we can provide a Skype number for testing.</p>|<p>Countries FI, SE and NO </p><p>You must use a mobile phone subscription from selected country and you can not be roaming.This variant may not be available in Norway depending on your business.</p>    
+Variant2 | <p>Countries FI</p><p>To simulate a successful purchase, supply a basePrice dividable by 2 and NOT dividable by 6. To simulate failure, supply a basePrice not dividable by 2 OR dividable by 6. The difference between odd and even failing basePrices is the point of failure.</p>|<p>Countries FI</p><p>You must use a mobile connection for variant2 to work.</p>  
+Variant3 | <p>Countries FI, SE, NO and GB.</p><p>When using Siru Mobile gateway to topup Wallet, variant1 limitations also apply.</p>|Countries FI, SE, NO and GB   
+Variant4 | Countries GB|Countries GB  
 
 
 # Payment API
@@ -189,8 +189,8 @@ Due to different payment methods and regulations / conventions in different coun
 
 ### Common fields
 
-Field|Required|Signed|Format|Description
----|---|---|---|---
+Field | Required | Signed | Format | Description
+---   | ---      | ---    | ---    | ---
 variant|yes|yes|String|The API variant. 'variant1', 'variant2', 'variant3' or 'variant4'.
 merchantId|yes|yes|Integer|The merchant identifier provided by Siru.  
 submerchantReference| |yes|String|Used to identify submerchants, e.g. individual shops.This is currently purely a convenience field and may be safely ignored.
@@ -212,8 +212,8 @@ signature|yes|  |Signature|A hash calculated from select fields. See Signature c
 
 ### Variant1 fields
 
-Field|Required|Signed|Format|Description
----|---|---|---|----
+Field | Required | Signed | Format | Description
+---   | ---      | ---    | ---    | ---
 basePrice|yes|yes|Money|<p>The price of the product with VAT included. Siru's fees are added to this automatically.</p><p>The prices are fixed and depend on your contract with Siru and selected country. The currency is determined by the purchaseCountry field.<p><p>In sandbox, you can use 2.50, 5.00 or 10.00 as base price.</p>
 customerNumber|yes|yes|Phone number|The customer’s phone number.
 taxClass|yes*|yes|Tax class|<p>The tax class number.</p><p>* Must be set if purchase country has options listed. Must be empty otherwise. See Tax classes.</p>
@@ -221,8 +221,8 @@ serviceGroup|yes*|yes|Service group|<p>The service group number.</p><p>* Must be
 
 ### Variant2 fields
 
-Field|Required|Signed|Format|Description
----|---|---|---|---
+Field | Required | Signed | Format | Description
+---   | ---      | ---    | ---    | ---
 basePrice|yes|yes|Money|<p>The price of the product without VAT. The actual price paid by the end customer is affected by the details of the purchase (for example VAT class in countries where VAT applies).</p><p>Price can be anything between 0.10 and 30.00.  </p>
 taxClass|yes*|yes|tax class|<p>The tax class number.</p><p>* Must be set if purchase country has options listed. Must be empty otherwise. See Tax classes.</p>
 serviceGroup|yes*|yes|Service group|<p>The service group number.</p><p>* Must be set if purchase country has options listed. Must be empty otherwise. See Service groups.</p>
@@ -230,15 +230,15 @@ instantPay|yes|yes|integer|Currently only supported value is 1.
 
 ### Variant3 fields
 
-Field|Required|Signed|Format|Description
----|---|---|---|---
+Field | Required | Signed | Format | Description
+---   | ---      | ---    | ---    | ---
 basePrice|yes|yes|Money|<p>The price of the product with VAT included. The actual price paid by the end customer is always exactly the same. Handling / applying any taxes appropriately is the responsibility of the merchant.</p><p>In sandbox price can be anything between 0.10 and 30.00.</p>
 taxClass|no|  |tax class|The tax class number. See Tax classes.
 
 ### Variant4 fields
 
-Field|Required|Signed|Format|Description
----|---|---|---|---
+Field | Required | Signed | Format | Description
+---   | ---      | ---    | ---    | ---
 basePrice|yes||yes|Money|<p>The price of the product with VAT included.</p><p>Available prices depend on purchase country and contract with Siru.</p>
 customerNumber|yes|yes|Phone number|The customer’s phone number.
 taxClass|yes*|yes|Tax class|<p>The tax class number.</p><p>* Must be set if purchase country has options listed. Must be empty otherwise. See Tax classes.</p>
@@ -282,8 +282,8 @@ The data must be signed using a hash from certain values in data and the merchan
 
 For your convenience, here is a full list of fields that need to be signed:
 
- | |
----|---
+Field | Variants
+---   | ---
 variant|All
 merchantId|All
 submerchantReference|All
@@ -318,7 +318,7 @@ The format is {Language code}_{Country code} i.e. like most POSIX locales. Curre
 **Phone number**<br>
 A phone number in either MSISDN format or in national format. A leading + character and any spaces are ignored.
 
-**More information**<br>
+More information<br>
 <http://en.wikipedia.org/wiki/MSISDN>
 
 **Money**<br>
@@ -357,46 +357,39 @@ Your server should respond to the notification with HTTP 200 code. If the notifi
 In very rare (and theoretically unavoidable) corner cases, it is possible for a notification to be delivered more than once. Your system should be prepared to ignore a second notification, preferably with 200 code.
 
 **Tax class**<br>
-This specifies the Value Added Tax class. If your country is not listed here, leave this field empty.  
+This specifies the Value Added Tax class. If your country is not listed here, leave this field empty.
 
-**Finland**<br>
-
-Num.|Current VAT %|Finlex
----|---|---
-0|0%|  |
-1|10%|30.12.1993/1501 85 a §
-2|14%|30.12.1993/1501 85 §
-3|24%|30.12.1993/1501 84 §
+Num. | Countries | VAT %
+---  | ---       | ---
+0    | Finland   | 0%
+1    | Finland   | 10%
+2    | Finland   | 14%
+3    | Finland   | 24%
 
 Tax classes may be added, changed and removed as legislation changes. Siru will notify merchants in advance of such changes. Tax class number 0 will, however, always mean a 0% VAT.
 
-**More information**<br>
+More information<br>
 
-- <http://www.vero.fi/fi-FI/Yritys_ja_yhteisoasiakkaat/Liikkeen_ja_ammatinharjoittaja/Arvonlisaverotus>(in Finnish)<br>
+- <http://www.vero.fi/fi-FI/Yritys_ja_yhteisoasiakkaat/Liikkeen_ja_ammatinharjoittaja/Arvonlisaverotus> (in Finnish)<br>
 - <http://www.vero.fi/en-US/Companies_and_organisations/VAT> (in English)
 
 **Service group**<br>
 This specifies the service group of the product or service. If your country is not listed here, leave this field empty.
 
-**Finland**<br>
-The Finnish Communications Regulatory Authority (FICORA) requires paid phone services to be categorized into service groups. A customer's phone subscription may bar calls to certain service groups. The service groups also show up on the customer's phone bill breakdown.
+Num. | Countries | FICORA title
+---  | ---       | ---
+1    | Finland   | Non-profit services
+2    | Finland   | Online services
+3    | Finland   | Entertainment services
+4    | Finland   | Adult entertainment services
 
-The following service groups are currently in use:
+A customer's phone subscription may bar calls to certain service groups. The service groups also show up on the customer's phone bill breakdown. If multiple service groups apply, then the group with the highest number must be chosen.
 
-Num.|FICORA title
----|---
-1|Non-profit services
-2|Online services
-3|Entertainment services
-4|Adult entertainment services
-
-If multiple service groups apply, then the group with the highest number must be chosen.
-
-Note: The merchant is responsible for specifying the correct service group. Please contact Siru for further advice on the correct service group if you have any doubt.
+The merchant is responsible for specifying the correct service group. Please contact Siru for further advice on the correct service group if you have any doubt.
 
 The service group scheme may change as legislation changes. Siru will notify merchants in advance if any changes are required.
 
-**More information**<br>
+More information<br>
 
 - <http://www.mapel.fi/eettiset_saannot/palveluiden_luokittelu/><br>
 - <http://www.mapel.fi/yrityksille-tietoa-maksupalvelui/><br>
