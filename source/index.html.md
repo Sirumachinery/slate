@@ -2,8 +2,9 @@
 title: Siru Mobile API reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - html: HTML
+  - shell: cURL
   - php: PHP
+  - html: HTML
 
 
 toc_footers:
@@ -92,30 +93,11 @@ Creates a new payment at Siru Mobile. You post the required parameters as JSON o
 
 ### REQUEST
 
-`POST /payment.json`
-
-<aside class="notice">
-    You can also use the API by constructing a HTML form with the required parameters as input fields. Form is sent to /payment.html endpoint using POST method which will redirect user to payment page.
-    This method is not recommended as it exposes more data to the end-user and prevents you from catching errors in the request.
-</aside>
-
-> Example request
-
-```json
-{
-    "merchantId":"123456789",
-    "basePrice":"3.40",
-    "purchaseCountry":"FI",
-    "taxClass":"3",
-    "customerNumber":"0501234567",
-    "customerLocale":"fi_FI",
-    "variant":"variant1",
-    "redirectAfterSuccess":"https://shop.example.com/success",
-    "redirectAfterFailure":"https://shop.example.com/fail",
-    "redirectAfterCancel":"https://shop.example.com/cancel",
-    "serviceGroup":"3",
-    "signature":"..."
-}
+```shell
+curl --request POST \
+    --url https://payment.sirumobile.com/payment.json \
+    --header 'content-type: application/json' \
+    --data "$JSON"
 ```
 
 ```html
@@ -140,6 +122,32 @@ Creates a new payment at Siru Mobile. You post the required parameters as JSON o
 </form>
 ```
 
+> Example of JSON payload
+
+```json
+{
+    "merchantId":"1234",
+    "basePrice":"5.00",
+    "purchaseCountry":"SE",
+    "customerReference":"c12345",
+    "customerNumber":"0701234567",
+    "customerEmail":"john.doe@foo.bar",
+    "customerLocale":"sv_SE",
+    "variant":"variant1",
+    "redirectAfterSuccess":"https://shop.example.com/success",
+    "redirectAfterFailure":"https://shop.example.com/fail",
+    "redirectAfterCancel":"https://shop.example.com/cancel",
+    "signature":"..."
+}
+```
+
+`POST /payment.json`
+
+<aside class="notice">
+    You can also use the API by constructing a HTML form with the required parameters as input fields. Form is sent to /payment.html endpoint using POST method which will redirect user to payment page.
+    This method is not recommended as it exposes more data to the end-user and prevents you from catching errors in the request.
+</aside>
+
 ### REQUEST PARAMETERS
 
 Some fields are required and some are optional. To improve user experience, you should include even optional fields when available. Some fields are only required for some variants.
@@ -162,7 +170,7 @@ redirectAfterCancel  | yes | URL | URL where the customer is redirected if he ca
 notifyAfterSuccess |  | URL | Your callback URL to notify after a successful purchase.
 notifyAfterFailure |  | URL | Your callback URL to notify after a failed purchase.
 notifyAfterCancel  |  | URL | Your callback URL to notify after a canceled purchase.
-basePrice      | yes | Money | The price of the product or service. Siru's fees are added automatically. Maximum price or available price points depend on country and your contract with Siru Mobile.
+basePrice      | yes | Money | The price of the product or service. Siru's fees are added automatically. Currency is selected automatically based on purchaseCountry. Price must include tax when applicable unless [variant2](#variant2) is used. Maximum price or available price points depend on country and your contract with Siru Mobile.
 taxClass       | variant1, variant2, variant4 | Tax class | Tax class number. Required only if purchaseCountry is listed in Tax class-table. Must be empty otherwise. See [Field types](#field-types).
 serviceGroup   | variant1, variant2, variant4 | Service group | Service group number. Required only if purchaseCountry is listed in Service group-table. Must be empty otherwise. See [Field types](#field-types).
 customerNumber | variant1, variant4  | Phone number | The customer’s phone number.
@@ -204,7 +212,7 @@ Siru Mobile provides different methods of payment which we call "variants". What
 
 ### Variant1
 
-This variant is for older phones where payment is made by calling a premium rate number. You must use a mobile phone subscription from selected country and you can not be roaming.
+This variant is for older phones where payment is made by calling a premium rate number. You must call from a mobile phone subscription from selected country and you can not be roaming.
 
 Countries | Testing in sandbox
 --        | --
@@ -444,6 +452,14 @@ Search transactions that match given purchase reference.
 
 ### REQUEST
 
+```shell
+curl --request GET -G \
+    --url https://payment.sirumobile.com/payment/byPurchaseReference.json \
+    -d 'merchantId=1' \
+    -d 'purchaseReference=p12345678' \
+    -d 'signature=mycalculatedhash'
+```
+
 `GET /payment/byPurchaseReference.json`
 
 ### REQUEST PARAMETERS
@@ -490,6 +506,14 @@ Find a single transaction by UUID.
 
 ### REQUEST
 
+```shell
+curl --request GET -G \
+    --url https://payment.sirumobile.com/payment/byUuid.json \
+    -d 'merchantId=1' \
+    -d 'uuid=061d488d-ab43-458d-9b5e-0b2005595d7e' \
+    -d 'signature=mycalculatedhash'
+```
+
 `GET /payment/byUuid.json`
 
 ### REQUEST PARAMETERS
@@ -512,6 +536,16 @@ The response is a single transaction object. See [Response](#response-4). If UUI
 Search all transactions that were created during given time period.
 
 ### REQUEST
+
+```shell
+# Retrieve transactions for december 2017
+curl --request GET -G \
+    --url https://payment.sirumobile.com/payment/byDate.json \
+    -d 'merchantId=1' \
+    -d 'from=2017-12-01 00:00:00' \
+    -d 'to=2018-01-01 00:00:00' \
+    -d 'signature=mycalculatedhash'
+```
 
 `GET /payment/byDate.json`
 
@@ -625,7 +659,7 @@ HTTP status | Reason
 
 
 
-#Price API
+#vPrice API
 
 ## Calculate end-user price
 
@@ -634,6 +668,12 @@ HTTP status | Reason
 Siru will automatically add possible fees and commissions to transaction base price. Since the exact formula for calculating the final price is somewhat intricate and subject to change, this API allows you to calculate the final price to display it to the end-user.
 
 ### REQUEST
+
+```shell
+curl --request GET -G \
+    --url https://payment.sirumobile.com/payment/price.json \
+    -d 'variant=variant1' -d 'merchantId=18' -d 'purchaseCountry=FI' -d 'taxClass=3' -d 'basePrice=15.00'
+```
 
 `GET /payment/price.json`
 
@@ -685,6 +725,12 @@ If an error occurs, the response is a JSON object with single property "error" w
 Siru imposes a limit on the maximum price of a purchase. The limit is fairly stable, so it may be acceptable to hard-code it into your application. Nevertheless, the limit can be retrieved through a JSON API.
 
 ### REQUEST
+
+```shell
+curl --request GET -G \
+    --url https://payment.sirumobile.com/payment/maxPrice.json \
+    -d 'variant=variant1' -d 'merchantId=18' -d 'purchaseCountry=FI' -d 'taxClass=3'
+```
 
 `GET /payment/maxPrice.json`
 
@@ -815,6 +861,12 @@ The Feature detection API can be used to verify if IP Payments (variant2) are av
 
 ### REQUEST
 
+```shell
+curl --request GET -G \
+    --url https://payment.sirumobile.com/payment/ip/feature-check \
+    -d 'merchantId=18' -d 'ip=12.12.12.12' -d 'signature=mycalculatedhash'
+```
+
 `GET /payment/ip/feature-check`
 
 ### REQUEST PARAMETERS
@@ -836,6 +888,26 @@ signature  | String | Concatenate the values (including empty values) of merchan
 
 ### RESPONSE
 
+### ERRORS
+
+> Failure response example
+
+```json
+{
+    "error":
+    {
+        "code":403,
+        "message":"Forbidden"
+    }
+}
+
+```
+
+Errors are JSON objects with single property "error". Response will include one of the following HTTP status codes.
+
+HTTP status | Description
+--          | --
+403         | Invalid signature
 
 
 
@@ -851,6 +923,10 @@ signature  | String | Concatenate the values (including empty values) of merchan
 Check operational status of Siru Mobile API.
 
 ### REQUEST
+
+```shell
+curl -w "%{http_code}" --url https://payment.sirumobile.com/status
+```
 
 `GET /status`
 
