@@ -211,7 +211,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;html&quot;,&quot;php&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;php&quot;,&quot;html&quot;]">
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TFCGZ2"
@@ -227,8 +227,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
-              <a href="#" data-language-name="html">HTML</a>
+              <a href="#" data-language-name="shell">cURL</a>
               <a href="#" data-language-name="php">PHP</a>
+              <a href="#" data-language-name="html">HTML</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -245,49 +246,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <a href="#get-started" class="toc-h2 toc-link" data-title="Introduction">Get Started</a>
                   </li>
                   <li>
-                    <a href="#ready-made-libraries" class="toc-h2 toc-link" data-title="Introduction">Ready-made libraries</a>
+                    <a href="#sdk-and-integrations" class="toc-h2 toc-link" data-title="Introduction">SDK and integrations</a>
                   </li>
               </ul>
           </li>
           <li>
             <a href="#environment" class="toc-h1 toc-link" data-title="Environment">Environment</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#credentials" class="toc-h2 toc-link" data-title="Environment">Credentials</a>
-                  </li>
-              </ul>
           </li>
           <li>
-            <a href="#variants" class="toc-h1 toc-link" data-title="Variants">Variants</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#variant-1" class="toc-h2 toc-link" data-title="Variants">Variant 1</a>
-                  </li>
-                  <li>
-                    <a href="#variant-2" class="toc-h2 toc-link" data-title="Variants">Variant 2</a>
-                  </li>
-                  <li>
-                    <a href="#variant-3" class="toc-h2 toc-link" data-title="Variants">Variant 3</a>
-                  </li>
-                  <li>
-                    <a href="#variant-4" class="toc-h2 toc-link" data-title="Variants">Variant 4</a>
-                  </li>
-                  <li>
-                    <a href="#variant-limitations" class="toc-h2 toc-link" data-title="Variants">Variant limitations</a>
-                  </li>
-              </ul>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
             <a href="#payment-api" class="toc-h1 toc-link" data-title="Payment API">Payment API</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#fields" class="toc-h2 toc-link" data-title="Payment API">Fields</a>
+                    <a href="#create-payment" class="toc-h2 toc-link" data-title="Payment API">Create payment</a>
+                  </li>
+                  <li>
+                    <a href="#variants-and-testing" class="toc-h2 toc-link" data-title="Payment API">Variants and testing</a>
                   </li>
                   <li>
                     <a href="#signature-calculation" class="toc-h2 toc-link" data-title="Payment API">Signature calculation</a>
                   </li>
                   <li>
                     <a href="#field-types" class="toc-h2 toc-link" data-title="Payment API">Field types</a>
+                  </li>
+                  <li>
+                    <a href="#common-pitfalls" class="toc-h2 toc-link" data-title="Payment API">Common pitfalls</a>
                   </li>
               </ul>
           </li>
@@ -303,27 +288,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <li>
                     <a href="#query-by-date-range" class="toc-h2 toc-link" data-title="Purchase Status API">Query by date range</a>
                   </li>
+                  <li>
+                    <a href="#response-5" class="toc-h2 toc-link" data-title="Purchase Status API">Response</a>
+                  </li>
+                  <li>
+                    <a href="#errors" class="toc-h2 toc-link" data-title="Purchase Status API">Errors</a>
+                  </li>
               </ul>
           </li>
           <li>
-            <a href="#price-api" class="toc-h1 toc-link" data-title="Price API">Price API</a>
+            <a href="#vprice-api" class="toc-h1 toc-link" data-title="vPrice API">vPrice API</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#price-calculation" class="toc-h2 toc-link" data-title="Price API">Price calculation</a>
+                    <a href="#calculate-end-user-price" class="toc-h2 toc-link" data-title="vPrice API">Calculate end-user price</a>
                   </li>
                   <li>
-                    <a href="#get-maximum-base-price" class="toc-h2 toc-link" data-title="Price API">Get maximum base price</a>
+                    <a href="#get-maximum-base-price" class="toc-h2 toc-link" data-title="vPrice API">Get maximum base price</a>
                   </li>
                   <li>
-                    <a href="#javascript-library" class="toc-h2 toc-link" data-title="Price API">Javascript library</a>
+                    <a href="#javascript-library" class="toc-h2 toc-link" data-title="vPrice API">Javascript library</a>
                   </li>
               </ul>
           </li>
           <li>
             <a href="#feature-detection-api" class="toc-h1 toc-link" data-title="Feature detection API">Feature detection API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#check-ip-address" class="toc-h2 toc-link" data-title="Feature detection API">Check IP-address</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#api-operational-status" class="toc-h1 toc-link" data-title="API operational status">API operational status</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#check-api-status" class="toc-h2 toc-link" data-title="API operational status">Check API status</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#maintenance" class="toc-h1 toc-link" data-title="Maintenance">Maintenance</a>
@@ -370,18 +371,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <p>Integrating to Siru Mobile is easy and quick, just follow these simple steps.</p>
 
 <ol>
-<li> You or your business guys contact Siru Mobile so we understand where you will be using Siru Mobile payments.</li>
-<li> Request sandbox credentials from us. We also provide examples on how to use the API.</li>
+<li> Contact us so we can discuss where you will be using Siru Mobile payments.</li>
+<li> We provide you with sandbox credentials and details on testing and integration.</li>
 <li> Read this documentation from top to bottom.</li>
-<li> Code and test your application against our sandbox. It’s all fake money there, don’t worry.</li>
-<li> When ready to go live, just switch to Siru production environment using your production credentials that we have provided to you. If you still haven&#39;t received your credentials, contact us or ask your boss to do so.</li>
+<li> Code and test your application against our sandbox.</li>
+<li> When ready to go live, contact us for production environment credentials.</li>
 </ol>
-<h2 id='ready-made-libraries'>Ready-made libraries</h2>
-<p>We publish both ready-made libraries and a reference / example shop implementation at <a href="https://github.com/Sirumachinery">GitHub</a>. It’s all free software and open source, so feel free to use them. Contributions and pull requests are appreciated!</p>
 
-<p>If you are using Magento or Woocommerce, contact us about our ready-made plugins.</p>
+<aside class="notice">
+    We will be available for questions all the way from integration to going live. You can join our developer chat anytime where we can provide help while you test and monitor your transactions.
+</aside>
+<h2 id='sdk-and-integrations'>SDK and integrations</h2>
+<p>We publish both ready-made libraries and a reference / example shop implementation at GitHub. It’s all free software and open source, so feel free to use them. Contributions and pull requests are appreciated!</p>
+
+<ul>
+<li> <a href="https://github.com/Sirumachinery/siru-php-sdk">PHP SDK</a></li>
+<li> <a href="https://github.com/Sirumachinery/example-shop-php">Example shop</a></li>
+<li> Magento plugin. Contact us!</li>
+<li> WooCommerce plugin. Contact us!</li>
+</ul>
 <h1 id='environment'>Environment</h1>
-<p>We have two environments available: production (the real live deal) and staging, which is a sandbox for you to play in. Production uses real money, staging does not, so we strongly recommend you code against the staging environment until you are ready to go live. Urls are the same for both environments. Only the endpoint changes.</p>
+<p>For integration and testing we provide a sandbox environment that does not use actual money. Here you can test your integration all you want and when ready, switch to production environment. Urls are the same for both environments. Only the endpoint changes.</p>
 
 <table><thead>
 <tr>
@@ -400,92 +410,55 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </tbody></table>
 
 <aside class="notice">
-The production environment imposes limits on how much the customer can purchase during 24h and 30 day periods to prevent misuse. The sandbox environment does not impose such limits.
+    We will provide you with separate credentials to production environment. You can not use sandbox credentials in production!
 </aside>
-<h2 id='credentials'>Credentials</h2>
-<p>To connect with the API, you will need two values: merchantId, which is your merchant’s identifier, and secret, which is the secret. Contact Siru Mobile to receive your credentials. You can ask for sandbox credentials before getting the final credentials for production environment.</p>
-<h1 id='variants'>Variants</h1><h2 id='variant-1'>Variant 1</h2>
-<p>Payment by calling is the choice for older mobile phones (feature phones), or for regions where IP payment is not available. The customer may use either a full fledged smartphone or a desktop browser. The only features required from the phone are capability to a) receive SMS’s and b) make calls to premium rate numbers.</p>
 
-<p>The customer is redirected to a web page where he is asked to call a telephone number in order to confirm his purchase. After the call is either completed, canceled or failed, customer is redirected back to the merchant’s service.</p>
-<h2 id='variant-2'>Variant 2</h2>
-<p>IP Payment is for smart phones and is currently only available in Finland.</p>
-
-<p>The flow is very quick and simple. The merchant creates a purchase via our API and the user is redirected to Siru’s payment page. User just clicks to confirm payment and we bill the customer’s mobile subscription. User is then redirected back to the merchant’s system.</p>
-
-<p>This requires a mobile internet connection.</p>
-
-<aside class="warning">
-If one opens up an insecure mobile tethering hotspot, other people can connect it and make purchases.
+<aside class="notice">
+    The production environment imposes limits on how much the user can spend in a given time period to prevent misuse. The sandbox environment does not impose such limits.
 </aside>
-<h2 id='variant-3'>Variant 3</h2>
-<p>This is a digital wallet where customer can deposit money with various means (Siru Mobile payment gateway,
-for example) and use it everywhere where the wallet is an accepted payment method.</p>
-<h2 id='variant-4'>Variant 4</h2>
-<p>Variant 4 uses external payment gateway for each country.</p>
+<h1 id='authentication'>Authentication</h1>
+<p>Requests and responses are authenticated by a signature created using request values and merchant secret we have provided.</p>
 
-<p>Payment flow may differ for each country. Most common payment flow is where merchant creates a purchase via our API and the user is redirected to Siru payment page. User will confirm purchase and is then redirected back to merchant website. The payment confirmation will often require entering a PIN code that is automatically sent to users mobile phone.</p>
-<h2 id='variant-limitations'>Variant limitations</h2>
-<p>Configuration of your production environment (which variants and features are available, how prices are configured etc.) will depend on your contracts with Siru Mobile. In sandbox, all features are available and configuration is always the same.</p>
+<p>Contact Siru Mobile to receive your credentials. We will first provide credentials to Sandbox environment and when you are ready to go live, we will provide you with another set of credentials for production. You may receive separate credentials for each country where you are integrating.</p>
+<h1 id='payment-api'>Payment API</h1><h2 id='create-payment'>Create payment</h2><h3 id='description'>DESCRIPTION</h3>
+<p>Creates a new payment at Siru Mobile. You post the required parameters as JSON object in the request body. The API responds with unique UUID for the purchase and a URL where the end-user should be redirected to complete the payment.</p>
+<h3 id='request'>REQUEST</h3><pre class="highlight shell tab-shell"><code>curl --request POST <span class="se">\</span>
+    --url https://payment.sirumobile.com/payment.json <span class="se">\</span>
+    --header <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
+    --data <span class="s2">"</span><span class="nv">$JSON</span><span class="s2">"</span>
+</code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?</span>
+<span class="c1">// Siru PHP-SDK provides helpers to sends requests
+</span><span class="nv">$signature</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Siru\Signature</span><span class="p">(</span><span class="nv">$merchantId</span><span class="p">,</span> <span class="nv">$secret</span><span class="p">);</span>
+<span class="nv">$api</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Siru\API</span><span class="p">(</span><span class="nv">$signature</span><span class="p">);</span>
 
-<table><thead>
-<tr>
-<th>Variant</th>
-<th>Limitations in sandbox</th>
-<th>Limitation in production</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Variant1</td>
-<td><p>Countries FI, SE and NO</p> <p>Use your own mobile phone number. The numbers you are required to call are in Sweden and calling them costs only the international toll, even if the system says otherwise.</p><p>WARNING: At the moment you can not successfully call sandbox numbers from Sweden. If needed, we can provide a Skype number for testing.</p></td>
-<td><p>Countries FI, SE and NO </p><p>You must use a mobile phone subscription from selected country and you can not be roaming.This variant may not be available in Norway depending on your business.</p></td>
-</tr>
-<tr>
-<td>Variant2</td>
-<td><p>Countries FI</p><p>To simulate a successful purchase, supply a basePrice dividable by 2 and NOT dividable by 6. To simulate failure, supply a basePrice not dividable by 2 OR dividable by 6. The difference between odd and even failing basePrices is the point of failure.</p></td>
-<td><p>Countries FI</p><p>You must use a mobile connection for variant2 to work.</p></td>
-</tr>
-<tr>
-<td>Variant3</td>
-<td><p>Countries FI, SE, NO and GB.</p><p>When using Siru Mobile gateway to topup Wallet, variant1 limitations also apply.</p></td>
-<td>Countries FI, SE, NO and GB</td>
-</tr>
-<tr>
-<td>Variant4</td>
-<td>Countries GB</td>
-<td>Countries GB</td>
-</tr>
-</tbody></table>
-<h1 id='payment-api'>Payment API</h1>
-<blockquote>
-<p>Example request</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"merchantId"</span><span class="p">:</span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"basePrice"</span><span class="p">:</span><span class="s2">"3.40"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"purchaseCountry"</span><span class="p">:</span><span class="s2">"FI"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"taxClass"</span><span class="p">:</span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"customerNumber"</span><span class="p">:</span><span class="s2">"0501234567"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"customerLocale"</span><span class="p">:</span><span class="s2">"fi_FI"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"variant"</span><span class="p">:</span><span class="s2">"variant1"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"redirectAfterSuccess"</span><span class="p">:</span><span class="s2">"https://shop.example.com/success"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"redirectAfterFailure"</span><span class="p">:</span><span class="s2">"https://shop.example.com/fail"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"redirectAfterCancel"</span><span class="p">:</span><span class="s2">"https://shop.example.com/cancel"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"serviceGroup"</span><span class="p">:</span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"signature"</span><span class="p">:</span><span class="s2">"..."</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<blockquote>
-<p>Example response</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"purchase"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"uuid"</span><span class="p">:</span><span class="s2">"f9503276-80bc-4f0e-a995-16c4c7e9d0f7"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"redirect"</span><span class="p">:</span><span class="s2">"https://payment.sirumobile.com/payment/call/f9503276-80bc-4f0e-a995-16c4..."</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre><pre class="highlight html tab-html"><code><span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">"post"</span> <span class="na">action=</span><span class="s">"https://payment.sirumobile.com/payment.html"</span><span class="nt">&gt;</span>
+<span class="k">try</span> <span class="p">{</span>
+
+    <span class="nv">$transaction</span> <span class="o">=</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">getPaymentApi</span><span class="p">()</span>
+        <span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">'variant'</span><span class="p">,</span> <span class="s1">'variant1'</span><span class="p">)</span>
+        <span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">'purchaseCountry'</span><span class="p">,</span> <span class="s1">'SE'</span><span class="p">)</span>
+        <span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">'basePrice'</span><span class="p">,</span> <span class="s1">'5.00'</span><span class="p">)</span>
+        <span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">'redirectAfterSuccess'</span><span class="p">,</span> <span class="s1">'https://shop.example.com/success'</span><span class="p">)</span>
+        <span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">'redirectAfterFailure'</span><span class="p">,</span> <span class="s1">'https://shop.example.com/fail'</span><span class="p">)</span>
+        <span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">'redirectAfterCancel'</span><span class="p">,</span> <span class="s1">'https://shop.example.com/cancel'</span><span class="p">)</span>
+        <span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">'customerNumber'</span><span class="p">,</span> <span class="s1">'0701234567'</span><span class="p">)</span>
+        <span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">'customerReference'</span><span class="p">,</span> <span class="s1">'c12345'</span><span class="p">)</span>
+        <span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">'customerEmail'</span><span class="p">,</span> <span class="s1">'john.doe@foo.bar'</span><span class="p">)</span>
+        <span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">'customerLocale'</span><span class="p">,</span> <span class="s1">'sv_SE'</span><span class="p">)</span>
+        <span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">'title'</span><span class="p">,</span> <span class="s1">'Game voucher'</span><span class="p">)</span>
+        <span class="o">-&gt;</span><span class="na">createPayment</span><span class="p">();</span>
+
+    <span class="nb">header</span><span class="p">(</span><span class="s1">'location: '</span> <span class="o">.</span> <span class="nv">$transaction</span><span class="p">[</span><span class="s1">'redirect'</span><span class="p">]);</span>
+    <span class="k">exit</span><span class="p">();</span>
+
+<span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">\Siru\Exception\InvalidResponseException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Connection to API failed
+</span><span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">\Siru\Exception\ApiException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Error in request
+</span>    <span class="k">foreach</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getErrorStack</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Log error
+</span>    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight html tab-html"><code><span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">"post"</span> <span class="na">action=</span><span class="s">"https://payment.sirumobile.com/payment.html"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"basePrice"</span> <span class="na">value=</span><span class="s">"3.40"</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"merchantId"</span> <span class="na">value=</span><span class="s">"123456789"</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"purchaseCountry"</span> <span class="na">value=</span><span class="s">"FI"</span><span class="nt">/&gt;</span>
@@ -505,25 +478,37 @@ for example) and use it everywhere where the wallet is an accepted payment metho
     <span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/form&gt;</span>
 </code></pre>
-<p>You have a choice of two methods to access Payment API. First and the recommended method is a modern JSON API. You POST a JSON object in request body and you receive a JSON response with payment identifier and URL where user should be redirected or an error message in case of error.</p>
-
-<p>REQUEST</p>
-
+<blockquote>
+<p>Example of JSON payload</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"merchantId"</span><span class="p">:</span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"basePrice"</span><span class="p">:</span><span class="s2">"5.00"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"purchaseCountry"</span><span class="p">:</span><span class="s2">"SE"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"customerReference"</span><span class="p">:</span><span class="s2">"c12345"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"customerNumber"</span><span class="p">:</span><span class="s2">"0701234567"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"customerEmail"</span><span class="p">:</span><span class="s2">"john.doe@foo.bar"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"customerLocale"</span><span class="p">:</span><span class="s2">"sv_SE"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"variant"</span><span class="p">:</span><span class="s2">"variant1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"redirectAfterSuccess"</span><span class="p">:</span><span class="s2">"https://shop.example.com/success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"redirectAfterFailure"</span><span class="p">:</span><span class="s2">"https://shop.example.com/fail"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"redirectAfterCancel"</span><span class="p">:</span><span class="s2">"https://shop.example.com/cancel"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"signature"</span><span class="p">:</span><span class="s2">"..."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <p><code>POST /payment.json</code></p>
 
-<p>The second method is a traditional HTML form API where you construct a HTML form with certain parameters and user submits the form. This method is not recommended as it exposes more data to the end-user and prevents you from catching errors in the request.</p>
+<aside class="notice">
+    You can also use the API by constructing a HTML form with the required parameters as input fields. Form is sent to /payment.html endpoint using POST method which will redirect user to payment page.
+    This method is not recommended as it exposes more data to the end-user and prevents you from catching errors in the request.
+</aside>
+<h3 id='request-parameters'>REQUEST PARAMETERS</h3>
+<p>Some fields are required and some are optional. To improve user experience, you should include even optional fields when available. Some fields are only required for some variants.</p>
 
-<p>REQUEST</p>
-
-<p><code>POST /payment.html</code></p>
-<h2 id='fields'>Fields</h2>
-<p>Due to different payment methods and regulations / conventions in different countries, the API is split into common fields and variant-specific fields .</p>
-<h3 id='common-fields'>Common fields</h3>
 <table><thead>
 <tr>
 <th>Field</th>
 <th>Required</th>
-<th>Signed</th>
 <th>Format</th>
 <th>Description</th>
 </tr>
@@ -531,48 +516,41 @@ for example) and use it everywhere where the wallet is an accepted payment metho
 <tr>
 <td>variant</td>
 <td>yes</td>
-<td>yes</td>
 <td>String</td>
 <td>The API variant. &#39;variant1&#39;, &#39;variant2&#39;, &#39;variant3&#39; or &#39;variant4&#39;.</td>
 </tr>
 <tr>
 <td>merchantId</td>
 <td>yes</td>
-<td>yes</td>
 <td>Integer</td>
-<td>The merchant identifier provided by Siru.</td>
+<td>Your merchant id provided by Siru.</td>
 </tr>
 <tr>
 <td>submerchantReference</td>
 <td></td>
-<td>yes</td>
 <td>String</td>
-<td>Used to identify submerchants, e.g. individual shops.This is currently purely a convenience field and may be safely ignored.</td>
+<td>If same merchant id is used on multiple sites, this can be used to identify the originating site.</td>
 </tr>
 <tr>
 <td>purchaseCountry</td>
 <td>yes</td>
-<td>yes</td>
 <td>Country</td>
-<td>The country where the merchant sells the item. Currently supported are &#39;FI&#39;, &#39;SE&#39;, &#39;NO&#39; and &#39;GB&#39;</td>
+<td>The country where you sell the item. Currently supported are &#39;FI&#39;, &#39;SE&#39;, &#39;NO&#39; and &#39;GB&#39;</td>
 </tr>
 <tr>
 <td>purchaseReference</td>
 <td></td>
-<td>yes</td>
 <td>String</td>
-<td>The merchant&#39;s internal ID for the purchase. These will be visible in the merchant&#39;s control panel.</td>
+<td>Your internal ID for the purchase. These will be visible in the merchant&#39;s control panel.</td>
 </tr>
 <tr>
 <td>customerReference</td>
 <td></td>
-<td>yes</td>
 <td>String</td>
-<td>The merchant’s internal ID for the customer. These will be visible in the merchant&#39;s control panel.</td>
+<td>Your internal ID for the customer. These will be visible in the merchant&#39;s control panel.</td>
 </tr>
 <tr>
 <td>customerLastName</td>
-<td></td>
 <td></td>
 <td>String</td>
 <td>Customer&#39;s last name, shown in the merchant panel.</td>
@@ -580,13 +558,11 @@ for example) and use it everywhere where the wallet is an accepted payment metho
 <tr>
 <td>customerFirstName</td>
 <td></td>
-<td></td>
 <td>String</td>
 <td>Customer&#39;s first name, shown in the merchant panel.</td>
 </tr>
 <tr>
 <td>customerEmail</td>
-<td></td>
 <td></td>
 <td>String</td>
 <td>Customer&#39;s email address, shown in the merchant panel</td>
@@ -594,218 +570,192 @@ for example) and use it everywhere where the wallet is an accepted payment metho
 <tr>
 <td>customerLocale</td>
 <td></td>
-<td></td>
 <td>Locale</td>
-<td>Sets the locale of the payment page. Defaults to the default locale of purchaseCountry. Currently supported &#39;fi_FI&#39;, &#39;sv_SE&#39;, &#39;nn_NO&#39; and &#39;en_GB&#39;.</td>
+<td>Language of the payment page. Defaults to the default locale of purchaseCountry. Currently supported &#39;fi_FI&#39;, &#39;sv_SE&#39;, &#39;nn_NO&#39; and &#39;en_GB&#39;.</td>
 </tr>
 <tr>
 <td>redirectAfterSuccess</td>
 <td>yes</td>
-<td></td>
-<td></td>
-<td>Redirect URL   URL where the customer will get sent after a successful payment.</td>
+<td>URL</td>
+<td>URL where the customer is redirected after a successful payment.</td>
 </tr>
 <tr>
 <td>redirectAfterFailure</td>
 <td>yes</td>
-<td></td>
-<td></td>
-<td>Redirect URL   URL where the customer will get sent after an unsuccessful payment.</td>
+<td>URL</td>
+<td>URL where the customer is redirected after an unsuccessful payment.</td>
 </tr>
 <tr>
 <td>redirectAfterCancel</td>
 <td>yes</td>
-<td></td>
-<td>Redirect URL</td>
-<td>URL where the customer will get sent if he cancels the payment himself, or if the system is down for maintenance</td>
+<td>URL</td>
+<td>URL where the customer is redirected if he cancels the payment himself, or if the system is down for maintenance.</td>
 </tr>
 <tr>
 <td>notifyAfterSuccess</td>
 <td></td>
-<td>yes</td>
-<td>Notification URL</td>
-<td>URL to notify after a successful purchase.</td>
+<td>URL</td>
+<td>Your callback URL to notify after a successful purchase.</td>
 </tr>
 <tr>
 <td>notifyAfterFailure</td>
 <td></td>
-<td>yes</td>
-<td>Notification URL</td>
-<td>URL to notify after a failed purchase.</td>
+<td>URL</td>
+<td>Your callback URL to notify after a failed purchase.</td>
 </tr>
 <tr>
 <td>notifyAfterCancel</td>
 <td></td>
+<td>URL</td>
+<td>Your callback URL to notify after a canceled purchase.</td>
+</tr>
+<tr>
+<td>basePrice</td>
 <td>yes</td>
-<td>Notification URL</td>
-<td>URL to notify after a canceled purchase.</td>
+<td>Money</td>
+<td>The price of the product or service. Siru&#39;s fees are added automatically. Currency is selected automatically based on purchaseCountry. Price must include tax when applicable unless <a href="#variant2">variant2</a> is used. Maximum price or available price points depend on country and your contract with Siru Mobile.</td>
+</tr>
+<tr>
+<td>taxClass</td>
+<td>variant1, variant2, variant4</td>
+<td>Tax class</td>
+<td>Tax class number. Required only if purchaseCountry is listed in Tax class-table. Must be empty otherwise. See <a href="#field-types">Field types</a>.</td>
+</tr>
+<tr>
+<td>serviceGroup</td>
+<td>variant1, variant2, variant4</td>
+<td>Service group</td>
+<td>Service group number. Required only if purchaseCountry is listed in Service group-table. Must be empty otherwise. See <a href="#field-types">Field types</a>.</td>
+</tr>
+<tr>
+<td>customerNumber</td>
+<td>variant1, variant4</td>
+<td>Phone number</td>
+<td>The customer’s phone number.</td>
+</tr>
+<tr>
+<td>title</td>
+<td>variant4</td>
+<td>String</td>
+<td>A short title of the purchased service or product.</td>
+</tr>
+<tr>
+<td>description</td>
+<td></td>
+<td>String</td>
+<td>A longer description of the purchased service or product.</td>
+</tr>
+<tr>
+<td>instantPay</td>
+<td>variant2</td>
+<td>integer</td>
+<td>Deprecated. When using variant2, this value must be 1.</td>
 </tr>
 <tr>
 <td>signature</td>
 <td>yes</td>
-<td></td>
 <td>Signature</td>
-<td>A hash calculated from select fields. See Signature calculation.</td>
+<td>Calculated hash for the request. See <a href="#signature-calculation">Signature calculation</a>.</td>
 </tr>
 </tbody></table>
-<h3 id='variant1-fields'>Variant1 fields</h3>
+
+<aside class="success">
+    Even if the field is not required by selected variant, you can still include it. For example while customerNumber is not required when using variant2 or variant3, you can still send it when available. This is even recommended since it may allow Siru to improve the user experience.
+</aside>
+
+<aside class="notice">
+    While customerEmail and customerReference fields are not marked as required, you should always send them if available. Your contract with Siru Mobile may even require this.
+</aside>
+
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"purchase"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"uuid"</span><span class="p">:</span><span class="s2">"f9503276-80bc-4f0e-a995-16c4c7e9d0f7"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"redirect"</span><span class="p">:</span><span class="s2">"https://payment.sirumobile.com/payment/call/f9503276-80bc-4f0e-a995-16c4..."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='response'>RESPONSE</h3>
+<p>A JSON object with <code>success</code> boolean indicating if request was successful. If request was successful, object includes a unique id for the transaction and URL where user should be redirected.</p>
+
+<p>If request was not successful, response includes errors array with all error messages. The errors should not be shown to end-user but instead logged for later.</p>
+<h2 id='variants-and-testing'>Variants and testing</h2>
+<p>Siru Mobile provides different methods of payment which we call &quot;variants&quot;. What variants are available to you depend on your contract with Siru.</p>
+<h3 id='variant1'>Variant1</h3>
+<p>This variant is for older phones where payment is made by calling a premium rate number. You must call from a mobile phone subscription from selected country and you can not be roaming.</p>
+
 <table><thead>
 <tr>
-<th>Field</th>
-<th>Required</th>
-<th>Signed</th>
-<th>Format</th>
-<th>Description</th>
+<th>Countries</th>
+<th>Testing in sandbox</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>basePrice</td>
-<td>yes</td>
-<td>yes</td>
-<td>Money</td>
-<td><p>The price of the product with VAT included. Siru&#39;s fees are added to this automatically.</p><p>The prices are fixed and depend on your contract with Siru and selected country. The currency is determined by the purchaseCountry field.<p><p>In sandbox, you can use 2.50, 5.00 or 10.00 as base price.</p></td>
-</tr>
-<tr>
-<td>customerNumber</td>
-<td>yes</td>
-<td>yes</td>
-<td>Phone number</td>
-<td>The customer’s phone number.</td>
-</tr>
-<tr>
-<td>taxClass</td>
-<td>yes*</td>
-<td>yes</td>
-<td>Tax class</td>
-<td><p>The tax class number.</p><p>* Must be set if purchase country has options listed. Must be empty otherwise. See Tax classes.</p></td>
-</tr>
-<tr>
-<td>serviceGroup</td>
-<td>yes*</td>
-<td>yes</td>
-<td>Service group</td>
-<td><p>The service group number.</p><p>* Must be set if purchase country has options listed. Must be empty otherwise. See Service groups.</p></td>
+<td>FI, SE</td>
+<td>Available price points for basePrice are 2.50, 5.00 or 10.00 for each country.<br/><br/>You can use your own mobile phone for testing.<br/><br/>The numbers you are required to call are in Sweden and calling costs only the international toll, even if the system says otherwise.</td>
 </tr>
 </tbody></table>
-<h3 id='variant2-fields'>Variant2 fields</h3>
+
+<aside class="notice">
+    At the moment you can not successfully call sandbox numbers from Sweden. If needed, we can provide a Skype number for testing.
+</aside>
+<h3 id='variant2'>Variant2</h3>
+<p>This variant is only available in Finland. It allows a fast online payment when using mobile internet connection. The purchase is billed on users mobile subscription.</p>
+
 <table><thead>
 <tr>
-<th>Field</th>
-<th>Required</th>
-<th>Signed</th>
-<th>Format</th>
-<th>Description</th>
+<th>Countries</th>
+<th>Testing in sandbox</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>basePrice</td>
-<td>yes</td>
-<td>yes</td>
-<td>Money</td>
-<td><p>The price of the product without VAT. The actual price paid by the end customer is affected by the details of the purchase (for example VAT class in countries where VAT applies).</p><p>Price can be anything between 0.10 and 30.00.  </p></td>
-</tr>
-<tr>
-<td>taxClass</td>
-<td>yes*</td>
-<td>yes</td>
-<td>tax class</td>
-<td><p>The tax class number.</p><p>* Must be set if purchase country has options listed. Must be empty otherwise. See Tax classes.</p></td>
-</tr>
-<tr>
-<td>serviceGroup</td>
-<td>yes*</td>
-<td>yes</td>
-<td>Service group</td>
-<td><p>The service group number.</p><p>* Must be set if purchase country has options listed. Must be empty otherwise. See Service groups.</p></td>
-</tr>
-<tr>
-<td>instantPay</td>
-<td>yes</td>
-<td>yes</td>
-<td>integer</td>
-<td>Currently only supported value is 1.</td>
+<td>FI</td>
+<td>To simulate a successful purchase, supply a basePrice dividable by 2 and NOT dividable by 6.<br/>To simulate failure, supply a basePrice not dividable by 2 OR dividable by 6.<br/><br/>In sandbox, you can use any internet connection to confirm payment. No actual charges are made.<br/><br/><a href="#feature-detection-api">Feature detection API</a> will always return true when in sandbox.</td>
 </tr>
 </tbody></table>
-<h3 id='variant3-fields'>Variant3 fields</h3>
+
+<aside class="warning">
+    IMPORTANT: The basePrice value must be given without VAT. Correct tax is added to the price automatically based on taxClass value. Price can be anything between 0.10 and 60.00.
+</aside>
+
+<aside class="notice">
+    Variant2 payments are only available when using mobile internet connection. You should use our Feature detection API to check if variant2 is possible for end user.
+</aside>
+<h3 id='variant3'>Variant3</h3>
+<p>This is a digital wallet where customer can deposit money with various means (Siru Mobile payment gateway, for example) and use it everywhere where the wallet is an accepted payment method. When using Siru Mobile gateway to topup Wallet, variant1 limitations also apply.</p>
+
+<p>The basePrice can be anything between 0.10 and 500.00. </p>
+
 <table><thead>
 <tr>
-<th>Field</th>
-<th>Required</th>
-<th>Signed</th>
-<th>Format</th>
-<th>Description</th>
+<th>Countries</th>
+<th>Testing in sandbox</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>basePrice</td>
-<td>yes</td>
-<td>yes</td>
-<td>Money</td>
-<td><p>The price of the product with VAT included. The actual price paid by the end customer is always exactly the same. Handling / applying any taxes appropriately is the responsibility of the merchant.</p><p>In sandbox price can be anything between 0.10 and 30.00.</p></td>
-</tr>
-<tr>
-<td>taxClass</td>
-<td>no</td>
-<td></td>
-<td>tax class</td>
-<td>The tax class number. See Tax classes.</td>
+<td>FI, SE, NO</td>
+<td>Use your own mobile number.<br/><br/>When using Siru Mobile gateway to topup Wallet, variant1 limitations also apply.<br/><br/>We can provide you with a test wallet for testing with fake money already deposited.</td>
 </tr>
 </tbody></table>
-<h3 id='variant4-fields'>Variant4 fields</h3>
+<h3 id='variant4'>Variant4</h3>
+<p>Variant4 is a fast online payment currently available in the UK.</p>
+
+<p>The maximum basePrice depends on your contract with Siru but usually it is 30.00.</p>
+
 <table><thead>
 <tr>
-<th>Field</th>
-<th>Required</th>
-<th>Signed</th>
-<th>Format</th>
-<th>Description</th>
+<th>Countries</th>
+<th>Testing in sandbox</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>basePrice</td>
-<td>yes</td>
-<td></td>
-<td>yes</td>
-<td>Money</td>
-</tr>
-<tr>
-<td>customerNumber</td>
-<td>yes</td>
-<td>yes</td>
-<td>Phone number</td>
-<td>The customer’s phone number.</td>
-</tr>
-<tr>
-<td>taxClass</td>
-<td>yes*</td>
-<td>yes</td>
-<td>Tax class</td>
-<td><p>The tax class number.</p><p>* Must be set if purchase country has options listed. Must be empty otherwise. See Tax classes.</p></td>
-</tr>
-<tr>
-<td>serviceGroup</td>
-<td>yes*</td>
-<td>yes</td>
-<td>Service group</td>
-<td><p>The service group number.</p><p>* Must be set if purchase country has options listed. Must be empty otherwise. See Service groups.</p></td>
-</tr>
-<tr>
-<td>title</td>
-<td>yes</td>
-<td>yes</td>
-<td>String</td>
-<td>A short title, describing what the customer is buying.</td>
-</tr>
-<tr>
-<td>description</td>
-<td>no</td>
-<td>yes</td>
-<td>String</td>
-<td>A longer description, describing what the customer is buying.</td>
+<td>GB</td>
+<td>Use your own mobile number.</td>
 </tr>
 </tbody></table>
-<h2 id='signature-calculation'>Signature calculation</h2><pre class="highlight php tab-php"><code>
-<span class="cp">&lt;?php</span>
+<h2 id='signature-calculation'>Signature calculation</h2><pre class="highlight php tab-php"><code><span class="cp">&lt;?</span>
 <span class="nv">$secret</span> <span class="o">=</span> <span class="s1">'MySecretFromSiruMobile'</span><span class="p">;</span>
 <span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
     <span class="s1">'variant'</span> <span class="o">=&gt;</span> <span class="s1">'variant1'</span><span class="p">,</span>
@@ -820,19 +770,15 @@ for example) and use it everywhere where the wallet is an accepted payment metho
 <span class="nv">$fields</span> <span class="o">=</span> <span class="nb">array_filter</span><span class="p">(</span><span class="nv">$fields</span><span class="p">);</span> <span class="c1">// Drop empty fields
 </span><span class="nb">ksort</span><span class="p">(</span><span class="nv">$fields</span><span class="p">);</span> <span class="c1">// Sort by field name
 </span><span class="nv">$signature</span> <span class="o">=</span> <span class="nb">hash_hmac</span><span class="p">(</span><span class="s2">"sha512"</span><span class="p">,</span> <span class="nb">implode</span><span class="p">(</span><span class="s1">';'</span><span class="p">,</span> <span class="nv">$fields</span><span class="p">),</span> <span class="nv">$secret</span><span class="p">);</span>
-
-<span class="cp">?&gt;</span>
 </code></pre>
 <p>The data must be signed using a hash from certain values in data and the merchant&#39;s secret. The signature field is calculated as follows:</p>
 
 <ol>
-<li><p>Sort the field names of all the fields that are marked in the ‘Signed’ column in the above tables.</p></li>
+<li><p>Sort the field names of all the fields in table below. Select only fields for given variant.</p></li>
 <li><p>Drop the names of fields that you left empty.</p></li>
 <li><p>Concatenate the values of those fields in that order, with a semicolon (‘;’) as a separator.</p></li>
 <li><p>Take a SHA512-HMAC with the resulting string as data and the merchant&#39;s secret as the key.</p></li>
 </ol>
-
-<p>For your convenience, here is a full list of fields that need to be signed:</p>
 
 <table><thead>
 <tr>
@@ -905,35 +851,33 @@ for example) and use it everywhere where the wallet is an accepted payment metho
 <td>Variant4 only</td>
 </tr>
 </tbody></table>
-<h2 id='field-types'>Field types</h2>
-<p><strong>String</strong><br>
-An UTF-8 string with a maximum length of 255 characters.</p>
+<h2 id='field-types'>Field types</h2><h3 id='string'>String</h3>
+<p>An UTF-8 string with a maximum length of 255 characters.</p>
+<h3 id='integer'>Integer</h3>
+<p>A non-negative JSON integer that fits into 32 bits.</p>
+<h3 id='country'>Country</h3>
+<p>A ISO-3166-1 alpha-2 country code in upper case. Example &#39;FI&#39;.</p>
+<h3 id='locale'>Locale</h3>
+<p>The format is {Language code}_{Country code} i.e. like most POSIX locales. Currently the supported locales are fi_FI, sv_SE, nn_NO and en_GB (default) are supported.</p>
+<h3 id='phone-number'>Phone number</h3>
+<p>Phone number can be sent either in international MSISDN format or in national format in which case the API automatically converts the number to international format based on purchaseCountry value. A leading + character and any spaces are ignored.</p>
 
-<p><strong>Integer</strong><br>
-A non-negative integer that fits into 32 bits. In the JSON API, it should be a JSON integer.</p>
+<p>Examples of valid phone numbers: 358501234567, +358 50 1234567, 0501234567, 050 123 4567</p>
 
-<p><strong>Country</strong><br>
-A ISO-3166-1 alpha-2 country code in upper case. Example &#39;FI&#39;.</p>
+<p>More information</p>
 
-<p><strong>Locale</strong><br>
-The format is {Language code}_{Country code} i.e. like most POSIX locales. Currently the supported locales are fi_FI, sv_SE, nn_NO and en_GB (default) are supported.</p>
-
-<p><strong>Phone number</strong><br>
-A phone number in either MSISDN format or in national format. A leading + character and any spaces are ignored.</p>
-
-<p>More information<br>
-<a href="http://en.wikipedia.org/wiki/MSISDN">http://en.wikipedia.org/wiki/MSISDN</a></p>
-
-<p><strong>Money</strong><br>
-Money fields must be given as a string with a decimal point (not a comma) and two decimal places. The two
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/MSISDN">http://en.wikipedia.org/wiki/MSISDN</a></li>
+<li><a href="https://github.com/googlei18n/libphonenumber">libphonenumber</a> is a handy library for validating phone numbers and has been ported to multiple languages.</li>
+</ul>
+<h3 id='money'>Money</h3>
+<p>Money fields must be given as a string with a decimal point (not a comma) and two decimal places. The two
 decimal places must be given even when zero. The currency is determined by the purchaseCountry field.
 Examples: 13.50, 0.20, 7.15</p>
+<h3 id='url'>URL</h3>
+<p>An UTF-8 string that is a valid URL. The maximum length is 1024 characters. The validation is strict, so use strictly valid urls like http://example.com/?variable=value instead of http://example.com?variable=value.</p>
 
-<p><strong>Redirect URL</strong><br>
-An UTF-8 string that is a valid URL. The maximum length is 1024 characters. The validation is strict, so use
-strictly valid urls like http://example.com/?variable=value instead of http://example.com?variable=value.</p>
-
-<p>Following parameters are appended to the URL.</p>
+<p>For redirect URLs, the following parameters are added to the query. For notification URLs, the parameters are sent in a JSON object in POST body.</p>
 
 <table><thead>
 <tr>
@@ -965,7 +909,7 @@ strictly valid urls like http://example.com/?variable=value instead of http://ex
 <tr>
 <td>siru_event</td>
 <td>String</td>
-<td>Event name in case the merchant uses the same url for all events. One of: success, failure, cancel.</td>
+<td>One of the following: success, failure or cancel.</td>
 </tr>
 <tr>
 <td>siru_signature</td>
@@ -974,23 +918,19 @@ strictly valid urls like http://example.com/?variable=value instead of http://ex
 </tr>
 </tbody></table>
 
-<p>siru_signature is similar to the request&#39;s signature and you must use it to validate authenticity of the parameters. It is calculated by concatenating the values (including empty values) of siru_uuid, siru_merchantId, siru_submerchantReference, siru_purchaseReference and siru_event (in that order) with a semicolon (‘;’) as a separator and taking a SHA512-HMAC with the resulting string as data and the merchant secret as key.
-If your redirect page does anything that depends on the purchase being completed successfully, then you must verify that siru_signature and siru_event are correct!
-Checking siru_event is important because an attacker may attempt to direct his browser to send failure parameters to the success URL.</p>
+<p>siru_signature is similar to the request&#39;s signature and you <strong>must</strong> use it to validate authenticity of the parameters. It is calculated by concatenating the values (including empty values) of siru_uuid, siru_merchantId, siru_submerchantReference, siru_purchaseReference and siru_event (in that order) with a semicolon (‘;’) as a separator and taking a SHA512-HMAC with the resulting string as data and the merchant secret as key.</p>
+
+<p>If your redirect page does anything that depends on the purchase being completed successfully, then you must verify that siru_signature and siru_event are correct! Attacker may try and direct his browser to send failure parameters to the success URL.</p>
 
 <p>The customer may fail to arrive at any of the redirect URLs for various reasons, such as connection loss or user error. Relying on the notifyAfter* URLs for purchase confirmation is therefore recommended, even though it is takes some extra effort.</p>
 
-<p><strong>Notification URL</strong><br>
-An UTF-8 string that is a valid URL. The maximum length is 1024 characters. The validation is strict, so use strictly valid urls like <a href="http://example.com/?variable=value">http://example.com/?variable=value</a> instead of <a href="http://example.com?variable=value">http://example.com?variable=value</a>.</p>
-
-<p>One of the notifyAfter* URLs is called after the purchase completes. It will receive a POST request with a JSON object carrying the same parameters as the GET parameters of redirectAfter* URL. The signature is also calculated the same way and you must verify it the same way as with redirectAfter* URL!</p>
-
 <p>Your server should respond to the notification with HTTP 200 code. If the notification fails, either due to a network error or with a non-200 code, then it is retried for 7 days. This time limit may change in the future.</p>
 
-<p>In very rare (and theoretically unavoidable) corner cases, it is possible for a notification to be delivered more than once. Your system should be prepared to ignore a second notification, preferably with 200 code.</p>
-
-<p><strong>Tax class</strong><br>
-This specifies the Value Added Tax class. If your country is not listed here, leave this field empty.</p>
+<aside class="warning">
+    In very rare (and theoretically unavoidable) corner cases, it is possible for a notification to be delivered more than once. Your system should be prepared to ignore a second notification, preferably with 200 code.
+</aside>
+<h3 id='tax-class'>Tax class</h3>
+<p>This specifies the Value Added Tax class. If your country is not listed here, leave this field empty.</p>
 
 <table><thead>
 <tr>
@@ -1029,9 +969,8 @@ This specifies the Value Added Tax class. If your country is not listed here, le
 <li><a href="http://www.vero.fi/fi-FI/Yritys_ja_yhteisoasiakkaat/Liikkeen_ja_ammatinharjoittaja/Arvonlisaverotus">http://www.vero.fi/fi-FI/Yritys_ja_yhteisoasiakkaat/Liikkeen_ja_ammatinharjoittaja/Arvonlisaverotus</a> (in Finnish)<br></li>
 <li><a href="http://www.vero.fi/en-US/Companies_and_organisations/VAT">http://www.vero.fi/en-US/Companies_and_organisations/VAT</a> (in English)</li>
 </ul>
-
-<p><strong>Service group</strong><br>
-This specifies the service group of the product or service. If your country is not listed here, leave this field empty.</p>
+<h3 id='service-group'>Service group</h3>
+<p>This specifies the service group of the product or service. If your country is not listed here, leave this field empty.</p>
 
 <table><thead>
 <tr>
@@ -1062,23 +1001,31 @@ This specifies the service group of the product or service. If your country is n
 </tr>
 </tbody></table>
 
-<p>A customer&#39;s phone subscription may bar calls to certain service groups. The service groups also show up on the customer&#39;s phone bill breakdown. If multiple service groups apply, then the group with the highest number must be chosen.</p>
-
-<p>The merchant is responsible for specifying the correct service group. Please contact Siru for further advice on the correct service group if you have any doubt.</p>
+<p>A customer&#39;s phone subscription may bar calls to certain service groups. The service groups also show up on the customer&#39;s phone bill breakdown. If multiple service groups apply, then the group with the highest number must be chosen. Contact Siru for further advice if you have any doubt.</p>
 
 <p>The service group scheme may change as legislation changes. Siru will notify merchants in advance if any changes are required.</p>
 
 <p>More information<br></p>
 
 <ul>
-<li><a href="http://www.mapel.fi/eettiset_saannot/palveluiden_luokittelu/">http://www.mapel.fi/eettiset_saannot/palveluiden_luokittelu/</a><br></li>
-<li><a href="http://www.mapel.fi/yrityksille-tietoa-maksupalvelui/">http://www.mapel.fi/yrityksille-tietoa-maksupalvelui/</a><br></li>
-<li><a href="https://www.viestintavirasto.fi/attachments/maaraykset/Viestintavirasto35P2011M.pdf">https://www.viestintavirasto.fi/attachments/maaraykset/Viestintavirasto35P2011M.pdf</a> (in Finnish)<br></li>
-<li><a href="https://www.viestintavirasto.fi/en/index/puhelin/laskutusjakulujenhallinta/kulujenhallinta/estopalvelut.html">https://www.viestintavirasto.fi/en/index/puhelin/laskutusjakulujenhallinta/kulujenhallinta/estopalvelut.html</a> (non-authoritative)</li>
+<li><a href="http://www.mapel.fi/eettiset_saannot/palveluiden_luokittelu/">http://www.mapel.fi/eettiset_saannot/palveluiden_luokittelu/</a></li>
 </ul>
+<h3 id='signature'>Signature</h3>
+<p>SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret. See <a href="#signature-calculation">Signature calculation</a>.</p>
+<h2 id='common-pitfalls'>Common pitfalls</h2>
+<p>We have gathered here some of the more common mistakes you might encounter during integration.</p>
+<h3 id='invalid-mobile-number'>Invalid mobile number</h3>
+<p>We use very strict validation for phone numbers ie. the customerNumber field. See <a href="#phone-number">Phone number</a>. You should validate phone number carefully. Often we see numbers with missing 0 prefix (national format), missing country code (international format) or with both 0 and country code prefix which is invalid.</p>
 
-<p><strong>Signature</strong><br>
-SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret. <a href="#signature-calculation">See Signature calculation</a>.</p>
+<p>Examples of <strong>invalid</strong> values: 3580501234567, 501234567</p>
+<h3 id='invalid-price-point'>Invalid price point</h3>
+<p>When creating variant1 transaction, we have sent you a list of price points that you can use as base price. Trying to create a variant1 transaction with a price point that is not available will result in error.</p>
+
+<p>With other variants, there are no fixed price points but there is a maximum value for basePrice in each country.</p>
+<h3 id='invalid-variant-for-given-country'>Invalid variant for given country</h3>
+<p>Usually we have only enabled one variant per country for you to use. For example variant3 in Norway and variant1 in Finland. If you mix these, the API call will result in an error.</p>
+<h3 id='monitoring-errors'>Monitoring errors</h3>
+<p>You and we at Siru want to keep the end-users happy and not miss any sales. If a bug has made its way to your code and the API call fails, we log the error automatically. You can monitor failed API calls from our Merchant panel. Contact us if you have not received your credentials to our Merchant panel.</p>
 <h1 id='purchase-status-api'>Purchase Status API</h1>
 <p>The purchase status API provides information about statuses of purchases.</p>
 
@@ -1086,10 +1033,48 @@ SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret
 
 <ul>
 <li>  by the merchant provided purchaseReference field</li>
-<li>  by the Siru-assigned UUID and</li>
+<li>  by the Siru-assigned UUID</li>
 <li>  by a date range.</li>
 </ul>
-<h2 id='query-by-purchase-reference'>Query by purchase reference</h2>
+<h2 id='query-by-purchase-reference'>Query by purchase reference</h2><h3 id='description-2'>DESCRIPTION</h3>
+<p>Search transactions that match given purchase reference.</p>
+<h3 id='request-2'>REQUEST</h3><pre class="highlight shell tab-shell"><code>curl --request GET -G <span class="se">\</span>
+    --url https://payment.sirumobile.com/payment/byPurchaseReference.json <span class="se">\</span>
+    -d <span class="s1">'merchantId=1'</span> <span class="se">\</span>
+    -d <span class="s1">'purchaseReference=p12345678'</span> <span class="se">\</span>
+    -d <span class="s1">'signature=mycalculatedhash'</span>
+</code></pre>
+<p><code>GET /payment/byPurchaseReference.json</code></p>
+<h3 id='request-parameters-2'>REQUEST PARAMETERS</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Format</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>merchantId</td>
+<td>Integer</td>
+<td>Your merchant ID</td>
+</tr>
+<tr>
+<td>submerchantReference</td>
+<td>String</td>
+<td>Submerchant reference. If not empty, only transactions from this submerchant are included. Otherwise all matching transactions are included.</td>
+</tr>
+<tr>
+<td>purchaseReference</td>
+<td>String</td>
+<td>The purchase reference.</td>
+</tr>
+<tr>
+<td>signature</td>
+<td>String</td>
+<td>Concatenate the values (including empty values) of merchantId, submerchantReference and purchaseReference (in that order), with &#39;;&#39; as the separator. Take the SHA512-HMAC of that with the merchant&#39;s secret as the key.</td>
+</tr>
+</tbody></table>
+
 <blockquote>
 <p>Response example</p>
 </blockquote>
@@ -1107,24 +1092,22 @@ SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-<blockquote>
-<p>Failure response example</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"error"</span><span class="p">:</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"code"</span><span class="p">:</span><span class="mi">404</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"Not Found"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>REQUEST</p>
+</span></code></pre><h3 id='response-2'>RESPONSE</h3>
+<p>JSON object with a single property &quot;purchases&quot; which contains array of matching transactions. See <a href="#response-4">Response</a>.</p>
 
-<p><code>GET /payment/byPurchaseReference.json</code></p>
-
-<p>PARAMETERS</p>
-
+<aside class="notice">
+    Siru does not enforce the uniqueness of purchase reference so you may get more than one result. The results are sorted newest first.
+</aside>
+<h2 id='query-by-uuid'>Query by uuid</h2><h3 id='description-3'>DESCRIPTION</h3>
+<p>Find a single transaction by UUID.</p>
+<h3 id='request-3'>REQUEST</h3><pre class="highlight shell tab-shell"><code>curl --request GET -G <span class="se">\</span>
+    --url https://payment.sirumobile.com/payment/byUuid.json <span class="se">\</span>
+    -d <span class="s1">'merchantId=1'</span> <span class="se">\</span>
+    -d <span class="s1">'uuid=061d488d-ab43-458d-9b5e-0b2005595d7e'</span> <span class="se">\</span>
+    -d <span class="s1">'signature=mycalculatedhash'</span>
+</code></pre>
+<p><code>GET /payment/byUuid.json</code></p>
+<h3 id='request-parameters-3'>REQUEST PARAMETERS</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1138,25 +1121,141 @@ SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret
 <td>Your merchant ID</td>
 </tr>
 <tr>
-<td>submerchantReference</td>
+<td>uuid</td>
 <td>String</td>
-<td>Submerchant reference, if any.</td>
-</tr>
-<tr>
-<td>purchaseReference</td>
-<td>String</td>
-<td>The purchase reference to query.</td>
+<td>The UUID to query by</td>
 </tr>
 <tr>
 <td>signature</td>
 <td>String</td>
-<td>Concatenate the values (including empty values) of merchantId, submerchantReference and purchaseReference (in that order), with &#39;;&#39; as the separator. Take the SHA512-HMAC of that with the merchant&#39;s secret as the key</td>
+<td>Concatenate the values of merchantId and uuid (in that order), with &#39;;&#39; as a separator. Take the SHA512-HMAC of that with the merchant&#39;s secret as the key.</td>
+</tr>
+</tbody></table>
+<h3 id='response-3'>RESPONSE</h3>
+<p>The response is a single transaction object. See <a href="#response-4">Response</a>. If UUID is not found, an error with HTTP 404 status is returned.</p>
+<h2 id='query-by-date-range'>Query by date range</h2><h3 id='description-4'>DESCRIPTION</h3>
+<p>Search all transactions that were created during given time period.</p>
+<h3 id='request-4'>REQUEST</h3><pre class="highlight shell tab-shell"><code><span class="c"># Retrieve transactions for december 2017</span>
+curl --request GET -G <span class="se">\</span>
+    --url https://payment.sirumobile.com/payment/byDate.json <span class="se">\</span>
+    -d <span class="s1">'merchantId=1'</span> <span class="se">\</span>
+    -d <span class="s1">'from=2017-12-01 00:00:00'</span> <span class="se">\</span>
+    -d <span class="s1">'to=2018-01-01 00:00:00'</span> <span class="se">\</span>
+    -d <span class="s1">'signature=mycalculatedhash'</span>
+</code></pre>
+<p><code>GET /payment/byDate.json</code></p>
+<h3 id='request-parameters-4'>REQUEST PARAMETERS</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Format</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>merchantId</td>
+<td>Integer</td>
+<td>Your merchant ID</td>
+</tr>
+<tr>
+<td>from</td>
+<td>String</td>
+<td>Lower date limit (UTC). Purchases with this datetime will be included in the result. Format: yyyy-mm-dd hh:ii:ss (2015-01-01 00:00:00).</td>
+</tr>
+<tr>
+<td>to</td>
+<td>String</td>
+<td>Upper date limit (UTC). Purchases with this datetime will be excluded from the result. Format: yyyy-mm-dd hh:ii:ss (2015-01-01 00:00:00).</td>
+</tr>
+<tr>
+<td>signature</td>
+<td>String</td>
+<td>Concatenate the values of merchantId, from and to (in that order), with &#39;;&#39; as a separator. Take the SHA512-HMAC of that with the merchant&#39;s secret as the key.</td>
 </tr>
 </tbody></table>
 
-<p>The reason for returning purchases as an array is that Siru does not enforce the uniqueness of purchaseReference. If the same merchant and submerchant have multiple purchases with the same purchaseReference then they are returned in the order they were created (newest first).</p>
+<blockquote>
+<p>Response example</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"purchases"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"uuid"</span><span class="p">:</span><span class="s2">"f599cd21-47a2-4bbc-b44b-2cc4b1bb25f1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"merchantId"</span><span class="p">:</span><span class="s2">"18"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"submerchantReference"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"customerReference"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"purchaseReference"</span><span class="p">:</span><span class="s2">"testshop1420070765"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"customerNumber"</span><span class="p">:</span><span class="s2">"XXXXXXX"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"basePrice"</span><span class="p">:</span><span class="s2">"5.00"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"finalPrice"</span><span class="p">:</span><span class="s2">"8.51"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"canceled"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="s2">"2015-01-01T00:06:05+0000"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"finishedAt"</span><span class="p">:</span><span class="s2">"2015-01-01T00:17:09+0000"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<p>Datetimes are in ISO-8601 format.</p>
+</span></code></pre><h3 id='response-4'>RESPONSE</h3>
+<p>JSON object with a single property &quot;purchases&quot; which contains array of matching transactions. See <a href="#response-4">Response</a>. The transaction objects will include some additional fields for your leisure!</p>
+<h2 id='response-5'>Response</h2>
+<blockquote>
+<p>Example of transaction object returned by status API</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e53c3cfc-6d5b-4af3-ae30-7ae7812c9cf7"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unconfirmed"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"basePrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12.34"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"finalPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12.55"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-06-13T12:51:33+0200"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-06-13T12:51:58+0200"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"finishedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"customerNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"358501234567"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The basic transaction object returned by search includes fields</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>uuid</td>
+<td>Siru unique UUID for this transaction</td>
+</tr>
+<tr>
+<td>status</td>
+<td>Purchase current status, see below table</td>
+</tr>
+<tr>
+<td>basePrice </td>
+<td>The original price sent by you</td>
+</tr>
+<tr>
+<td>finalPrice</td>
+<td>The price user was charged with possible commission included</td>
+</tr>
+<tr>
+<td>createdAt</td>
+<td>ISO-8601 date when transaction was created</td>
+</tr>
+<tr>
+<td>startedAt</td>
+<td>ISO-8601 date when customer started payment</td>
+</tr>
+<tr>
+<td>finishedAt</td>
+<td>ISO-8601 date when purchase was finalized</td>
+</tr>
+<tr>
+<td>customerNumber</td>
+<td>Customers phone number if available</td>
+</tr>
+</tbody></table>
 
 <p>The possible values for &quot;status&quot; are as follows:</p>
 
@@ -1192,129 +1291,44 @@ SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret
 </tr>
 </tbody></table>
 
-<p>The states confirmed, canceled and failed are final states. A purchase will not leave a final state.</p>
+<p>The states confirmed, canceled and failed are final states. Any other state should be considered as intermediate and subject to change. Once purchase reaches a final state, it will not leave that state.</p>
 
-<p>Backwards-compatibility is guaranteed as follows: only non-final states may be added and removed.</p>
-<h2 id='query-by-uuid'>Query by uuid</h2>
-<p>REQUEST</p>
-
-<p><code>GET /payment/byUuid.json</code></p>
-
-<p>PARAMETERS</p>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Format</th>
-<th>Value</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>merchantId</td>
-<td>Integer</td>
-<td>Your merchant ID</td>
-</tr>
-<tr>
-<td>uuid</td>
-<td>String</td>
-<td>The UUID to query by</td>
-</tr>
-<tr>
-<td>signature</td>
-<td>String</td>
-<td>Concatenate the values of merchantId and uuid (in that order), with &#39;;&#39; as a separator. Take the SHA512-HMAC of that with the merchant&#39;s secret as the key.</td>
-</tr>
-</tbody></table>
-
-<p>The response is the same kind as the one for purchases/byPurchaseReference.json, except the purchase object is returned directly instead of having an object and an array around it.</p>
-<h2 id='query-by-date-range'>Query by date range</h2>
-<blockquote>
-<p>Response example</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"purchases"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"uuid"</span><span class="p">:</span><span class="s2">"f599cd21-47a2-4bbc-b44b-2cc4b1bb25f1"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"merchantId"</span><span class="p">:</span><span class="s2">"18"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"submerchantReference"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"customerReference"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"purchaseReference"</span><span class="p">:</span><span class="s2">"testshop1420070765"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"customerNumber"</span><span class="p">:</span><span class="s2">"XXXXXXX"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"basePrice"</span><span class="p">:</span><span class="s2">"5.00"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"finalPrice"</span><span class="p">:</span><span class="s2">"8.51"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"canceled"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="s2">"2015-01-01T00:06:05+0000"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"finishedAt"</span><span class="p">:</span><span class="s2">"2015-01-01T00:17:09+0000"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre>
-<p>You can query a set of purchases within a specified datetime range. The date the purchases are retrieved with is the moment they were created in our database.</p>
-
-<p>REQUEST</p>
-
-<p><code>GET /payment/byDate.json</code></p>
-
-<p>PARAMETERS</p>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Format</th>
-<th>Value</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>merchantId</td>
-<td>Integer</td>
-<td>Your merchant ID</td>
-</tr>
-<tr>
-<td>from</td>
-<td>String</td>
-<td>Lower date limit (UTC). Purchases with this datetime will be included in the result. Format: yyyy-mm-dd hh:ii:ss (2015-01-01 00:00:00).</td>
-</tr>
-<tr>
-<td>to</td>
-<td>String</td>
-<td>Upper date limit (UTC). Purchases with this datetime will be excluded from the result. Format: yyyy-mm-dd hh:ii:ss (2015-01-01 00:00:00).</td>
-</tr>
-<tr>
-<td>signature</td>
-<td>String</td>
-<td>Concatenate the values of merchantId, from and to (in that order), with &#39;;&#39; as a separator. Take the SHA512-HMAC of that with the merchant&#39;s secret as the key.</td>
-</tr>
-</tbody></table>
-
-<p>The response is the same kind as the one for purchases/byPurchaseReference.json. It just contains a few more fields for your leisure!</p>
-<h1 id='price-api'>Price API</h1><h2 id='price-calculation'>Price calculation</h2>
-<blockquote>
-<p>Response example</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"finalCallPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13.57"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<p>Backwards-compatibility is guaranteed as follows: Siru may add or remove only non-final states.</p>
+<h2 id='errors'>Errors</h2>
 <blockquote>
 <p>Failure response example</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"technical error message in English"</span><span class="w">
+    </span><span class="s2">"error"</span><span class="p">:</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"code"</span><span class="p">:</span><span class="mi">404</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"Not Found"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-
 </span></code></pre>
-<p>The API expects basePrice to be the price of the product. Siru will add the necessary fees to the final call price automatically. Since the exact formula for calculating the final price is somewhat intricate and subject to change, Siru provides an API for querying the final price and displaying it to customers.</p>
-
-<p>REQUEST</p>
-
+<table><thead>
+<tr>
+<th>HTTP status</th>
+<th>Reason</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>403</td>
+<td>Invalid signature or purchase does not belong to you</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Purchase by UUID was not found</td>
+</tr>
+</tbody></table>
+<h1 id='vprice-api'>vPrice API</h1><h2 id='calculate-end-user-price'>Calculate end-user price</h2><h3 id='description-5'>DESCRIPTION</h3>
+<p>Siru will automatically add possible fees and commissions to transaction base price. Since the exact formula for calculating the final price is somewhat intricate and subject to change, this API allows you to calculate the final price to display it to the end-user.</p>
+<h3 id='request-5'>REQUEST</h3><pre class="highlight shell tab-shell"><code>curl --request GET -G <span class="se">\</span>
+    --url https://payment.sirumobile.com/payment/price.json <span class="se">\</span>
+    -d <span class="s1">'variant=variant1'</span> -d <span class="s1">'merchantId=18'</span> -d <span class="s1">'purchaseCountry=FI'</span> -d <span class="s1">'taxClass=3'</span> -d <span class="s1">'basePrice=15.00'</span>
+</code></pre>
 <p><code>GET /payment/price.json</code></p>
-
-<p>PARAMETERS</p>
-
+<h3 id='request-parameters-5'>REQUEST PARAMETERS</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1325,7 +1339,7 @@ SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret
 <tr>
 <td>variant</td>
 <td>String</td>
-<td>variant1</td>
+<td>variant1 or variant4</td>
 </tr>
 <tr>
 <td>merchantId</td>
@@ -1350,7 +1364,7 @@ SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret
 <tr>
 <td>basePrice</td>
 <td>Money</td>
-<td>The price of the product with VAT included, without fees caused by the payment method.</td>
+<td>The price of the product with VAT included.</td>
 </tr>
 <tr>
 <td>callback <br>(optional)</td>
@@ -1359,18 +1373,19 @@ SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret
 </tr>
 </tbody></table>
 
-<p>FAILURE RESPONSE EXAMPLE</p>
+<aside class="notice">
+    This API is only available for variant1 and variant4 payments.
+</aside>
 
-<p>An error response will have a 4xx or 5xx error code. It is not recommended to show the error message to end users.</p>
-<h2 id='get-maximum-base-price'>Get maximum base price</h2>
 <blockquote>
 <p>Response example</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"maxBasePrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"39.40"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"maxFinalCallPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40.00"</span><span class="w">
+    </span><span class="s2">"finalCallPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13.57"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
+</span></code></pre><h3 id='response-6'>RESPONSE</h3>
+<p>Response is a JSON object with single property &quot;finalCallPrice&quot;.</p>
+
 <blockquote>
 <p>Failure response example</p>
 </blockquote>
@@ -1378,15 +1393,16 @@ SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret
     </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"technical error message in English"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre>
+</span></code></pre><h3 id='errors-2'>ERRORS</h3>
+<p>If an error occurs, the response is a JSON object with single property &quot;error&quot; with error message. The error message should not be shown to end user.</p>
+<h2 id='get-maximum-base-price'>Get maximum base price</h2><h3 id='description-6'>DESCRIPTION</h3>
 <p>Siru imposes a limit on the maximum price of a purchase. The limit is fairly stable, so it may be acceptable to hard-code it into your application. Nevertheless, the limit can be retrieved through a JSON API.</p>
-
-<p>Customers may also have individual spending limits with Siru. This API does not take those into account.</p>
-
-<p>REQUEST</p>
-
+<h3 id='request-6'>REQUEST</h3><pre class="highlight shell tab-shell"><code>curl --request GET -G <span class="se">\</span>
+    --url https://payment.sirumobile.com/payment/maxPrice.json <span class="se">\</span>
+    -d <span class="s1">'variant=variant1'</span> -d <span class="s1">'merchantId=18'</span> -d <span class="s1">'purchaseCountry=FI'</span> -d <span class="s1">'taxClass=3'</span>
+</code></pre>
 <p><code>GET /payment/maxPrice.json</code></p>
-
+<h3 id='request-parameters-6'>REQUEST PARAMETERS</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1426,23 +1442,75 @@ SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret
 </tr>
 </tbody></table>
 
-<p>FAILURE RESPONSE EXAMPLE</p>
+<blockquote>
+<p>Response example</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"maxBasePrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"39.40"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"maxFinalCallPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40.00"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='response-7'>RESPONSE</h3>
+<p>Response is a JSON object with two properties</p>
 
-<p>An error response will have a 4xx or 5xx error code. It is not recommended to show the error message to end users.</p>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>maxBasePrice</td>
+<td>The maximum available base price.</td>
+</tr>
+<tr>
+<td>maxFinalCallPrice</td>
+<td>The final price of maxBasePrice.</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+    Customers may also have individual spending limits with Siru. This API does not take those into account.
+</aside>
+
+<aside class="notice">
+    This API is only available for checking variant1 maximum base price.
+</aside>
+
+<blockquote>
+<p>Failure response example</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"technical error message in English"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre><h3 id='errors-3'>ERRORS</h3>
+<p>Errors are JSON objects with single property &quot;error&quot;. The error message should not be shown to end user. Response will include one of the following HTTP status codes.</p>
+
+<table><thead>
+<tr>
+<th>HTTP status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>404</td>
+<td>One of the request parameters was invalid</td>
+</tr>
+<tr>
+<td>500</td>
+<td>An unknown error</td>
+</tr>
+</tbody></table>
 <h2 id='javascript-library'>Javascript library</h2><pre class="highlight html tab-html"><code><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://payment.sirumobile.com/js/lib/siru.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 </code></pre>
 <p>Siru provides a small JavaScript convenience library.</p>
-
-<p><strong>Installation</strong><br></p>
-
+<h3 id='installation'>Installation</h3>
 <p>Use the included example to include the library. You may copy the library to your site, but it is recommended to include it directly to obtain any future updates. Updates will be backwards-compatible.</p>
 
 <p>The library depends on jQuery 1.5+. jQuery must be included before the Siru library so that the global jQuery object is available.</p>
 
 <p>The library defines the global object Siru. Including it has no other effects.</p>
-
-<p><strong>Price calculation</strong></p>
-
+<h3 id='price-calculation'>Price calculation</h3>
 <p>Siru.getPrice(params) uses the price calculation API to fetch the final call price given a base price.</p>
 
 <p>params must be an object with the following fields:</p>
@@ -1502,9 +1570,7 @@ SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret
 </tbody></table>
 
 <p>The function calls success or error when the request completes. It returns an object that has an abort method that cancels the request. If abort is used then neither success nor error will be called.</p>
-
-<p><strong>Get maximum base price</strong></p>
-
+<h3 id='get-maximum-base-price-2'>Get maximum base price</h3>
 <p>Siru.getMaxBasePrice(params) uses the maximum price API to fetch the maximum base price that Siru will accept.</p>
 
 <p>params must be an object with the following fields.</p>
@@ -1564,23 +1630,14 @@ SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret
 </tbody></table>
 
 <p>The function calls success or error when the request completes. It returns an object that has an abort method that cancels the request. If abort is used then neither success nor error will be called.</p>
-<h1 id='feature-detection-api'>Feature detection API</h1>
-<blockquote>
-<p>Response example</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"ipPaymentsEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre>
+<h1 id='feature-detection-api'>Feature detection API</h1><h2 id='check-ip-address'>Check IP-address</h2><h3 id='description-7'>DESCRIPTION</h3>
 <p>The Feature detection API can be used to verify if IP Payments (variant2) are available for given IP-address.</p>
-
-<p>REQUEST</p>
-
+<h3 id='request-7'>REQUEST</h3><pre class="highlight shell tab-shell"><code>curl --request GET -G <span class="se">\</span>
+    --url https://payment.sirumobile.com/payment/ip/feature-check <span class="se">\</span>
+    -d <span class="s1">'merchantId=18'</span> -d <span class="s1">'ip=12.12.12.12'</span> -d <span class="s1">'signature=mycalculatedhash'</span>
+</code></pre>
 <p><code>GET /payment/ip/feature-check</code></p>
-
-<p>PARAMETERS</p>
-
+<h3 id='request-parameters-7'>REQUEST PARAMETERS</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1596,7 +1653,7 @@ SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret
 <tr>
 <td>ip</td>
 <td>String</td>
-<td>The IP address of someone</td>
+<td>End-users IP address</td>
 </tr>
 <tr>
 <td>signature</td>
@@ -1604,21 +1661,54 @@ SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret
 <td>Concatenate the values (including empty values) of merchantId and ip (in that order), with &#39;;&#39; as the separator. Take the SHA512- HMAC of that with the merchant&#39;s secret as the key.</td>
 </tr>
 </tbody></table>
-<h1 id='api-operational-status'>API operational status</h1>
-<p>REQUEST</p>
 
+<blockquote>
+<p>Response example</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"ipPaymentsEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre><h3 id='response-8'>RESPONSE</h3><h3 id='errors-4'>ERRORS</h3>
+<blockquote>
+<p>Failure response example</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"error"</span><span class="p">:</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"code"</span><span class="p">:</span><span class="mi">403</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"Forbidden"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p>Errors are JSON objects with single property &quot;error&quot;. Response will include one of the following HTTP status codes.</p>
+
+<table><thead>
+<tr>
+<th>HTTP status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>403</td>
+<td>Invalid signature</td>
+</tr>
+</tbody></table>
+<h1 id='api-operational-status'>API operational status</h1><h2 id='check-api-status'>Check API status</h2><h3 id='description-8'>DESCRIPTION</h3>
+<p>Check operational status of Siru Mobile API.</p>
+<h3 id='request-8'>REQUEST</h3><pre class="highlight shell tab-shell"><code>curl -w <span class="s2">"%{http_code}"</span> --url https://payment.sirumobile.com/status
+</code></pre>
 <p><code>GET /status</code></p>
-
-<p>PARAMETERS</p>
-
+<h3 id='request-parameters-8'>REQUEST PARAMETERS</h3>
 <p>None</p>
-
+<h3 id='response-9'>RESPONSE</h3>
 <p>The response HTTP status code will tell you the operational status of the API.</p>
 
 <table><thead>
 <tr>
-<th>HTTP status code</th>
-<th>Explained</th>
+<th>HTTP status</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
@@ -1640,8 +1730,9 @@ SHA512-HMAC hash calculated from selected field values and merchant&#39;s secret
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="html">HTML</a>
+                <a href="#" data-language-name="shell">cURL</a>
                 <a href="#" data-language-name="php">PHP</a>
+                <a href="#" data-language-name="html">HTML</a>
           </div>
       </div>
     </div>
