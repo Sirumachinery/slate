@@ -100,6 +100,41 @@ curl --request POST \
     --data "$JSON"
 ```
 
+```php
+<?
+// Siru PHP-SDK provides helpers to sends requests
+$signature = new \Siru\Signature($merchantId, $secret);
+$api = new \Siru\API($signature);
+
+try {
+
+    $transaction = $api->getPaymentApi()
+        ->set('variant', 'variant1')
+        ->set('purchaseCountry', 'SE')
+        ->set('basePrice', '5.00')
+        ->set('redirectAfterSuccess', 'https://shop.example.com/success')
+        ->set('redirectAfterFailure', 'https://shop.example.com/fail')
+        ->set('redirectAfterCancel', 'https://shop.example.com/cancel')
+        ->set('customerNumber', '0701234567')
+        ->set('customerReference', 'c12345')
+        ->set('customerEmail', 'john.doe@foo.bar')
+        ->set('customerLocale', 'sv_SE')
+        ->set('title', 'Game voucher')
+        ->createPayment();
+
+    header('location: ' . $transaction['redirect']);
+    exit();
+
+} catch(\Siru\Exception\InvalidResponseException $e) {
+    // Connection to API failed
+} catch(\Siru\Exception\ApiException $e) {
+    // Error in request
+    foreach($e->getErrorStack() as $error) {
+        // Log error
+    }
+}
+```
+
 ```html
 <form method="post" action="https://payment.sirumobile.com/payment.html">
     <input type="hidden" name="basePrice" value="3.40"/>
@@ -261,8 +296,7 @@ GB        | Use your own mobile number.
 ## Signature calculation
 
 ```php
-
-<?php
+<?
 $secret = 'MySecretFromSiruMobile';
 $fields = array(
     'variant' => 'variant1',
@@ -277,8 +311,6 @@ $fields = array(
 $fields = array_filter($fields); // Drop empty fields
 ksort($fields); // Sort by field name
 $signature = hash_hmac("sha512", implode(';', $fields), $secret);
-
-?>
 ```
 
 The data must be signed using a hash from certain values in data and the merchant's secret. The signature field is calculated as follows:
