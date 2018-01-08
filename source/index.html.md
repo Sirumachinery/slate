@@ -691,7 +691,7 @@ HTTP status | Reason
 
 
 
-#vPrice API
+#Price API
 
 ## Calculate end-user price
 
