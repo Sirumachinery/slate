@@ -263,7 +263,7 @@ This variant is only available in Finland. It allows a fast online payment when 
 
 Countries | Testing in sandbox
 --        | --
-FI        | To simulate a successful purchase, supply a basePrice dividable by 2 and NOT dividable by 6.<br/>To simulate failure, supply a basePrice not dividable by 2 OR dividable by 6.<br/><br/>In sandbox, you can use any internet connection to confirm payment. No actual charges are made.<br/><br/>[Feature detection API](#feature-detection-api) will always return true when in sandbox.
+FI        | To simulate an error during payment, use basePrice 30.50 or 30.60.<br/><br/>In sandbox, you can use any internet connection to confirm payment. No actual charges are made.<br/><br/>[Feature detection API](#feature-detection-api) will always return true when in sandbox.
 
 <aside class="warning">
     IMPORTANT: The basePrice value must be given without VAT. Correct tax is added to the price automatically based on taxClass value. Price can be anything between 0.10 and 60.00.
