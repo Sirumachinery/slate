@@ -211,6 +211,7 @@ serviceGroup   | variant1, variant2, variant4 | Service group | Service group nu
 customerNumber | variant1, variant4  | Phone number | The customer’s phone number.
 title          | variant4  | String | A short title of the purchased service or product.
 description    |  | String | A longer description of the purchased service or product.
+interval       |  | String | Subscription interval. Only available in variant4. Valid values depend on your contract
 instantPay     | variant2  | integer | Deprecated. When using variant2, this value must be 1.
 signature | yes | Signature | Calculated hash for the request. See [Signature calculation](#signature-calculation).
 
@@ -341,6 +342,7 @@ taxClass             | Variant1, variant2 and variant4 only
 serviceGroup         | Variant1, variant2 and variant4 only
 title                | Variant4 only
 description          | Variant4 only
+interval             | Variant4 only
 
 ## Field types
 
@@ -464,6 +466,20 @@ Usually we have only enabled one variant per country for you to use. For example
 
 You and we at Siru want to keep the end-users happy and not miss any sales. If a bug has made its way to your code and the API call fails, we log the error automatically. You can monitor failed API calls from our Merchant panel. Contact us if you have not received your credentials to our Merchant panel.
 
+
+## Subscriptions
+
+If you have subscriptions enabled with Siru Mobile, you can create a new payment that is automatically renewed on agreed upon intervals. When using subscriptions, there are some things you must take in to account.
+
+### Notifications
+
+To receive notification when payment is renewed, you must provide notifyAfterSuccess URL. This is the only way to know when payment has been renewed.
+
+### Purchase reference and UUID
+
+When creating a new subscription, you must use a unique purchaseReference. When payment is automatically renewed, the notification will have the same purchaseReference as the original payment.
+
+When creating a new subscription, store the UUID you receive from Payment API. You need this if you need to end subscription manually.
 
 
 # Purchase Status API
