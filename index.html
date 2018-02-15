@@ -274,6 +274,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <li>
                     <a href="#common-pitfalls" class="toc-h2 toc-link" data-title="Payment API">Common pitfalls</a>
                   </li>
+                  <li>
+                    <a href="#subscriptions" class="toc-h2 toc-link" data-title="Payment API">Subscriptions</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -646,6 +649,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <td>A longer description of the purchased service or product.</td>
 </tr>
 <tr>
+<td>interval</td>
+<td></td>
+<td>String</td>
+<td>Subscription interval. Only available in variant4. Valid values depend on your contract</td>
+</tr>
+<tr>
 <td>instantPay</td>
 <td>variant2</td>
 <td>integer</td>
@@ -850,6 +859,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <td>description</td>
 <td>Variant4 only</td>
 </tr>
+<tr>
+<td>interval</td>
+<td>Variant4 only</td>
+</tr>
 </tbody></table>
 <h2 id='field-types'>Field types</h2><h3 id='string'>String</h3>
 <p>An UTF-8 string with a maximum length of 255 characters.</p>
@@ -1026,6 +1039,14 @@ Examples: 13.50, 0.20, 7.15</p>
 <p>Usually we have only enabled one variant per country for you to use. For example variant3 in Norway and variant1 in Finland. If you mix these, the API call will result in an error.</p>
 <h3 id='monitoring-errors'>Monitoring errors</h3>
 <p>You and we at Siru want to keep the end-users happy and not miss any sales. If a bug has made its way to your code and the API call fails, we log the error automatically. You can monitor failed API calls from our Merchant panel. Contact us if you have not received your credentials to our Merchant panel.</p>
+<h2 id='subscriptions'>Subscriptions</h2>
+<p>If you have subscriptions enabled with Siru Mobile, you can create a new payment that is automatically renewed on agreed upon intervals. When using subscriptions, there are some things you must take in to account.</p>
+<h3 id='notifications'>Notifications</h3>
+<p>To receive notification when payment is renewed, you must provide notifyAfterSuccess URL. This is the only way to know when payment has been renewed.</p>
+<h3 id='purchase-reference-and-uuid'>Purchase reference and UUID</h3>
+<p>When creating a new subscription, you must use a unique purchaseReference. When payment is automatically renewed, the notification will have the same purchaseReference as the original payment.</p>
+
+<p>When creating a new subscription, store the UUID you receive from Payment API. You need this if you need to end subscription manually.</p>
 <h1 id='purchase-status-api'>Purchase Status API</h1>
 <p>The purchase status API provides information about statuses of purchases.</p>
 
