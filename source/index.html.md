@@ -526,9 +526,13 @@ signature|String|Concatenate the values (including empty values) of merchantId, 
     "purchases": [
         {
             "uuid": "e53c3cfc-6d5b-4af3-ae30-7ae7812c9cf7",
+            "submerchantReference":null,
+            "customerReference":null,
+            "purchaseReference":"testshop1420070765",
             "status": "unconfirmed",
             "basePrice": "12.34",
             "finalPrice": "12.55",
+            "currency": "EUR",
             "createdAt": "2013-06-13T12:51:33+0200",
             "startedAt": "2013-06-13T12:51:58+0200",
             "finishedAt": null,
@@ -540,7 +544,7 @@ signature|String|Concatenate the values (including empty values) of merchantId, 
 
 ### RESPONSE
 
-JSON object with a single property "purchases" which contains array of matching transactions. See [Response](#response-4).
+JSON object with a single property "purchases" which contains array of matching transactions.
 
 <aside class="notice">
     Siru does not enforce the uniqueness of purchase reference so you may get more than one result. The results are sorted newest first.
@@ -575,7 +579,7 @@ signature|String|Concatenate the values of merchantId and uuid (in that order), 
 
 ### RESPONSE
 
-The response is a single transaction object. See [Response](#response-4). If UUID is not found, an error with HTTP 404 status is returned.
+The response is a single transaction object. If UUID is not found, an error with HTTP 404 status is returned.
 
 ## Query by date range
 
@@ -634,18 +638,22 @@ signature|String|Concatenate the values of merchantId, from and to (in that orde
 
 ### RESPONSE
 
-JSON object with a single property "purchases" which contains array of matching transactions. See [Response](#response-4). The transaction objects will include some additional fields for your leisure!
+JSON object with a single property "purchases" which contains array of matching transactions. The transaction objects will include some additional fields for your leisure!
 
-## Response
+## Response fields
 
 > Example of transaction object returned by status API
 
 ```json
     {
         "uuid": "e53c3cfc-6d5b-4af3-ae30-7ae7812c9cf7",
+        "submerchantReference":null,
+        "customerReference":null,
+        "purchaseReference":"testshop1420070765",
         "status": "unconfirmed",
         "basePrice": "12.34",
         "finalPrice": "12.55",
+        "currency": "EUR",
         "createdAt": "2013-06-13T12:51:33+0200",
         "startedAt": "2013-06-13T12:51:58+0200",
         "finishedAt": null,
@@ -658,9 +666,13 @@ The basic transaction object returned by search includes fields
 Field          | Description
 --             | --
 uuid           | Siru unique UUID for this transaction
+submerchantReference  | Sub-merchant reference sent by you
+customerReference     | Customer reference sent by you
+purchaseReference     | Purchase reference sent by you
 status         | Purchase current status, see below table
 basePrice      | The original price sent by you
 finalPrice     | The price user was charged with possible commission included
+currency       | Payment currency
 createdAt      | ISO-8601 date when transaction was created
 startedAt      | ISO-8601 date when customer started payment
 finishedAt     | ISO-8601 date when purchase was finalized
