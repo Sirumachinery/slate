@@ -292,7 +292,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <a href="#query-by-date-range" class="toc-h2 toc-link" data-title="Purchase Status API">Query by date range</a>
                   </li>
                   <li>
-                    <a href="#response-5" class="toc-h2 toc-link" data-title="Purchase Status API">Response</a>
+                    <a href="#response-fields" class="toc-h2 toc-link" data-title="Purchase Status API">Response fields</a>
                   </li>
                   <li>
                     <a href="#errors" class="toc-h2 toc-link" data-title="Purchase Status API">Errors</a>
@@ -1103,9 +1103,13 @@ Examples: 13.50, 0.20, 7.15</p>
     </span><span class="s2">"purchases"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="s2">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e53c3cfc-6d5b-4af3-ae30-7ae7812c9cf7"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"submerchantReference"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"customerReference"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"purchaseReference"</span><span class="p">:</span><span class="s2">"testshop1420070765"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unconfirmed"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"basePrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12.34"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"finalPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12.55"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-06-13T12:51:33+0200"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-06-13T12:51:58+0200"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"finishedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -1114,7 +1118,7 @@ Examples: 13.50, 0.20, 7.15</p>
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='response-2'>RESPONSE</h3>
-<p>JSON object with a single property &quot;purchases&quot; which contains array of matching transactions. See <a href="#response-4">Response</a>.</p>
+<p>JSON object with a single property &quot;purchases&quot; which contains array of matching transactions.</p>
 
 <aside class="notice">
     Siru does not enforce the uniqueness of purchase reference so you may get more than one result. The results are sorted newest first.
@@ -1153,7 +1157,7 @@ Examples: 13.50, 0.20, 7.15</p>
 </tr>
 </tbody></table>
 <h3 id='response-3'>RESPONSE</h3>
-<p>The response is a single transaction object. See <a href="#response-4">Response</a>. If UUID is not found, an error with HTTP 404 status is returned.</p>
+<p>The response is a single transaction object. If UUID is not found, an error with HTTP 404 status is returned.</p>
 <h2 id='query-by-date-range'>Query by date range</h2><h3 id='description-4'>DESCRIPTION</h3>
 <p>Search all transactions that were created during given time period.</p>
 <h3 id='request-4'>REQUEST</h3><pre class="highlight shell tab-shell"><code><span class="c"># Retrieve transactions for december 2017</span>
@@ -1220,16 +1224,20 @@ curl --request GET -G <span class="se">\</span>
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre><h3 id='response-4'>RESPONSE</h3>
-<p>JSON object with a single property &quot;purchases&quot; which contains array of matching transactions. See <a href="#response-4">Response</a>. The transaction objects will include some additional fields for your leisure!</p>
-<h2 id='response-5'>Response</h2>
+<p>JSON object with a single property &quot;purchases&quot; which contains array of matching transactions. The transaction objects will include some additional fields for your leisure!</p>
+<h2 id='response-fields'>Response fields</h2>
 <blockquote>
 <p>Example of transaction object returned by status API</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w">    </span><span class="p">{</span><span class="w">
         </span><span class="s2">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e53c3cfc-6d5b-4af3-ae30-7ae7812c9cf7"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"submerchantReference"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"customerReference"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"purchaseReference"</span><span class="p">:</span><span class="s2">"testshop1420070765"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unconfirmed"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"basePrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12.34"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"finalPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12.55"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-06-13T12:51:33+0200"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"startedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-06-13T12:51:58+0200"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"finishedAt"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -1249,6 +1257,18 @@ curl --request GET -G <span class="se">\</span>
 <td>Siru unique UUID for this transaction</td>
 </tr>
 <tr>
+<td>submerchantReference</td>
+<td>Sub-merchant reference sent by you</td>
+</tr>
+<tr>
+<td>customerReference</td>
+<td>Customer reference sent by you</td>
+</tr>
+<tr>
+<td>purchaseReference</td>
+<td>Purchase reference sent by you</td>
+</tr>
+<tr>
 <td>status</td>
 <td>Purchase current status, see below table</td>
 </tr>
@@ -1259,6 +1279,10 @@ curl --request GET -G <span class="se">\</span>
 <tr>
 <td>finalPrice</td>
 <td>The price user was charged with possible commission included</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>Payment currency</td>
 </tr>
 <tr>
 <td>createdAt</td>
@@ -1404,7 +1428,7 @@ curl --request GET -G <span class="se">\</span>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"finalCallPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13.57"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='response-6'>RESPONSE</h3>
+</span></code></pre><h3 id='response-5'>RESPONSE</h3>
 <p>Response is a JSON object with single property &quot;finalCallPrice&quot;.</p>
 
 <blockquote>
@@ -1470,7 +1494,7 @@ curl --request GET -G <span class="se">\</span>
     </span><span class="s2">"maxBasePrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"39.40"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"maxFinalCallPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40.00"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='response-7'>RESPONSE</h3>
+</span></code></pre><h3 id='response-6'>RESPONSE</h3>
 <p>Response is a JSON object with two properties</p>
 
 <table><thead>
@@ -1690,7 +1714,7 @@ curl --request GET -G <span class="se">\</span>
     </span><span class="s2">"ipPaymentsEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h3 id='response-8'>RESPONSE</h3><h3 id='errors-4'>ERRORS</h3>
+</span></code></pre><h3 id='response-7'>RESPONSE</h3><h3 id='errors-4'>ERRORS</h3>
 <blockquote>
 <p>Failure response example</p>
 </blockquote>
@@ -1723,7 +1747,7 @@ curl --request GET -G <span class="se">\</span>
 <p><code>GET /status</code></p>
 <h3 id='request-parameters-8'>REQUEST PARAMETERS</h3>
 <p>None</p>
-<h3 id='response-9'>RESPONSE</h3>
+<h3 id='response-8'>RESPONSE</h3>
 <p>The response HTTP status code will tell you the operational status of the API.</p>
 
 <table><thead>
