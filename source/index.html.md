@@ -197,6 +197,7 @@ purchaseReference | | String | Your internal ID for the purchase. These will be 
 customerReference | | String | Your internal ID for the customer. These will be visible in the merchant's control panel.
 customerLastName  | | String | Customer's last name, shown in the merchant panel.  
 customerFirstName | | String | Customer's first name, shown in the merchant panel.  
+customerPersonalId | | Personal ID | Customer's personal ID (national ID, social security number)  
 customerEmail     | | String | Customer's email address, shown in the merchant panel  
 customerLocale    | | Locale | Language of the payment page. Defaults to the default locale of purchaseCountry. Currently supported 'fi_FI', 'sv_SE', 'nn_NO' and 'en_GB'.
 redirectAfterSuccess | yes | URL | URL where the customer is redirected after a successful payment.
@@ -336,6 +337,7 @@ notifyAfterSuccess   | All
 notifyAfterFailure   | All
 notifyAfterCancel    | All
 basePrice            | All
+customerPersonalId   | All
 customerNumber       | Variant1 and variant4 only
 instantPay           | Variant2 only
 taxClass             | Variant1, variant2 and variant4 only
@@ -370,9 +372,23 @@ More information
 - [libphonenumber](https://github.com/googlei18n/libphonenumber) is a handy library for validating phone numbers and has been ported to multiple languages.
 
 ### Money
+
 Money fields must be given as a string with a decimal point (not a comma) and two decimal places. The two
 decimal places must be given even when zero. The currency is determined by the purchaseCountry field.
 Examples: 13.50, 0.20, 7.15
+
+### Personal ID
+
+If end-users personal ID is provided, Siru will compare this to available KYC data and automatically
+blocks payment if it does not match with users verified personal ID number.
+
+This feature is only available for limited countries and is enabled only upon request. If this feature is
+not enabled for your account, the field is simply ignored so there is no downside in including it.
+
+<aside class="warning">
+    The personal ID must be valid in given purchaseCountry. If the personal ID is not valid in selected country, Payment API will respond with error.
+</aside>
+
 
 ### URL
 An UTF-8 string that is a valid URL. The maximum length is 1024 characters. The validation is strict, so use strictly valid urls like http://example.com/?variable=value instead of http://example.com?variable=value.
@@ -711,6 +727,84 @@ HTTP status | Reason
 --          | --
 403         | Invalid signature or purchase does not belong to you
 404         | Purchase by UUID was not found
+
+
+
+
+
+
+
+
+# KYC API
+
+The KYC API can be used to retrieve end-user KYC information after successful payment. KYC data is availabe
+for limited countries only and is available for limited time only after payment is confirmed.
+
+This API is only available upon request. Please contact our developer support or sales if you need access to this API.
+
+
+## Query by uuid
+
+### DESCRIPTION
+
+Lookup KYC information for payment by UUID. 
+
+### REQUEST
+
+```shell
+curl --request GET -G \
+    --url https://payment.sirumobile.com/kyc \
+    -d 'merchantId=1' \
+    -d 'uuid=061d488d-ab43-458d-9b5e-0b2005595d7e' \
+    -d 'signature=mycalculatedhash'
+```
+
+`GET /payment/byUuid.json`
+
+### REQUEST PARAMETERS
+
+Parameter  | Format | Value
+--         | --     | --
+merchantId|Integer|Your merchant ID
+uuid|String|The UUID to query by
+signature|String|Concatenate the values of merchantId and uuid (in that order), with ';' as a separator. Take the SHA512-HMAC of that with the merchant's secret as the key.
+
+
+### RESPONSE
+
+> Example report
+
+```json
+    {
+        "report": {
+            "firstName": "James",
+            "lastName": "Smith"
+        }
+    }
+```
+
+If KYC data is available, response JSON contains key "report" with end-users verified firstName and lastName.
+If UUID is not found or KYC data is no longer available, HTTP 404 is returned.
+
+## Errors
+
+> Failure response example
+
+```json
+{
+    "error":
+    {
+        "code":404,
+        "message":"Not Found"
+    }
+}
+```
+
+HTTP status | Reason
+--          | --
+403         | Invalid signature or KYC API is not enabled
+404         | Purchase was not found or KYC data is no longer available
+
 
 
 
