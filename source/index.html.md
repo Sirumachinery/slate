@@ -753,13 +753,13 @@ Lookup KYC information for payment by UUID.
 
 ```shell
 curl --request GET -G \
-    --url https://payment.sirumobile.com/kyc \
+    --url https://payment.sirumobile.com/payment/kyc \
     -d 'merchantId=1' \
     -d 'uuid=061d488d-ab43-458d-9b5e-0b2005595d7e' \
     -d 'signature=mycalculatedhash'
 ```
 
-`GET /payment/byUuid.json`
+`GET /payment/kyc`
 
 ### REQUEST PARAMETERS
 
