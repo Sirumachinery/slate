@@ -1405,12 +1405,12 @@ for limited countries only and is available for limited time only after payment 
 <h2 id='query-by-uuid-2'>Query by uuid</h2><h3 id='description-5'>DESCRIPTION</h3>
 <p>Lookup KYC information for payment by UUID. </p>
 <h3 id='request-5'>REQUEST</h3><pre class="highlight shell tab-shell"><code>curl --request GET -G <span class="se">\</span>
-    --url https://payment.sirumobile.com/kyc <span class="se">\</span>
+    --url https://payment.sirumobile.com/payment/kyc <span class="se">\</span>
     -d <span class="s1">'merchantId=1'</span> <span class="se">\</span>
     -d <span class="s1">'uuid=061d488d-ab43-458d-9b5e-0b2005595d7e'</span> <span class="se">\</span>
     -d <span class="s1">'signature=mycalculatedhash'</span>
 </code></pre>
-<p><code>GET /payment/byUuid.json</code></p>
+<p><code>GET /payment/kyc</code></p>
 <h3 id='request-parameters-5'>REQUEST PARAMETERS</h3>
 <table><thead>
 <tr>
