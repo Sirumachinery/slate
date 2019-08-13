@@ -4,7 +4,6 @@ title: Siru Mobile API reference
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell: cURL
   - php: PHP
-  - html: HTML
 
 
 toc_footers:
@@ -133,28 +132,6 @@ try {
         // Log error
     }
 }
-```
-
-```html
-<form method="post" action="https://payment.sirumobile.com/payment.html">
-    <input type="hidden" name="basePrice" value="3.40"/>
-    <input type="hidden" name="merchantId" value="123456789"/>
-    <input type="hidden" name="purchaseCountry" value="FI"/>
-    <input type="hidden" name="taxClass" value="3"/>
-    <input type="hidden" name="serviceGroup" value="3" />
-    <input type="hidden" name="variant" value="variant1" />
-    <input type="hidden" name="signature" value="0b7eac5293cfffcc4c9e0259ae97e57d061ca13b0e60e60b4dde7e15b3147c105b2461e76610108b75c42ad778f2f8069525b1afd4d1a9d52a92d013ab3c0494"/>
-    <input type="hidden" name="redirectAfterSuccess" value="https://shop.example.com/success" />
-    <input type="hidden" name="redirectAfterFailure" value="https://shop.example.com/fail" />
-    <input type="hidden" name="redirectAfterCancel" value="https://shop.example.com/cancel" />
-    <div>
-        Please enter your phone number:
-        <input type="text" name="customerNumber" value=""/>
-    </div>
-    <div>
-        <button type="submit">Continue</button>
-    </div>
-</form>
 ```
 
 > Example of JSON payload
@@ -315,36 +292,38 @@ ksort($fields); // Sort by field name
 $signature = hash_hmac("sha512", implode(';', $fields), $secret);
 ```
 
-The data must be signed using a hash from certain values in data and the merchant's secret. The signature field is calculated as follows:
+The data must be signed using a hash from certain values in data and the merchant's secret. The signature is calculated as follows:
 
-1.  Sort the field names of all the fields in table below. Select only fields for given variant.
+1. Take all the fields from the table below that match the variant being used.
 
-2.  Drop the names of fields that you left empty.
+2. Drop all values that are empty.
 
-3.  Concatenate the values of those fields in that order, with a semicolon (‘;’) as a separator.
+3. Sort values by the field name.
 
-4.  Take a SHA512-HMAC with the resulting string as data and the merchant's secret as the key.
+4.  Concatenate the values of those fields in that order, with a semicolon (‘;’) as a separator.
+
+5.  Take a SHA512-HMAC with the resulting string as data and the merchant's secret as the key.
 
 Field                | Variants
 ---                  | ---
-variant              | All
+basePrice            | All
+customerNumber       | Variant1 and variant4 only
+customerPersonalId   | All
+customerReference    | All
+description          | Variant4 only
+instantPay           | Variant2 only
+interval             | Variant4 only
 merchantId           | All
-submerchantReference | All
+notifyAfterCancel    | All
+notifyAfterFailure   | All
+notifyAfterSuccess   | All
 purchaseCountry      | All
 purchaseReference    | All
-customerReference    | All
-notifyAfterSuccess   | All
-notifyAfterFailure   | All
-notifyAfterCancel    | All
-basePrice            | All
-customerPersonalId   | All
-customerNumber       | Variant1 and variant4 only
-instantPay           | Variant2 only
-taxClass             | Variant1, variant2 and variant4 only
 serviceGroup         | Variant1, variant2 and variant4 only
+submerchantReference | All
+taxClass             | Variant1, variant2 and variant4 only
 title                | Variant4 only
-description          | Variant4 only
-interval             | Variant4 only
+variant              | All
 
 ## Field types
 
@@ -945,15 +924,13 @@ HTTP status | Description
 
 ## Javascript library
 
-```html
-<script src="https://payment.sirumobile.com/js/lib/siru.js"></script>
-```
-
 Siru provides a small JavaScript convenience library.
 
 ### Installation
 
-Use the included example to include the library. You may copy the library to your site, but it is recommended to include it directly to obtain any future updates. Updates will be backwards-compatible.
+Use the script tag below to include the library. You may copy the library to your site, but it is recommended to include it directly to obtain any future updates. Updates will be backwards-compatible.
+
+`<script src="https://payment.sirumobile.com/js/lib/siru.js"></script>`
 
 The library depends on jQuery 1.5+. jQuery must be included before the Siru library so that the global jQuery object is available.
 
