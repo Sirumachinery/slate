@@ -183,7 +183,8 @@ redirectAfterCancel  | yes | URL | URL where the customer is redirected if he ca
 notifyAfterSuccess |  | URL | Your callback URL to notify after a successful purchase.
 notifyAfterFailure |  | URL | Your callback URL to notify after a failed purchase.
 notifyAfterCancel  |  | URL | Your callback URL to notify after a canceled purchase.
-basePrice      | yes | Money | The price of the product or service. Siru's fees are added automatically. Currency is selected automatically based on purchaseCountry. Price must include tax when applicable unless [variant2](#variant2) is used. Maximum price or available price points depend on country and your contract with Siru Mobile.
+basePrice      | yes | Money | The price of the product or service. Siru's fees are added automatically. Price must include tax when applicable unless [variant2](#variant2) is used. Maximum price or available price points depend on country and your contract with Siru Mobile.
+currency       |  | String | Currency code is selected automatically based on purchaseCountry but can be changed manually. Payments in currency other than the default currency must be first agreed with Siru Mobile
 taxClass       | variant1, variant2, variant4 | Tax class | Tax class number. Required only if purchaseCountry is listed in Tax class-table. Must be empty otherwise. See [Field types](#field-types).
 serviceGroup   | variant1, variant2, variant4 | Service group | Service group number. Required only if purchaseCountry is listed in Service group-table. Must be empty otherwise. See [Field types](#field-types).
 customerNumber | variant1, variant4  | Phone number | The customer’s phone number.
@@ -307,6 +308,7 @@ The data must be signed using a hash from certain values in data and the merchan
 Field                | Variants
 ---                  | ---
 basePrice            | All
+currency             | All
 customerNumber       | Variant1 and variant4 only
 customerPersonalId   | All
 customerReference    | All
