@@ -451,9 +451,12 @@ Examples of **invalid** values: 3580501234567, 501234567
 
 ### Invalid price point
 
-When creating variant1 transaction, we have sent you a list of price points that you can use as base price. Trying to create a variant1 transaction with a price point that is not available will result in error.
+When integrating variant1 payments, the allowed values for base price might be limited to a set of fixed price points. Also note that the price points
+are different between staging- and production environments. Attempt to create payment with price that is not one of the allowed price points or that exceeds the agreed maximum price for the country, will result in an error.
 
-With other variants, there are no fixed price points but there is a maximum value for basePrice in each country.
+With other variants, there are no fixed price points but there is still a maximum payment amount.
+
+Details of the allowed base price values are sent with your API credentials.
 
 ### Invalid variant for given country
 
