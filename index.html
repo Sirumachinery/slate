@@ -1054,9 +1054,12 @@ not enabled for your account, the field is simply ignored so there is no downsid
 
 <p>Examples of <strong>invalid</strong> values: 3580501234567, 501234567</p>
 <h3 id='invalid-price-point'>Invalid price point</h3>
-<p>When creating variant1 transaction, we have sent you a list of price points that you can use as base price. Trying to create a variant1 transaction with a price point that is not available will result in error.</p>
+<p>When integrating variant1 payments, the allowed values for base price might be limited to a set of fixed price points. Also note that the price points
+are different between staging- and production environments. Attempt to create payment with price that is not one of the allowed price points or that exceeds the agreed maximum price for the country, will result in an error.</p>
 
-<p>With other variants, there are no fixed price points but there is a maximum value for basePrice in each country.</p>
+<p>With other variants, there are no fixed price points but there is still a maximum payment amount.</p>
+
+<p>Details of the allowed base price values are sent with your API credentials.</p>
 <h3 id='invalid-variant-for-given-country'>Invalid variant for given country</h3>
 <p>Usually we have only enabled one variant per country for you to use. For example variant3 in Norway and variant1 in Finland. If you mix these, the API call will result in an error.</p>
 <h3 id='monitoring-errors'>Monitoring errors</h3>
