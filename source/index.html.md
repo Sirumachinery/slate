@@ -168,7 +168,7 @@ Field | Required | Format | Description
 ---   | ---      | ---    | ---
 variant    | yes | String | The API variant. 'variant1', 'variant2', 'variant3' or 'variant4'.
 merchantId | yes | Integer | Your merchant id provided by Siru.  
-submerchantReference | | String | If same merchant id is used on multiple sites, this can be used to identify the originating site.
+submerchantReference | | String | If same merchant id is used on multiple sites, you **must** use this field to identify the originating site. For example domain name or brand name.
 purchaseCountry | yes | Country | The country where you sell the item. Currently supported are 'FI', 'SE', 'NO' and 'GB'  
 purchaseReference | | String | Your internal ID for the purchase. These will be visible in the merchant's control panel.  
 customerReference | | String | Your internal ID for the customer. These will be visible in the merchant's control panel.
