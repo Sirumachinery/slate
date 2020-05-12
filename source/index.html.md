@@ -5,7 +5,6 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - shell: cURL
   - php: PHP
 
-
 toc_footers:
   - <a href='https://sirumobile.com'>Siru Mobile</a>
 
