@@ -91,6 +91,8 @@ Creates a new payment at Siru Mobile. You post the required parameters as JSON o
 
 ### REQUEST
 
+`POST /payment.json`
+
 ```shell
 curl --request POST \
     --url https://payment.sirumobile.com/payment.json \
@@ -151,8 +153,6 @@ try {
     "signature":"..."
 }
 ```
-
-`POST /payment.json`
 
 <aside class="notice">
     You can also use the API by constructing a HTML form with the required parameters as input fields. Form is sent to /payment.html endpoint using POST method which will redirect user to payment page.
@@ -925,61 +925,6 @@ HTTP status | Description
 --          | --
 404         | One of the request parameters was invalid
 500         | An unknown error
-
-## Javascript library
-
-Siru provides a small JavaScript convenience library.
-
-### Installation
-
-Use the script tag below to include the library. You may copy the library to your site, but it is recommended to include it directly to obtain any future updates. Updates will be backwards-compatible.
-
-`<script src="https://payment.sirumobile.com/js/lib/siru.js"></script>`
-
-The library depends on jQuery 1.5+. jQuery must be included before the Siru library so that the global jQuery object is available.
-
-The library defines the global object Siru. Including it has no other effects.
-
-### Price calculation
-
-Siru.getPrice(params) uses the price calculation API to fetch the final call price given a base price.
-
-params must be an object with the following fields:
-
-Parameter  | Format | Value
---         | --     | --
-variant|String|variant1
-basePrice|Money|The price of the product with VAT included. A decimal value (with '.' as separator).
-merchantId|Integer|Your merchant ID
-submerchantReference<br>(optional)|String|Submerchant reference, if any.
-purchaseCountry|Country|The country where the merchant sells the item.
-taxClass <br>(optional*)|Tax class|The tax class number. * Must be set if purchase country has options listed. Must be empty otherwise.
-success|Callback|A function that is called when the request succeeds. The price will be given as a parameter (a decimal number string).
-error|Callback|A function that is called when the request fails or times out. A technical error message is given as a parameter.
-timeout<br>(optional)|Integer|A timeout, in milliseconds. Defaults to 15000ms.
-
-The function calls success or error when the request completes. It returns an object that has an abort method that cancels the request. If abort is used then neither success nor error will be called.
-
-### Get maximum base price
-
-Siru.getMaxBasePrice(params) uses the maximum price API to fetch the maximum base price that Siru will accept.
-
-params must be an object with the following fields.
-
-Parameter  | Format | Value
---         | --     | --
-variant|String|variant1
-basePrice|Money|The price of the product with VAT included. A decimal value (with '.' as separator)
-merchantId|Integer|Your merchant ID
-submerchantReference<br> (optional)|String|Submerchant reference, if any.
-purchaseCountry|Country|The country where the merchant sells the item.
-taxClass <br>(optional*)|Tax class|The tax class number. * Must be set if purchase country has options listed. Must be empty otherwise.
-success|Callback|A function that is called when the request succeeds. The price will be given as a parameter (a decimal number string).
-error|Callback|A function that is called when the request fails or times out. A technical error message is given as a parameter.
-timeout <br>(optional)|Integer  A timeout, in milliseconds. Defaults to 15000ms.
-
-The function calls success or error when the request completes. It returns an object that has an abort method that cancels the request. If abort is used then neither success nor error will be called.
-
 
 
 
