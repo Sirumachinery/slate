@@ -329,9 +329,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <li>
                     <a href="#get-maximum-base-price" class="toc-h2 toc-link" data-title="Get maximum base price">Get maximum base price</a>
                   </li>
-                  <li>
-                    <a href="#javascript-library" class="toc-h2 toc-link" data-title="Javascript library">Javascript library</a>
-                  </li>
               </ul>
           </li>
           <li>
@@ -446,7 +443,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <p>Contact Siru Mobile to receive your credentials. We will first provide credentials to Sandbox environment and when you are ready to go live, we will provide you with another set of credentials for production. You may receive separate credentials for each country where you are integrating.</p>
 <h1 id='payment-api'>Payment API</h1><h2 id='create-payment'>Create payment</h2><h3 id='description'>DESCRIPTION</h3>
 <p>Creates a new payment at Siru Mobile. You post the required parameters as JSON object in the request body. The API responds with unique UUID for the purchase and a URL where the end-user should be redirected to complete the payment.</p>
-<h3 id='request'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
+<h3 id='request'>REQUEST</h3>
+<p><code>POST /payment.json</code></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
     <span class="nt">--url</span> https://payment.sirumobile.com/payment.json <span class="se">\</span>
     <span class="nt">--header</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
     <span class="nt">--data</span> <span class="s2">"</span><span class="nv">$JSON</span><span class="s2">"</span>
@@ -501,8 +500,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </span><span class="nl">"signature"</span><span class="p">:</span><span class="s2">"..."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><code>POST /payment.json</code></p>
-
 <aside class="notice">
     You can also use the API by constructing a HTML form with the required parameters as input fields. Form is sent to /payment.html endpoint using POST method which will redirect user to payment page.
     This method is not recommended as it exposes more data to the end-user and prevents you from catching errors in the request.
@@ -1660,136 +1657,6 @@ If UUID is not found or KYC data is no longer available, HTTP 404 is returned.</
 <td>An unknown error</td>
 </tr>
 </tbody></table>
-<h2 id='javascript-library'>Javascript library</h2>
-<p>Siru provides a small JavaScript convenience library.</p>
-<h3 id='installation'>Installation</h3>
-<p>Use the script tag below to include the library. You may copy the library to your site, but it is recommended to include it directly to obtain any future updates. Updates will be backwards-compatible.</p>
-
-<p><code>&lt;script src=&quot;https://payment.sirumobile.com/js/lib/siru.js&quot;&gt;&lt;/script&gt;</code></p>
-
-<p>The library depends on jQuery 1.5+. jQuery must be included before the Siru library so that the global jQuery object is available.</p>
-
-<p>The library defines the global object Siru. Including it has no other effects.</p>
-<h3 id='price-calculation'>Price calculation</h3>
-<p>Siru.getPrice(params) uses the price calculation API to fetch the final call price given a base price.</p>
-
-<p>params must be an object with the following fields:</p>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Format</th>
-<th>Value</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>variant</td>
-<td>String</td>
-<td>variant1</td>
-</tr>
-<tr>
-<td>basePrice</td>
-<td>Money</td>
-<td>The price of the product with VAT included. A decimal value (with &#39;.&#39; as separator).</td>
-</tr>
-<tr>
-<td>merchantId</td>
-<td>Integer</td>
-<td>Your merchant ID</td>
-</tr>
-<tr>
-<td>submerchantReference<br>(optional)</td>
-<td>String</td>
-<td>Submerchant reference, if any.</td>
-</tr>
-<tr>
-<td>purchaseCountry</td>
-<td>Country</td>
-<td>The country where the merchant sells the item.</td>
-</tr>
-<tr>
-<td>taxClass <br>(optional*)</td>
-<td>Tax class</td>
-<td>The tax class number. * Must be set if purchase country has options listed. Must be empty otherwise.</td>
-</tr>
-<tr>
-<td>success</td>
-<td>Callback</td>
-<td>A function that is called when the request succeeds. The price will be given as a parameter (a decimal number string).</td>
-</tr>
-<tr>
-<td>error</td>
-<td>Callback</td>
-<td>A function that is called when the request fails or times out. A technical error message is given as a parameter.</td>
-</tr>
-<tr>
-<td>timeout<br>(optional)</td>
-<td>Integer</td>
-<td>A timeout, in milliseconds. Defaults to 15000ms.</td>
-</tr>
-</tbody></table>
-
-<p>The function calls success or error when the request completes. It returns an object that has an abort method that cancels the request. If abort is used then neither success nor error will be called.</p>
-<h3 id='get-maximum-base-price-2'>Get maximum base price</h3>
-<p>Siru.getMaxBasePrice(params) uses the maximum price API to fetch the maximum base price that Siru will accept.</p>
-
-<p>params must be an object with the following fields.</p>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Format</th>
-<th>Value</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>variant</td>
-<td>String</td>
-<td>variant1</td>
-</tr>
-<tr>
-<td>basePrice</td>
-<td>Money</td>
-<td>The price of the product with VAT included. A decimal value (with &#39;.&#39; as separator)</td>
-</tr>
-<tr>
-<td>merchantId</td>
-<td>Integer</td>
-<td>Your merchant ID</td>
-</tr>
-<tr>
-<td>submerchantReference<br> (optional)</td>
-<td>String</td>
-<td>Submerchant reference, if any.</td>
-</tr>
-<tr>
-<td>purchaseCountry</td>
-<td>Country</td>
-<td>The country where the merchant sells the item.</td>
-</tr>
-<tr>
-<td>taxClass <br>(optional*)</td>
-<td>Tax class</td>
-<td>The tax class number. * Must be set if purchase country has options listed. Must be empty otherwise.</td>
-</tr>
-<tr>
-<td>success</td>
-<td>Callback</td>
-<td>A function that is called when the request succeeds. The price will be given as a parameter (a decimal number string).</td>
-</tr>
-<tr>
-<td>error</td>
-<td>Callback</td>
-<td>A function that is called when the request fails or times out. A technical error message is given as a parameter.</td>
-</tr>
-<tr>
-<td>timeout <br>(optional)</td>
-<td>Integer  A timeout, in milliseconds. Defaults to 15000ms.</td>
-<td></td>
-</tr>
-</tbody></table>
-
-<p>The function calls success or error when the request completes. It returns an object that has an abort method that cancels the request. If abort is used then neither success nor error will be called.</p>
 <h1 id='feature-detection-api'>Feature detection API</h1><h2 id='check-ip-address'>Check IP-address</h2><h3 id='description-8'>DESCRIPTION</h3>
 <p>The Feature detection API can be used to verify if IP Payments (variant2) are available for given IP-address.</p>
 <h3 id='request-8'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span class="se">\</span>
