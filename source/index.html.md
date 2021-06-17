@@ -10,6 +10,7 @@ toc_footers:
 
 search: true
 
+code_clipboard: true
 
 ---
 
@@ -411,8 +412,8 @@ Tax classes may be added, changed and removed as legislation changes. Siru will 
 
 More information<br>
 
-- <http://www.vero.fi/fi-FI/Yritys_ja_yhteisoasiakkaat/Liikkeen_ja_ammatinharjoittaja/Arvonlisaverotus> (in Finnish)<br>
-- <http://www.vero.fi/en-US/Companies_and_organisations/VAT> (in English)
+- <https://www.vero.fi/yritykset-ja-yhteisot/verot-ja-maksut/arvonlisaverotus/arvonlisaveroprosentit/> (in Finnish)<br>
+- <https://www.vero.fi/en/businesses-and-corporations/taxes-and-charges/vat/rates-of-vat/> (in English)
 
 ### Service group
 This specifies the service group of the product or service. If your country is not listed here, leave this field empty.

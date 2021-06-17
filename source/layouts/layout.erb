@@ -41,8 +41,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-TBLCTXX');</script>
 <!-- End Google Tag Manager -->
 
-    <style>
-      <%= Rouge::Themes::MonokaiSublime.render(:scope => '.highlight') %>
+    <style media="screen">
+      <%= Rouge::Themes::MonokaiSublimeSlate.render(:scope => '.highlight') %>
+    </style>
+    <style media="print">
+      * {
+        transition:none!important;
+      }
+      <%= Rouge::Themes::Base16::Solarized.render(:scope => '.highlight') %>
     </style>
     <%= stylesheet_link_tag :screen, media: :screen %>
     <%= stylesheet_link_tag :print, media: :print %>
@@ -50,6 +56,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <%= javascript_include_tag  "all" %>
     <% else %>
       <%= javascript_include_tag  "all_nosearch" %>
+    <% end %>
+
+    <% if current_page.data.code_clipboard %>
+    <script>
+      $(function() { setupCodeCopy(); });
+    </script>
     <% end %>
   </head>
 
