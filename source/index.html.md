@@ -12,6 +12,11 @@ search: true
 
 code_clipboard: true
 
+meta:
+  - name: description
+    content: Siru Payment Gateway API documentation
+  - name: robots
+    content: noindex
 ---
 
 
