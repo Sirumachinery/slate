@@ -324,7 +324,7 @@ purchaseReference    | All
 serviceGroup         | Variant1, variant2 and variant4 only
 submerchantReference | All
 taxClass             | Variant1, variant2 and variant4 only
-title                | Variant4 only
+title                | Variant2 and variant4 only
 variant              | All
 
 ## Field types
