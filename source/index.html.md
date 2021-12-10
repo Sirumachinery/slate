@@ -27,13 +27,13 @@ Siru Mobile API provides a way for a merchant to accept payments from a customer
 
 ## Glossary
 
-Term | Meaning
--------------- | --------------
-Siru Mobile | That’s us our payment gateway!
-Merchant    | That’s your boss, probably. Someone who sells some product payable with our payment gateway
-Customer, End user|That’s someone using your application, paying for his purchase with our payment gateway
-Variant     | Our payment gateway contains several methods of payment or sub-API’s, so to say. We call these “variants”. Don't worry, we will tell you what variant to use.
-Purchase    | A purchase (transaction) in Siru Mobile payment gateway
+| Term                | Meaning                                                                                                                                                       |
+|---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Siru Mobile         | That’s us our payment gateway!                                                                                                                                |
+| Merchant            | That’s your boss, probably. Someone who sells some product payable with our payment gateway                                                                   |
+| Customer, End user  | That’s someone using your application, paying for his purchase with our payment gateway                                                                       |
+| Variant             | Our payment gateway contains several methods of payment or sub-API’s, so to say. We call these “variants”. Don't worry, we will tell you what variant to use. |
+| Purchase            | A purchase (transaction) in Siru Mobile payment gateway                                                                                                       |
 
 ## Get Started
 
@@ -62,10 +62,10 @@ We publish both ready-made libraries and a reference / example shop implementati
 
 For integration and testing we provide a sandbox environment that does not use actual money. Here you can test your integration all you want and when ready, switch to production environment. Urls are the same for both environments. Only the endpoint changes.
 
-Environment | Endpoint
-------      | -----
-Production  | https://payment.sirumobile.com
-Sandbox     | https://staging.sirumobile.com
+| Environment  | Endpoint                       |
+|--------------|--------------------------------|
+| Production   | https://payment.sirumobile.com |
+| Sandbox      | https://staging.sirumobile.com |
 
 <aside class="notice">
     We will provide you with separate credentials to production environment. You can not use sandbox credentials in production!
@@ -169,35 +169,36 @@ try {
 
 Some fields are required and some are optional. To improve user experience, you should include even optional fields when available. Some fields are only required for some variants.
 
-Field | Required | Format | Description
----   | ---      | ---    | ---
-variant    | yes | String | The API variant. 'variant1', 'variant2', 'variant3' or 'variant4'.
-merchantId | yes | Integer | Your merchant id provided by Siru.  
-submerchantReference | | String | If same merchant id is used on multiple sites, you **must** use this field to identify the originating site. For example domain name or brand name.
-purchaseCountry | yes | Country | The country where you sell the item. Currently supported are 'FI', 'SE', 'NO' and 'GB'  
-purchaseReference | | String | Your internal ID for the purchase. These will be visible in the merchant's control panel.  
-customerReference | | String | Your internal ID for the customer. These will be visible in the merchant's control panel.
-customerLastName  | | String | Customer's last name, shown in the merchant panel.  
-customerFirstName | | String | Customer's first name, shown in the merchant panel.  
-customerPersonalId | | Personal ID | Customer's personal ID (national ID, social security number)  
-customerEmail     | | String | Customer's email address, shown in the merchant panel  
-customerLocale    | | Locale | Language of the payment page. Defaults to the default locale of purchaseCountry. Currently supported 'fi_FI', 'sv_SE', 'nn_NO' and 'en_GB'.
-redirectAfterSuccess | yes | URL | URL where the customer is redirected after a successful payment.
-redirectAfterFailure | yes | URL | URL where the customer is redirected after an unsuccessful payment.
-redirectAfterCancel  | yes | URL | URL where the customer is redirected if he cancels the payment himself, or if the system is down for maintenance.
-notifyAfterSuccess |  | URL | Your callback URL to notify after a successful purchase.
-notifyAfterFailure |  | URL | Your callback URL to notify after a failed purchase.
-notifyAfterCancel  |  | URL | Your callback URL to notify after a canceled purchase.
-basePrice      | yes | Money | The price of the product or service. Siru's fees are added automatically. Price must include tax when applicable unless [variant2](#variant2) is used. Maximum price or available price points depend on country and your contract with Siru Mobile.
-currency       |  | String | Currency code is selected automatically based on purchaseCountry but can be changed manually. Payments in currency other than the default currency must be first agreed with Siru Mobile
-taxClass       | variant1, variant2, variant4 | Tax class | Tax class number. Required only if purchaseCountry is listed in Tax class-table. Must be empty otherwise. See [Field types](#field-types).
-serviceGroup   | variant1, variant2, variant4 | Service group | Service group number. Required only if purchaseCountry is listed in Service group-table. Must be empty otherwise. See [Field types](#field-types).
-customerNumber | variant1, variant4  | Phone number | The customer’s phone number.
-title          | variant4  | String | A short title of the purchased service or product.
-description    |  | String | A longer description of the purchased service or product.
-interval       |  | String | Subscription interval. Only available in variant4. Valid values depend on your contract
-instantPay     | variant2  | integer | Deprecated. When using variant2, this value must be 1.
-signature | yes | Signature | Calculated hash for the request. See [Signature calculation](#signature-calculation).
+| Field                | Required                     | Format        | Description                                                                                                                                                                                                                                          |
+|----------------------|------------------------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| variant              | yes                          | String        | The API variant. 'variant1', 'variant2', 'variant3' or 'variant4'.                                                                                                                                                                                   |
+| merchantId           | yes                          | Integer       | Your merchant id provided by Siru.                                                                                                                                                                                                                   |
+| submerchantReference |                              | String        | If same merchant id is used on multiple sites, you **must** use this field to identify the originating site. For example domain name or brand name.                                                                                                  |
+| purchaseCountry      | yes                          | Country       | The country where you sell the item. Currently supported are 'FI', 'SE', 'NO' and 'GB'                                                                                                                                                               |
+| purchaseReference    |                              | String        | Your internal ID for the purchase. These will be visible in the merchant's control panel.                                                                                                                                                            |
+| customerReference    |                              | String        | Your internal ID for the customer. These will be visible in the merchant's control panel.                                                                                                                                                            |
+| customerLastName     |                              | String        | Customer's last name, shown in the merchant panel.                                                                                                                                                                                                   |
+| customerFirstName    |                              | String        | Customer's first name, shown in the merchant panel.                                                                                                                                                                                                  |
+| customerPersonalId   |                              | Personal ID   | Customer's personal ID (national ID, social security number)                                                                                                                                                                                         |
+| customerEmail        |                              | String        | Customer's email address, shown in the merchant panel                                                                                                                                                                                                |
+| customerLocale       |                              | Locale        | Language of the payment page. Defaults to the default locale of purchaseCountry. Currently supported 'fi_FI', 'sv_SE', 'nn_NO' and 'en_GB'.                                                                                                          |
+| redirectAfterSuccess | yes                          | URL           | URL where the customer is redirected after a successful payment.                                                                                                                                                                                     |
+| redirectAfterFailure | yes                          | URL           | URL where the customer is redirected after an unsuccessful payment.                                                                                                                                                                                  |
+| redirectAfterCancel  | yes                          | URL           | URL where the customer is redirected if he cancels the payment himself, or if the system is down for maintenance.                                                                                                                                    |
+| notifyAfterSuccess   |                              | URL           | Your callback URL to notify after a successful purchase.                                                                                                                                                                                             |
+| notifyAfterFailure   |                              | URL           | Your callback URL to notify after a failed purchase.                                                                                                                                                                                                 |
+| notifyAfterCancel    |                              | URL           | Your callback URL to notify after a canceled purchase.                                                                                                                                                                                               |
+| basePrice            | yes                          | Money         | The price of the product or service. Siru's fees are added automatically. Price must include tax when applicable unless [variant2](#variant2) is used. Maximum price or available price points depend on country and your contract with Siru Mobile. |
+| currency             |                              | String        | Currency code is selected automatically based on purchaseCountry but can be changed manually. Payments in currency other than the default currency must be first agreed with Siru Mobile                                                             |
+| taxClass             | variant1, variant2, variant4 | Tax class     | Tax class number. Required only if purchaseCountry is listed in Tax class-table. Must be empty otherwise. See [Field types](#field-types).                                                                                                           |
+| serviceGroup         | variant1, variant2, variant4 | Service group | Service group number. Required only if purchaseCountry is listed in Service group-table. Must be empty otherwise. See [Field types](#field-types).                                                                                                   |
+| customerNumber       | variant1, variant4           | Phone number  | The customer’s phone number.                                                                                                                                                                                                                         |
+| title                | variant4                     | String        | A short title of the purchased service or product.                                                                                                                                                                                                   |
+| description          |                              | String        | A longer description of the purchased service or product.                                                                                                                                                                                            |
+| interval             |                              | String        | Subscription interval. Valid values depend on your contract.                                                                                                                                                                                         |
+| trialPeriod          |                              | String        | Subscription trial period. Valid values depend on your contract.                                                                                                                                                                                     |
+| instantPay           | variant2                     | integer       | Deprecated. When using variant2, this value must be 1.                                                                                                                                                                                               |
+| signature            | yes                          | Signature     | Calculated hash for the request. See [Signature calculation](#signature-calculation).                                                                                                                                                                |
 
 <aside class="success">
     Even if the field is not required by selected variant, you can still include it. For example while customerNumber is not required when using variant2 or variant3, you can still send it when available. This is even recommended since it may allow Siru to improve the user experience.
@@ -310,27 +311,28 @@ The data must be signed using a hash from certain values in data and the merchan
 
 5.  Take a SHA512-HMAC with the resulting string as data and the merchant's secret as the key.
 
-Field                | Variants
----                  | ---
-basePrice            | All
-currency             | All
-customerNumber       | Variant1 and variant4 only
-customerPersonalId   | All
-customerReference    | All
-description          | Variant4 only
-instantPay           | Variant2 only
-interval             | Variant4 only
-merchantId           | All
-notifyAfterCancel    | All
-notifyAfterFailure   | All
-notifyAfterSuccess   | All
-purchaseCountry      | All
-purchaseReference    | All
-serviceGroup         | Variant1, variant2 and variant4 only
-submerchantReference | All
-taxClass             | Variant1, variant2 and variant4 only
-title                | Variant2 and variant4 only
-variant              | All
+| Field                | Variants                             |
+|----------------------|--------------------------------------|
+| basePrice            | All                                  |
+| currency             | All                                  |
+| customerNumber       | Variant1 and variant4 only           |
+| customerPersonalId   | All                                  |
+| customerReference    | All                                  |
+| description          | Variant4 only                        |
+| trialPeriod          | Variant2 only                        |
+| instantPay           | Variant2 only                        |
+| interval             | Variant2 and Variant4 only           |
+| merchantId           | All                                  |
+| notifyAfterCancel    | All                                  |
+| notifyAfterFailure   | All                                  |
+| notifyAfterSuccess   | All                                  |
+| purchaseCountry      | All                                  |
+| purchaseReference    | All                                  |
+| serviceGroup         | Variant1, variant2 and variant4 only |
+| submerchantReference | All                                  |
+| taxClass             | Variant1, variant2 and variant4 only |
+| title                | Variant2 and variant4 only           |
+| variant              | All                                  |
 
 ## Field types
 
@@ -381,14 +383,14 @@ An UTF-8 string that is a valid URL. The maximum length is 1024 characters. The 
 
 For redirect URLs, the following parameters are added to the query. For notification URLs, the parameters are sent in a JSON object in POST body.
 
-Parameter | Format | Description
----       | ---    | ---
-siru_uuid | String | Siru's unique identifier for the purchase. 36 characters long.
-siru_merchantId | Integer | The merchantId given in the request.
-siru_submerchantReference | String | The submerchantReference given in the request.
-siru_purchaseReference | String | The purchaseReference given in the request.
-siru_event | String | One of the following: success, failure or cancel.
-siru_signature | String | See below.
+| Parameter                 | Format  | Description                                                    |
+|---------------------------|---------|----------------------------------------------------------------|
+| siru_uuid                 | String  | Siru's unique identifier for the purchase. 36 characters long. |
+| siru_merchantId           | Integer | The merchantId given in the request.                           |
+| siru_submerchantReference | String  | The submerchantReference given in the request.                 |
+| siru_purchaseReference    | String  | The purchaseReference given in the request.                    |
+| siru_event                | String  | One of the following: success, failure or cancel.              |
+| siru_signature            | String  | See below.                                                     |
 
 siru_signature is similar to the request's signature and you **must** use it to validate authenticity of the parameters. It is calculated by concatenating the values (including empty values) of siru_uuid, siru_merchantId, siru_submerchantReference, siru_purchaseReference and siru_event (in that order) with a semicolon (‘;’) as a separator and taking a SHA512-HMAC with the resulting string as data and the merchant secret as key.
 
@@ -406,12 +408,12 @@ Your server should respond to the notification with HTTP 200 code. If the notifi
 ### Tax class
 This specifies the Value Added Tax class. If your country is not listed here, leave this field empty.
 
-Num. | Countries | VAT %
----  | ---       | ---
-0    | Finland   | 0%
-1    | Finland   | 10%
-2    | Finland   | 14%
-3    | Finland   | 24%
+|Num. | Countries | VAT % |
+|---  | ---       |-------|
+|0    | Finland   | 0%    |
+|1    | Finland   | 10%   |
+|2    | Finland   | 14%   |
+|3    | Finland   | 24%   |
 
 Tax classes may be added, changed and removed as legislation changes. Siru will notify merchants in advance of such changes. Tax class number 0 will, however, always mean a 0% VAT.
 
@@ -423,12 +425,12 @@ More information<br>
 ### Service group
 This specifies the service group of the product or service. If your country is not listed here, leave this field empty.
 
-Num. | Countries | FICORA title
----  | ---       | ---
-1    | Finland   | Non-profit services
-2    | Finland   | Online services
-3    | Finland   | Entertainment services
-4    | Finland   | Adult entertainment services
+|Num. | Countries | FICORA title                 |
+|---  | ---       |------------------------------|
+|1    | Finland   | Non-profit services          |
+|2    | Finland   | Online services              |
+|3    | Finland   | Entertainment services       |
+|4    | Finland   | Adult entertainment services |
 
 A customer's phone subscription may bar calls to certain service groups. The service groups also show up on the customer's phone bill breakdown. If multiple service groups apply, then the group with the highest number must be chosen. Contact Siru for further advice if you have any doubt.
 
@@ -484,7 +486,70 @@ To receive notification when payment is renewed, you must provide notifyAfterSuc
 
 When creating a new subscription, you must use a unique purchaseReference. When payment is automatically renewed, the notification will have the same purchaseReference as the original payment.
 
-When creating a new subscription, store the UUID you receive from Payment API. You need this if you need to end subscription manually.
+When creating a new subscription, store the UUID you receive from Payment API. You need this if you need to end subscription via API.
+
+# Subscription API
+
+If purchase was created as a subscription which is automatically renewed by Siru at set intervals, you can cancel the subscription using this API.
+
+## Unsubscribe
+
+### DESCRIPTION
+
+Cancels active subscription.
+
+### REQUEST
+
+```shell
+curl --request POST -G \
+    --url https://payment.sirumobile.com/payment/unsubscribe/byUuid.json \
+    -d 'merchantId=1' \
+    -d 'uuid=061d488d-ab43-458d-9b5e-0b2005595d7e' \
+    -d 'signature=mycalculatedhash'
+```
+
+`POST /payment/unsubscribe/byUuid.json`
+
+### REQUEST PARAMETERS
+
+Parameter  | Format | Value
+--         | --     | --
+merchantId|Integer|Your merchant ID
+uuid|String|UUID of the purchase that was used to create the subscription
+signature|String|Concatenate the values of merchantId and uuid (in that order), with ';' as a separator. Take the SHA512-HMAC of that with the merchant's secret as the key.
+
+> Response example
+
+```json
+{
+    "success": true
+}
+
+```
+
+### RESPONSE
+
+## Errors
+
+> Failure response example
+
+```json
+{
+    "error":
+    {
+        "code":404,
+        "message":"Not Found"
+    }
+}
+```
+
+HTTP status | Reason
+--          | --
+403         | Invalid signature
+404         | Purchase by UUID was not found or is not a subscription
+
+
+
 
 
 # Purchase Status API
@@ -714,7 +779,7 @@ Backwards-compatibility is guaranteed as follows: Siru may add or remove only no
 
 HTTP status | Reason
 --          | --
-403         | Invalid signature or purchase does not belong to you
+403         | Invalid signature
 404         | Purchase by UUID was not found
 
 
