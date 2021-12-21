@@ -376,6 +376,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </ul>
           </li>
           <li>
+            <a href="#subscription-api" class="toc-h1 toc-link" data-title="Subscription API">Subscription API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#unsubscribe" class="toc-h2 toc-link" data-title="Unsubscribe">Unsubscribe</a>
+                  </li>
+                  <li>
+                    <a href="#errors" class="toc-h2 toc-link" data-title="Errors">Errors</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#purchase-status-api" class="toc-h1 toc-link" data-title="Purchase Status API">Purchase Status API</a>
               <ul class="toc-list-h2">
                   <li>
@@ -391,7 +402,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <a href="#response-fields" class="toc-h2 toc-link" data-title="Response fields">Response fields</a>
                   </li>
                   <li>
-                    <a href="#errors" class="toc-h2 toc-link" data-title="Errors">Errors</a>
+                    <a href="#errors-2" class="toc-h2 toc-link" data-title="Errors">Errors</a>
                   </li>
               </ul>
           </li>
@@ -402,7 +413,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <a href="#query-by-uuid-2" class="toc-h2 toc-link" data-title="Query by uuid">Query by uuid</a>
                   </li>
                   <li>
-                    <a href="#errors-2" class="toc-h2 toc-link" data-title="Errors">Errors</a>
+                    <a href="#errors-3" class="toc-h2 toc-link" data-title="Errors">Errors</a>
                   </li>
               </ul>
           </li>
@@ -749,7 +760,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <td>interval</td>
 <td></td>
 <td>String</td>
-<td>Subscription interval. Only available in variant4. Valid values depend on your contract</td>
+<td>Subscription interval. Valid values depend on your contract.</td>
+</tr>
+<tr>
+<td>trialPeriod</td>
+<td></td>
+<td>String</td>
+<td>Subscription trial period. Valid values depend on your contract.</td>
 </tr>
 <tr>
 <td>instantPay</td>
@@ -918,12 +935,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <td>Variant4 only</td>
 </tr>
 <tr>
+<td>trialPeriod</td>
+<td>Variant2 only</td>
+</tr>
+<tr>
 <td>instantPay</td>
 <td>Variant2 only</td>
 </tr>
 <tr>
 <td>interval</td>
-<td>Variant4 only</td>
+<td>Variant2 and Variant4 only</td>
 </tr>
 <tr>
 <td>merchantId</td>
@@ -1165,7 +1186,77 @@ are different between staging- and production environments. Attempt to create pa
 <h3 id='purchase-reference-and-uuid'>Purchase reference and UUID</h3>
 <p>When creating a new subscription, you must use a unique purchaseReference. When payment is automatically renewed, the notification will have the same purchaseReference as the original payment.</p>
 
-<p>When creating a new subscription, store the UUID you receive from Payment API. You need this if you need to end subscription manually.</p>
+<p>When creating a new subscription, store the UUID you receive from Payment API. You need this if you need to end subscription via API.</p>
+<h1 id='subscription-api'>Subscription API</h1>
+<p>If purchase was created as a subscription which is automatically renewed by Siru at set intervals, you can cancel the subscription using this API.</p>
+<h2 id='unsubscribe'>Unsubscribe</h2><h3 id='description-2'>DESCRIPTION</h3>
+<p>Cancels active subscription.</p>
+<h3 id='request-2'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="nt">-G</span> <span class="se">\</span>
+    <span class="nt">--url</span> https://payment.sirumobile.com/payment/unsubscribe/byUuid.json <span class="se">\</span>
+    <span class="nt">-d</span> <span class="s1">'merchantId=1'</span> <span class="se">\</span>
+    <span class="nt">-d</span> <span class="s1">'uuid=061d488d-ab43-458d-9b5e-0b2005595d7e'</span> <span class="se">\</span>
+    <span class="nt">-d</span> <span class="s1">'signature=mycalculatedhash'</span>
+</code></pre></div>
+<p><code>POST /payment/unsubscribe/byUuid.json</code></p>
+<h3 id='request-parameters-2'>REQUEST PARAMETERS</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Format</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>merchantId</td>
+<td>Integer</td>
+<td>Your merchant ID</td>
+</tr>
+<tr>
+<td>uuid</td>
+<td>String</td>
+<td>UUID of the purchase that was used to create the subscription</td>
+</tr>
+<tr>
+<td>signature</td>
+<td>String</td>
+<td>Concatenate the values of merchantId and uuid (in that order), with &#39;;&#39; as a separator. Take the SHA512-HMAC of that with the merchant&#39;s secret as the key.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Response example</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div><h3 id='response-2'>RESPONSE</h3><h2 id='errors'>Errors</h2>
+<blockquote>
+<p>Failure response example</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"error"</span><span class="p">:</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"code"</span><span class="p">:</span><span class="mi">404</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"message"</span><span class="p">:</span><span class="s2">"Not Found"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>HTTP status</th>
+<th>Reason</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>403</td>
+<td>Invalid signature</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Purchase by UUID was not found or is not a subscription</td>
+</tr>
+</tbody></table>
 <h1 id='purchase-status-api'>Purchase Status API</h1>
 <p>The purchase status API provides information about statuses of purchases.</p>
 
@@ -1176,16 +1267,16 @@ are different between staging- and production environments. Attempt to create pa
 <li>  by the Siru-assigned UUID</li>
 <li>  by a date range.</li>
 </ul>
-<h2 id='query-by-purchase-reference'>Query by purchase reference</h2><h3 id='description-2'>DESCRIPTION</h3>
+<h2 id='query-by-purchase-reference'>Query by purchase reference</h2><h3 id='description-3'>DESCRIPTION</h3>
 <p>Search transactions that match given purchase reference.</p>
-<h3 id='request-2'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span class="se">\</span>
+<h3 id='request-3'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span class="se">\</span>
     <span class="nt">--url</span> https://payment.sirumobile.com/payment/byPurchaseReference.json <span class="se">\</span>
     <span class="nt">-d</span> <span class="s1">'merchantId=1'</span> <span class="se">\</span>
     <span class="nt">-d</span> <span class="s1">'purchaseReference=p12345678'</span> <span class="se">\</span>
     <span class="nt">-d</span> <span class="s1">'signature=mycalculatedhash'</span>
 </code></pre></div>
 <p><code>GET /payment/byPurchaseReference.json</code></p>
-<h3 id='request-parameters-2'>REQUEST PARAMETERS</h3>
+<h3 id='request-parameters-3'>REQUEST PARAMETERS</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1236,22 +1327,22 @@ are different between staging- and production environments. Attempt to create pa
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-2'>RESPONSE</h3>
+</span></code></pre></div><h3 id='response-3'>RESPONSE</h3>
 <p>JSON object with a single property &quot;purchases&quot; which contains array of matching transactions.</p>
 
 <aside class="notice">
     Siru does not enforce the uniqueness of purchase reference so you may get more than one result. The results are sorted newest first.
 </aside>
-<h2 id='query-by-uuid'>Query by uuid</h2><h3 id='description-3'>DESCRIPTION</h3>
+<h2 id='query-by-uuid'>Query by uuid</h2><h3 id='description-4'>DESCRIPTION</h3>
 <p>Find a single transaction by UUID.</p>
-<h3 id='request-3'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span class="se">\</span>
+<h3 id='request-4'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span class="se">\</span>
     <span class="nt">--url</span> https://payment.sirumobile.com/payment/byUuid.json <span class="se">\</span>
     <span class="nt">-d</span> <span class="s1">'merchantId=1'</span> <span class="se">\</span>
     <span class="nt">-d</span> <span class="s1">'uuid=061d488d-ab43-458d-9b5e-0b2005595d7e'</span> <span class="se">\</span>
     <span class="nt">-d</span> <span class="s1">'signature=mycalculatedhash'</span>
 </code></pre></div>
 <p><code>GET /payment/byUuid.json</code></p>
-<h3 id='request-parameters-3'>REQUEST PARAMETERS</h3>
+<h3 id='request-parameters-4'>REQUEST PARAMETERS</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1275,11 +1366,11 @@ are different between staging- and production environments. Attempt to create pa
 <td>Concatenate the values of merchantId and uuid (in that order), with &#39;;&#39; as a separator. Take the SHA512-HMAC of that with the merchant&#39;s secret as the key.</td>
 </tr>
 </tbody></table>
-<h3 id='response-3'>RESPONSE</h3>
+<h3 id='response-4'>RESPONSE</h3>
 <p>The response is a single transaction object. If UUID is not found, an error with HTTP 404 status is returned.</p>
-<h2 id='query-by-date-range'>Query by date range</h2><h3 id='description-4'>DESCRIPTION</h3>
+<h2 id='query-by-date-range'>Query by date range</h2><h3 id='description-5'>DESCRIPTION</h3>
 <p>Search all transactions that were created during given time period.</p>
-<h3 id='request-4'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># Retrieve transactions for december 2017</span>
+<h3 id='request-5'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># Retrieve transactions for december 2017</span>
 curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span class="se">\</span>
     <span class="nt">--url</span> https://payment.sirumobile.com/payment/byDate.json <span class="se">\</span>
     <span class="nt">-d</span> <span class="s1">'merchantId=1'</span> <span class="se">\</span>
@@ -1288,7 +1379,7 @@ curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span clas
     <span class="nt">-d</span> <span class="s1">'signature=mycalculatedhash'</span>
 </code></pre></div>
 <p><code>GET /payment/byDate.json</code></p>
-<h3 id='request-parameters-4'>REQUEST PARAMETERS</h3>
+<h3 id='request-parameters-5'>REQUEST PARAMETERS</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1342,7 +1433,7 @@ curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span clas
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='response-4'>RESPONSE</h3>
+</span></code></pre></div><h3 id='response-5'>RESPONSE</h3>
 <p>JSON object with a single property &quot;purchases&quot; which contains array of matching transactions. The transaction objects will include some additional fields for your leisure!</p>
 <h2 id='response-fields'>Response fields</h2>
 <blockquote>
@@ -1458,7 +1549,7 @@ curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span clas
 <p>The states confirmed, canceled and failed are final states. Any other state should be considered as intermediate and subject to change. Once purchase reaches a final state, it will not leave that state.</p>
 
 <p>Backwards-compatibility is guaranteed as follows: Siru may add or remove only non-final states.</p>
-<h2 id='errors'>Errors</h2>
+<h2 id='errors-2'>Errors</h2>
 <blockquote>
 <p>Failure response example</p>
 </blockquote>
@@ -1478,7 +1569,7 @@ curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span clas
 </thead><tbody>
 <tr>
 <td>403</td>
-<td>Invalid signature or purchase does not belong to you</td>
+<td>Invalid signature</td>
 </tr>
 <tr>
 <td>404</td>
@@ -1490,16 +1581,16 @@ curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span clas
 for limited countries only and is available for limited time only after payment is confirmed.</p>
 
 <p>This API is only available upon request. Please contact our developer support or sales if you need access to this API.</p>
-<h2 id='query-by-uuid-2'>Query by uuid</h2><h3 id='description-5'>DESCRIPTION</h3>
+<h2 id='query-by-uuid-2'>Query by uuid</h2><h3 id='description-6'>DESCRIPTION</h3>
 <p>Lookup KYC information for payment by UUID. </p>
-<h3 id='request-5'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span class="se">\</span>
+<h3 id='request-6'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span class="se">\</span>
     <span class="nt">--url</span> https://payment.sirumobile.com/payment/kyc <span class="se">\</span>
     <span class="nt">-d</span> <span class="s1">'merchantId=1'</span> <span class="se">\</span>
     <span class="nt">-d</span> <span class="s1">'uuid=061d488d-ab43-458d-9b5e-0b2005595d7e'</span> <span class="se">\</span>
     <span class="nt">-d</span> <span class="s1">'signature=mycalculatedhash'</span>
 </code></pre></div>
 <p><code>GET /payment/kyc</code></p>
-<h3 id='request-parameters-5'>REQUEST PARAMETERS</h3>
+<h3 id='request-parameters-6'>REQUEST PARAMETERS</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1523,7 +1614,7 @@ for limited countries only and is available for limited time only after payment 
 <td>Concatenate the values of merchantId and uuid (in that order), with &#39;;&#39; as a separator. Take the SHA512-HMAC of that with the merchant&#39;s secret as the key.</td>
 </tr>
 </tbody></table>
-<h3 id='response-5'>RESPONSE</h3>
+<h3 id='response-6'>RESPONSE</h3>
 <blockquote>
 <p>Example report</p>
 </blockquote>
@@ -1536,7 +1627,7 @@ for limited countries only and is available for limited time only after payment 
 </span></code></pre></div>
 <p>If KYC data is available, response JSON contains key &quot;report&quot; with end-users verified firstName and lastName.
 If UUID is not found or KYC data is no longer available, HTTP 404 is returned.</p>
-<h2 id='errors-2'>Errors</h2>
+<h2 id='errors-3'>Errors</h2>
 <blockquote>
 <p>Failure response example</p>
 </blockquote>
@@ -1563,14 +1654,14 @@ If UUID is not found or KYC data is no longer available, HTTP 404 is returned.</
 <td>Purchase was not found or KYC data is no longer available</td>
 </tr>
 </tbody></table>
-<h1 id='price-api'>Price API</h1><h2 id='calculate-end-user-price'>Calculate end-user price</h2><h3 id='description-6'>DESCRIPTION</h3>
+<h1 id='price-api'>Price API</h1><h2 id='calculate-end-user-price'>Calculate end-user price</h2><h3 id='description-7'>DESCRIPTION</h3>
 <p>Siru will automatically add possible fees and commissions to transaction base price. Since the exact formula for calculating the final price is somewhat intricate and subject to change, this API allows you to calculate the final price to display it to the end-user.</p>
-<h3 id='request-6'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span class="se">\</span>
+<h3 id='request-7'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span class="se">\</span>
     <span class="nt">--url</span> https://payment.sirumobile.com/payment/price.json <span class="se">\</span>
     <span class="nt">-d</span> <span class="s1">'variant=variant1'</span> <span class="nt">-d</span> <span class="s1">'merchantId=18'</span> <span class="nt">-d</span> <span class="s1">'purchaseCountry=FI'</span> <span class="nt">-d</span> <span class="s1">'taxClass=3'</span> <span class="nt">-d</span> <span class="s1">'basePrice=15.00'</span>
 </code></pre></div>
 <p><code>GET /payment/price.json</code></p>
-<h3 id='request-parameters-6'>REQUEST PARAMETERS</h3>
+<h3 id='request-parameters-7'>REQUEST PARAMETERS</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1625,7 +1716,7 @@ If UUID is not found or KYC data is no longer available, HTTP 404 is returned.</
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"finalCallPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13.57"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-6'>RESPONSE</h3>
+</span></code></pre></div><h3 id='response-7'>RESPONSE</h3>
 <p>Response is a JSON object with single property &quot;finalCallPrice&quot;.</p>
 
 <blockquote>
@@ -1635,16 +1726,16 @@ If UUID is not found or KYC data is no longer available, HTTP 404 is returned.</
     </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"technical error message in English"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='errors-3'>ERRORS</h3>
+</span></code></pre></div><h3 id='errors-4'>ERRORS</h3>
 <p>If an error occurs, the response is a JSON object with single property &quot;error&quot; with error message. The error message should not be shown to end user.</p>
-<h2 id='get-maximum-base-price'>Get maximum base price</h2><h3 id='description-7'>DESCRIPTION</h3>
+<h2 id='get-maximum-base-price'>Get maximum base price</h2><h3 id='description-8'>DESCRIPTION</h3>
 <p>Siru imposes a limit on the maximum price of a purchase. The limit is fairly stable, so it may be acceptable to hard-code it into your application. Nevertheless, the limit can be retrieved through a JSON API.</p>
-<h3 id='request-7'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span class="se">\</span>
+<h3 id='request-8'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span class="se">\</span>
     <span class="nt">--url</span> https://payment.sirumobile.com/payment/maxPrice.json <span class="se">\</span>
     <span class="nt">-d</span> <span class="s1">'variant=variant1'</span> <span class="nt">-d</span> <span class="s1">'merchantId=18'</span> <span class="nt">-d</span> <span class="s1">'purchaseCountry=FI'</span> <span class="nt">-d</span> <span class="s1">'taxClass=3'</span>
 </code></pre></div>
 <p><code>GET /payment/maxPrice.json</code></p>
-<h3 id='request-parameters-7'>REQUEST PARAMETERS</h3>
+<h3 id='request-parameters-8'>REQUEST PARAMETERS</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1691,7 +1782,7 @@ If UUID is not found or KYC data is no longer available, HTTP 404 is returned.</
     </span><span class="nl">"maxBasePrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"39.40"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"maxFinalCallPrice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40.00"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-7'>RESPONSE</h3>
+</span></code></pre></div><h3 id='response-8'>RESPONSE</h3>
 <p>Response is a JSON object with two properties</p>
 
 <table><thead>
@@ -1725,7 +1816,7 @@ If UUID is not found or KYC data is no longer available, HTTP 404 is returned.</
     </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"technical error message in English"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='errors-4'>ERRORS</h3>
+</span></code></pre></div><h3 id='errors-5'>ERRORS</h3>
 <p>Errors are JSON objects with single property &quot;error&quot;. The error message should not be shown to end user. Response will include one of the following HTTP status codes.</p>
 
 <table><thead>
@@ -1743,14 +1834,14 @@ If UUID is not found or KYC data is no longer available, HTTP 404 is returned.</
 <td>An unknown error</td>
 </tr>
 </tbody></table>
-<h1 id='feature-detection-api'>Feature detection API</h1><h2 id='check-ip-address'>Check IP-address</h2><h3 id='description-8'>DESCRIPTION</h3>
+<h1 id='feature-detection-api'>Feature detection API</h1><h2 id='check-ip-address'>Check IP-address</h2><h3 id='description-9'>DESCRIPTION</h3>
 <p>The Feature detection API can be used to verify if IP Payments (variant2) are available for given IP-address.</p>
-<h3 id='request-8'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span class="se">\</span>
+<h3 id='request-9'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span class="se">\</span>
     <span class="nt">--url</span> https://payment.sirumobile.com/payment/ip/feature-check <span class="se">\</span>
     <span class="nt">-d</span> <span class="s1">'merchantId=18'</span> <span class="nt">-d</span> <span class="s1">'ip=12.12.12.12'</span> <span class="nt">-d</span> <span class="s1">'signature=mycalculatedhash'</span>
 </code></pre></div>
 <p><code>GET /payment/ip/feature-check</code></p>
-<h3 id='request-parameters-8'>REQUEST PARAMETERS</h3>
+<h3 id='request-parameters-9'>REQUEST PARAMETERS</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1782,7 +1873,7 @@ If UUID is not found or KYC data is no longer available, HTTP 404 is returned.</
     </span><span class="nl">"ipPaymentsEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='response-8'>RESPONSE</h3><h3 id='errors-5'>ERRORS</h3>
+</span></code></pre></div><h3 id='response-9'>RESPONSE</h3><h3 id='errors-6'>ERRORS</h3>
 <blockquote>
 <p>Failure response example</p>
 </blockquote>
@@ -1808,14 +1899,14 @@ If UUID is not found or KYC data is no longer available, HTTP 404 is returned.</
 <td>Invalid signature</td>
 </tr>
 </tbody></table>
-<h1 id='api-operational-status'>API operational status</h1><h2 id='check-api-status'>Check API status</h2><h3 id='description-9'>DESCRIPTION</h3>
+<h1 id='api-operational-status'>API operational status</h1><h2 id='check-api-status'>Check API status</h2><h3 id='description-10'>DESCRIPTION</h3>
 <p>Check operational status of Siru Mobile API.</p>
-<h3 id='request-9'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-w</span> <span class="s2">"%{http_code}"</span> <span class="nt">--url</span> https://payment.sirumobile.com/status
+<h3 id='request-10'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-w</span> <span class="s2">"%{http_code}"</span> <span class="nt">--url</span> https://payment.sirumobile.com/status
 </code></pre></div>
 <p><code>GET /status</code></p>
-<h3 id='request-parameters-9'>REQUEST PARAMETERS</h3>
+<h3 id='request-parameters-10'>REQUEST PARAMETERS</h3>
 <p>None</p>
-<h3 id='response-9'>RESPONSE</h3>
+<h3 id='response-10'>RESPONSE</h3>
 <p>The response HTTP status code will tell you the operational status of the API.</p>
 
 <table><thead>
