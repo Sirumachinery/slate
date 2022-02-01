@@ -174,14 +174,14 @@ Some fields are required and some are optional. To improve user experience, you 
 | variant              | yes                          | String        | The API variant. 'variant1', 'variant2', 'variant3' or 'variant4'.                                                                                                                                                                                   |
 | merchantId           | yes                          | Integer       | Your merchant id provided by Siru.                                                                                                                                                                                                                   |
 | submerchantReference |                              | String        | If same merchant id is used on multiple sites, you **must** use this field to identify the originating site. For example domain name or brand name.                                                                                                  |
-| purchaseCountry      | yes                          | Country       | The country where you sell the item. Currently supported are 'FI', 'SE', 'NO' and 'GB'                                                                                                                                                               |
+| purchaseCountry      | yes                          | Country       | The country where you sell the item. Currently supported are 'FI', 'SE', 'NO', 'GB', 'AT' and 'DE'                                                                                                                                                   |
 | purchaseReference    |                              | String        | Your internal ID for the purchase. These will be visible in the merchant's control panel.                                                                                                                                                            |
 | customerReference    |                              | String        | Your internal ID for the customer. These will be visible in the merchant's control panel.                                                                                                                                                            |
-| customerLastName     |                              | String        | Customer's last name, shown in the merchant panel.                                                                                                                                                                                                   |
-| customerFirstName    |                              | String        | Customer's first name, shown in the merchant panel.                                                                                                                                                                                                  |
-| customerPersonalId   |                              | Personal ID   | Customer's personal ID (national ID, social security number)                                                                                                                                                                                         |
+| customerLastName     | DE                           | String        | Customer's last name, shown in the merchant panel.                                                                                                                                                                                                   |
+| customerFirstName    | DE                           | String        | Customer's first name, shown in the merchant panel.                                                                                                                                                                                                  |
+| customerPersonalId   | DE                           | Personal ID   | Customer's personal ID (national ID, social security number) or birthdate in Germany in YYYYMMDD syntax                                                                                                                                              |
 | customerEmail        |                              | String        | Customer's email address, shown in the merchant panel                                                                                                                                                                                                |
-| customerLocale       |                              | Locale        | Language of the payment page. Defaults to the default locale of purchaseCountry. Currently supported 'fi_FI', 'sv_SE', 'nn_NO' and 'en_GB'.                                                                                                          |
+| customerLocale       |                              | Locale        | Language of the payment page. Defaults to the default locale of purchaseCountry. Currently supported 'fi_FI', 'sv_SE', 'nn_NO', 'en_GB', 'de_AT' and 'de_DE'.                                                                                        |
 | redirectAfterSuccess | yes                          | URL           | URL where the customer is redirected after a successful payment.                                                                                                                                                                                     |
 | redirectAfterFailure | yes                          | URL           | URL where the customer is redirected after an unsuccessful payment.                                                                                                                                                                                  |
 | redirectAfterCancel  | yes                          | URL           | URL where the customer is redirected if he cancels the payment himself, or if the system is down for maintenance.                                                                                                                                    |
@@ -240,7 +240,7 @@ Countries | Testing in sandbox
 FI, SE    | Available price points for basePrice are 2.50, 5.00 or 10.00 for each country.<br/><br/>You can use your own mobile phone for testing.<br/><br/>The numbers you are required to call are in Sweden and calling costs only the international toll, even if the system says otherwise.
 
 <aside class="notice">
-    At the moment you can not successfully call sandbox numbers from Sweden. If needed, we can provide a Skype number for testing.
+    We can provide you a Skype number for testing.
 </aside>
 
 ### Variant2
@@ -267,17 +267,19 @@ The basePrice can be anything between 0.10 and 500.00.
 
 Countries | Testing in sandbox
 --        | --
-FI, SE, NO| Use your own mobile number.<br/><br/>When using Siru Mobile gateway to topup Wallet, variant1 limitations also apply.<br/><br/>We can provide you with a test wallet for testing with fake money already deposited.
+FI, SE, NO| Use your own mobile number.<br/><br/>When using Siru Mobile gateway to top up Wallet, variant1 limitations also apply.<br/><br/>We can provide you with a test wallet for testing with fake money already deposited.
 
 ### Variant4
 
-Variant4 is a fast online payment currently available in the UK.
+Variant4 is a fast online payment currently available in UK, Austria and Germany
 
-The maximum basePrice depends on your contract with Siru but usually it is 30.00.
+The maximum basePrice depends on the target country and your contract with Siru, but it is usually between 30-50EUR
 
 Countries | Testing in sandbox
 --        | --
-GB        | Use your own mobile number.
+GB        | Use your own mobile number or one of the test numbers that we provide
+AT        | You must use the test number and one fixed price point that we provide
+DE        | You must use the test number, name, birthdate and one fixed price point that we provide
 
 ## Signature calculation
 
@@ -346,7 +348,7 @@ A non-negative JSON integer that fits into 32 bits.
 A ISO-3166-1 alpha-2 country code in upper case. Example 'FI'.
 
 ### Locale
-The format is {Language code}_{Country code} i.e. like most POSIX locales. Currently the supported locales are fi_FI, sv_SE, nn_NO and en_GB (default) are supported.
+The format is {Language code}_{Country code} i.e. like most POSIX locales. Supported locales are fi_FI, sv_SE, nn_NO, en_GB (default), de_AT and de_DE are supported.
 
 ### Phone number
 
@@ -368,11 +370,12 @@ Examples: 13.50, 0.20, 7.15
 ### Personal ID
 
 If end-users personal ID is provided, Siru will compare this to available KYC data and automatically
-blocks payment if it does not match with users verified personal ID number.
+blocks payment if it does not match with users verified personal ID number.  In Germany, this value is required.
+In other countries, this feature is only available upon request.
 
-This feature is only available for limited countries and is enabled only upon request. If this feature is
-not enabled for your account, the field is simply ignored so there is no downside in including it.
-
+<aside class="notice">
+    In Germany, use end-users birthdate in format YYYYMMDD. For example 19820215
+</aside>
 <aside class="warning">
     The personal ID must be valid in given purchaseCountry. If the personal ID is not valid in selected country, Payment API will respond with error.
 </aside>
@@ -898,7 +901,7 @@ basePrice|Money|The price of the product with VAT included.
 callback <br>(optional)|String|The JSONP callback name, if you are using JSONP.
 
 <aside class="notice">
-    This API is only available for variant1 and variant4 payments.
+    This API is useful for variant1 and variant4 payments only.
 </aside>
 
 > Response example
@@ -972,11 +975,7 @@ maxBasePrice      | The maximum available base price.
 maxFinalCallPrice | The final price of maxBasePrice.
 
 <aside class="notice">
-    Customers may also have individual spending limits with Siru. This API does not take those into account.
-</aside>
-
-<aside class="notice">
-    This API is only available for checking variant1 maximum base price.
+    End-user may also have individual spending limits with Siru. This API does not take those into account.
 </aside>
 
 > Failure response example
