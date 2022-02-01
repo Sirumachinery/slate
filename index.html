@@ -634,7 +634,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <td>purchaseCountry</td>
 <td>yes</td>
 <td>Country</td>
-<td>The country where you sell the item. Currently supported are &#39;FI&#39;, &#39;SE&#39;, &#39;NO&#39; and &#39;GB&#39;</td>
+<td>The country where you sell the item. Currently supported are &#39;FI&#39;, &#39;SE&#39;, &#39;NO&#39;, &#39;GB&#39;, &#39;AT&#39; and &#39;DE&#39;</td>
 </tr>
 <tr>
 <td>purchaseReference</td>
@@ -650,21 +650,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </tr>
 <tr>
 <td>customerLastName</td>
-<td></td>
+<td>DE</td>
 <td>String</td>
 <td>Customer&#39;s last name, shown in the merchant panel.</td>
 </tr>
 <tr>
 <td>customerFirstName</td>
-<td></td>
+<td>DE</td>
 <td>String</td>
 <td>Customer&#39;s first name, shown in the merchant panel.</td>
 </tr>
 <tr>
 <td>customerPersonalId</td>
-<td></td>
+<td>DE</td>
 <td>Personal ID</td>
-<td>Customer&#39;s personal ID (national ID, social security number)</td>
+<td>Customer&#39;s personal ID (national ID, social security number) or birthdate in Germany in YYYYMMDD syntax</td>
 </tr>
 <tr>
 <td>customerEmail</td>
@@ -676,7 +676,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <td>customerLocale</td>
 <td></td>
 <td>Locale</td>
-<td>Language of the payment page. Defaults to the default locale of purchaseCountry. Currently supported &#39;fi_FI&#39;, &#39;sv_SE&#39;, &#39;nn_NO&#39; and &#39;en_GB&#39;.</td>
+<td>Language of the payment page. Defaults to the default locale of purchaseCountry. Currently supported &#39;fi_FI&#39;, &#39;sv_SE&#39;, &#39;nn_NO&#39;, &#39;en_GB&#39;, &#39;de_AT&#39; and &#39;de_DE&#39;.</td>
 </tr>
 <tr>
 <td>redirectAfterSuccess</td>
@@ -822,7 +822,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </tbody></table>
 
 <aside class="notice">
-    At the moment you can not successfully call sandbox numbers from Sweden. If needed, we can provide a Skype number for testing.
+    We can provide you a Skype number for testing.
 </aside>
 <h3 id='variant2'>Variant2</h3>
 <p>This variant is only available in Finland. It allows a fast online payment when using mobile internet connection. The purchase is billed on users mobile subscription.</p>
@@ -859,13 +859,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </thead><tbody>
 <tr>
 <td>FI, SE, NO</td>
-<td>Use your own mobile number.<br/><br/>When using Siru Mobile gateway to topup Wallet, variant1 limitations also apply.<br/><br/>We can provide you with a test wallet for testing with fake money already deposited.</td>
+<td>Use your own mobile number.<br/><br/>When using Siru Mobile gateway to top up Wallet, variant1 limitations also apply.<br/><br/>We can provide you with a test wallet for testing with fake money already deposited.</td>
 </tr>
 </tbody></table>
 <h3 id='variant4'>Variant4</h3>
-<p>Variant4 is a fast online payment currently available in the UK.</p>
+<p>Variant4 is a fast online payment currently available in UK, Austria and Germany</p>
 
-<p>The maximum basePrice depends on your contract with Siru but usually it is 30.00.</p>
+<p>The maximum basePrice depends on the target country and your contract with Siru, but it is usually between 30-50EUR</p>
 
 <table><thead>
 <tr>
@@ -875,7 +875,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </thead><tbody>
 <tr>
 <td>GB</td>
-<td>Use your own mobile number.</td>
+<td>Use your own mobile number or one of the test numbers that we provide</td>
+</tr>
+<tr>
+<td>AT</td>
+<td>You must use the test number and one fixed price point that we provide</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>You must use the test number, name, birthdate and one fixed price point that we provide</td>
 </tr>
 </tbody></table>
 <h2 id='signature-calculation'>Signature calculation</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?</span>
@@ -998,7 +1006,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <h3 id='country'>Country</h3>
 <p>A ISO-3166-1 alpha-2 country code in upper case. Example &#39;FI&#39;.</p>
 <h3 id='locale'>Locale</h3>
-<p>The format is {Language code}_{Country code} i.e. like most POSIX locales. Currently the supported locales are fi_FI, sv_SE, nn_NO and en_GB (default) are supported.</p>
+<p>The format is {Language code}_{Country code} i.e. like most POSIX locales. Supported locales are fi_FI, sv_SE, nn_NO, en_GB (default), de_AT and de_DE are supported.</p>
 <h3 id='phone-number'>Phone number</h3>
 <p>Phone number can be sent either in international MSISDN format or in national format in which case the API automatically converts the number to international format based on purchaseCountry value. A leading + character and any spaces are ignored.</p>
 
@@ -1016,10 +1024,12 @@ decimal places must be given even when zero. The currency is determined by the p
 Examples: 13.50, 0.20, 7.15</p>
 <h3 id='personal-id'>Personal ID</h3>
 <p>If end-users personal ID is provided, Siru will compare this to available KYC data and automatically
-blocks payment if it does not match with users verified personal ID number.</p>
+blocks payment if it does not match with users verified personal ID number.  In Germany, this value is required.
+In other countries, this feature is only available upon request.</p>
 
-<p>This feature is only available for limited countries and is enabled only upon request. If this feature is
-not enabled for your account, the field is simply ignored so there is no downside in including it.</p>
+<aside class="notice">
+    In Germany, use end-users birthdate in format YYYYMMDD. For example 19820215
+</aside>
 
 <aside class="warning">
     The personal ID must be valid in given purchaseCountry. If the personal ID is not valid in selected country, Payment API will respond with error.
@@ -1707,7 +1717,7 @@ If UUID is not found or KYC data is no longer available, HTTP 404 is returned.</
 </tbody></table>
 
 <aside class="notice">
-    This API is only available for variant1 and variant4 payments.
+    This API is useful for variant1 and variant4 payments only.
 </aside>
 
 <blockquote>
@@ -1802,11 +1812,7 @@ If UUID is not found or KYC data is no longer available, HTTP 404 is returned.</
 </tbody></table>
 
 <aside class="notice">
-    Customers may also have individual spending limits with Siru. This API does not take those into account.
-</aside>
-
-<aside class="notice">
-    This API is only available for checking variant1 maximum base price.
+    End-user may also have individual spending limits with Siru. This API does not take those into account.
 </aside>
 
 <blockquote>
