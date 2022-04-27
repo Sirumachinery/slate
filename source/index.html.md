@@ -145,7 +145,7 @@ try {
 
 ```json
 {
-    "merchantId":"1234",
+    "merchantId":1234,
     "basePrice":"5.00",
     "purchaseCountry":"SE",
     "customerReference":"c12345",
@@ -689,9 +689,9 @@ signature|String|Concatenate the values of merchantId, from and to (in that orde
 {
     "purchases": [
         {
-            "id": "1234567",
+            "id": 1234567,
             "uuid":"f599cd21-47a2-4bbc-b44b-2cc4b1bb25f1",
-            "merchantId":"18",
+            "merchantId":18,
             "submerchantReference":null,
             "customerReference":null,
             "purchaseReference":"testshop1420070765",
