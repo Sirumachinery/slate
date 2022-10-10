@@ -504,11 +504,10 @@ Cancels active subscription.
 ### REQUEST
 
 ```shell
-curl --request POST -G \
+curl --request POST \
     --url https://payment.sirumobile.com/payment/unsubscribe/byUuid.json \
-    -d 'merchantId=1' \
-    -d 'uuid=061d488d-ab43-458d-9b5e-0b2005595d7e' \
-    -d 'signature=mycalculatedhash'
+    --header 'content-type: application/json' \
+    -d '{"merchantId":1,"uuid":"061d488d-ab43-458d-9b5e-0b2005595d7e","signature":"mycalculatedhash"}'
 ```
 
 `POST /payment/unsubscribe/byUuid.json`
