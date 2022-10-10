@@ -1201,11 +1201,10 @@ are different between staging- and production environments. Attempt to create pa
 <p>If purchase was created as a subscription which is automatically renewed by Siru at set intervals, you can cancel the subscription using this API.</p>
 <h2 id='unsubscribe'>Unsubscribe</h2><h3 id='description-2'>DESCRIPTION</h3>
 <p>Cancels active subscription.</p>
-<h3 id='request-2'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="nt">-G</span> <span class="se">\</span>
+<h3 id='request-2'>REQUEST</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
     <span class="nt">--url</span> https://payment.sirumobile.com/payment/unsubscribe/byUuid.json <span class="se">\</span>
-    <span class="nt">-d</span> <span class="s1">'merchantId=1'</span> <span class="se">\</span>
-    <span class="nt">-d</span> <span class="s1">'uuid=061d488d-ab43-458d-9b5e-0b2005595d7e'</span> <span class="se">\</span>
-    <span class="nt">-d</span> <span class="s1">'signature=mycalculatedhash'</span>
+    <span class="nt">--header</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
+    <span class="nt">-d</span> <span class="s1">'{"merchantId":1,"uuid":"061d488d-ab43-458d-9b5e-0b2005595d7e","signature":"mycalculatedhash"}'</span>
 </code></pre></div>
 <p><code>POST /payment/unsubscribe/byUuid.json</code></p>
 <h3 id='request-parameters-2'>REQUEST PARAMETERS</h3>
