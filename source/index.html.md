@@ -235,10 +235,12 @@ Siru Mobile provides different methods of payment which we call "variants". What
 
 This variant is for older phones where payment is made by calling a premium rate number. You must call from a mobile phone subscription from selected country and you can not be roaming.
 
+You can use your own mobile phone for testing or we can provide a Skype number for testing.<br/><br/>The numbers you are required to call are in Sweden and calling costs only the international toll, even if the system says otherwise.
+
 Countries | Testing in sandbox
 --        | --
-FI, SE    | Available price points for basePrice are 2.50, 5.00 or 10.00 for each country.<br/><br/>You can use your own mobile phone for testing.<br/><br/>The numbers you are required to call are in Sweden and calling costs only the international toll, even if the system says otherwise.
-
+FI    | Available price points for basePrice are 5.00, 10.00, 15.00 and 25.00.
+SE    | Available price points for basePrice are 2.50, 5.00 and 10.00.
 <aside class="notice">
     We can provide you a Skype number for testing.
 </aside>
