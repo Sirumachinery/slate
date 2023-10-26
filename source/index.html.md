@@ -235,7 +235,7 @@ Siru Mobile provides different methods of payment which we call "variants". What
 
 This variant is for older phones where payment is made by calling a premium rate number. You must call from a mobile phone subscription from selected country and you can not be roaming.
 
-You can use your own mobile phone for testing or we can provide a Skype number for testing.<br/><br/>The numbers you are required to call are in Sweden and calling costs only the international toll, even if the system says otherwise.
+You can use your own mobile phone, or we can provide a Skype number for testing. In sandbox, no actual charges are made and only mobile operator call prices apply.
 
 Countries | Testing in sandbox
 --        | --
