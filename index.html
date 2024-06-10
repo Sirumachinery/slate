@@ -299,9 +299,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-43b37bdf.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all-b12a2749.js"></script>
+    <link href="stylesheets/screen-3bb20528.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print-966d6edc.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all-024da600.js"></script>
 
     <script>
       $(function() { setupCodeCopy(); });
@@ -598,7 +598,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <aside class="notice">
-    You can also use the API by constructing a HTML form with the required parameters as input fields. Form is sent to /payment.html endpoint using POST method which will redirect user to payment page.
+    You can also use the API by constructing HTML form with the required parameters as input fields. Form is sent to /payment.html endpoint using POST method which will redirect user to payment page.
     This method is not recommended as it exposes more data to the end-user and prevents you from catching errors in the request.
 </aside>
 <h3 id='request-parameters'>REQUEST PARAMETERS</h3>
@@ -1006,7 +1006,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </tr>
 </tbody></table>
 <h2 id='field-types'>Field types</h2><h3 id='string'>String</h3>
-<p>An UTF-8 string with a maximum length of 255 characters.</p>
+<p>A UTF-8 string with a maximum length of 255 characters.</p>
 <h3 id='integer'>Integer</h3>
 <p>A non-negative JSON integer that fits into 32 bits.</p>
 <h3 id='country'>Country</h3>
@@ -1041,7 +1041,7 @@ In other countries, this feature is only available upon request.</p>
     The personal ID must be valid in given purchaseCountry. If the personal ID is not valid in selected country, Payment API will respond with error.
 </aside>
 <h3 id='url'>URL</h3>
-<p>An UTF-8 string that is a valid URL. The maximum length is 1024 characters. The validation is strict, so use strictly valid urls like http://example.com/?variable=value instead of http://example.com?variable=value.</p>
+<p>A UTF-8 string that is a valid URL. The maximum length is 1024 characters. The validation is strict, so use strictly valid urls like http://example.com/?variable=value instead of http://example.com?variable=value.</p>
 
 <p>For redirect URLs, the following parameters are added to the query. For notification URLs, the parameters are sent in a JSON object in POST body.</p>
 
@@ -1181,7 +1181,7 @@ In other countries, this feature is only available upon request.</p>
 <h2 id='common-pitfalls'>Common pitfalls</h2>
 <p>We have gathered here some of the more common mistakes you might encounter during integration.</p>
 <h3 id='invalid-mobile-number'>Invalid mobile number</h3>
-<p>We use very strict validation for phone numbers ie. the customerNumber field. See <a href="#phone-number">Phone number</a>. You should validate phone number carefully. Often we see numbers with missing 0 prefix (national format), missing country code (international format) or with both 0 and country code prefix which is invalid.</p>
+<p>We use very strict validation for phone numbers i.e. the customerNumber field. See <a href="#phone-number">Phone number</a>. You should validate phone number carefully. Often we see numbers with missing 0 prefix (national format), missing country code (international format) or with both 0 and country code prefix which is invalid.</p>
 
 <p>Examples of <strong>invalid</strong> values: 3580501234567, 501234567</p>
 <h3 id='invalid-price-point'>Invalid price point</h3>
@@ -1196,7 +1196,7 @@ are different between staging- and production environments. Attempt to create pa
 <h3 id='monitoring-errors'>Monitoring errors</h3>
 <p>You and we at Siru want to keep the end-users happy and not miss any sales. If a bug has made its way to your code and the API call fails, we log the error automatically. You can monitor failed API calls from our Merchant panel. Contact us if you have not received your credentials to our Merchant panel.</p>
 <h2 id='subscriptions'>Subscriptions</h2>
-<p>If you have subscriptions enabled with Siru Mobile, you can create a new payment that is automatically renewed on agreed upon intervals. When using subscriptions, there are some things you must take in to account.</p>
+<p>If you have subscriptions enabled with Siru Mobile, you can create a new payment that is automatically renewed on agreed upon intervals. When using subscriptions, there are some things you must take into account.</p>
 <h3 id='notifications'>Notifications</h3>
 <p>To receive notification when payment is renewed, you must provide notifyAfterSuccess URL. This is the only way to know when payment has been renewed.</p>
 <h3 id='purchase-reference-and-uuid'>Purchase reference and UUID</h3>
@@ -1346,7 +1346,7 @@ are different between staging- and production environments. Attempt to create pa
 <p>JSON object with a single property &quot;purchases&quot; which contains array of matching transactions.</p>
 
 <aside class="notice">
-    Siru does not enforce the uniqueness of purchase reference so you may get more than one result. The results are sorted newest first.
+    Siru does not enforce the uniqueness of purchase reference, so you may get more than one result. The results are sorted newest first.
 </aside>
 <h2 id='query-by-uuid'>Query by uuid</h2><h3 id='description-4'>DESCRIPTION</h3>
 <p>Find a single transaction by UUID.</p>
@@ -1498,7 +1498,7 @@ curl <span class="nt">--request</span> GET <span class="nt">-G</span> <span clas
 <td>Purchase current status, see below table</td>
 </tr>
 <tr>
-<td>basePrice </td>
+<td>basePrice</td>
 <td>The original price sent by you</td>
 </tr>
 <tr>
@@ -1940,7 +1940,7 @@ If UUID is not found or KYC data is no longer available, HTTP 404 is returned.</
 </tr>
 </tbody></table>
 <h1 id='maintenance'>Maintenance</h1>
-<p>Occasionally we will do maintenance on Siru Mobile API which may require a temporary down time. Don&#39;t worry: we handle all your customers&#39; ongoing purchases gracefully and (if the need for maintenance isn&#39;t surprising or urgent) you should also know about all our maintencance windows in advance.</p>
+<p>Occasionally we will do maintenance on Siru Mobile API which may require a temporary downtime. Don&#39;t worry: we handle all your customers&#39; ongoing purchases gracefully and (if the need for maintenance isn&#39;t surprising or urgent) you should also know about all our maintencance windows in advance.</p>
 
       </div>
       <div class="dark-box">
