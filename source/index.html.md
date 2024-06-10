@@ -1,7 +1,7 @@
 ---
 title: Siru Mobile API reference
 
-language_tabs: # must be one of https://git.io/vQNgJ
+language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers
   - shell: cURL
   - php: PHP
 
@@ -161,7 +161,7 @@ try {
 ```
 
 <aside class="notice">
-    You can also use the API by constructing a HTML form with the required parameters as input fields. Form is sent to /payment.html endpoint using POST method which will redirect user to payment page.
+    You can also use the API by constructing HTML form with the required parameters as input fields. Form is sent to /payment.html endpoint using POST method which will redirect user to payment page.
     This method is not recommended as it exposes more data to the end-user and prevents you from catching errors in the request.
 </aside>
 
@@ -341,7 +341,7 @@ The data must be signed using a hash from certain values in data and the merchan
 ## Field types
 
 ### String
-An UTF-8 string with a maximum length of 255 characters.
+A UTF-8 string with a maximum length of 255 characters.
 
 ### Integer
 A non-negative JSON integer that fits into 32 bits.
@@ -384,7 +384,7 @@ In other countries, this feature is only available upon request.
 
 
 ### URL
-An UTF-8 string that is a valid URL. The maximum length is 1024 characters. The validation is strict, so use strictly valid urls like http://example.com/?variable=value instead of http://example.com?variable=value.
+A UTF-8 string that is a valid URL. The maximum length is 1024 characters. The validation is strict, so use strictly valid urls like http://example.com/?variable=value instead of http://example.com?variable=value.
 
 For redirect URLs, the following parameters are added to the query. For notification URLs, the parameters are sent in a JSON object in POST body.
 
@@ -457,7 +457,7 @@ We have gathered here some of the more common mistakes you might encounter durin
 
 ### Invalid mobile number
 
-We use very strict validation for phone numbers ie. the customerNumber field. See [Phone number](#phone-number). You should validate phone number carefully. Often we see numbers with missing 0 prefix (national format), missing country code (international format) or with both 0 and country code prefix which is invalid.
+We use very strict validation for phone numbers i.e. the customerNumber field. See [Phone number](#phone-number). You should validate phone number carefully. Often we see numbers with missing 0 prefix (national format), missing country code (international format) or with both 0 and country code prefix which is invalid.
 
 Examples of **invalid** values: 3580501234567, 501234567
 
@@ -481,7 +481,7 @@ You and we at Siru want to keep the end-users happy and not miss any sales. If a
 
 ## Subscriptions
 
-If you have subscriptions enabled with Siru Mobile, you can create a new payment that is automatically renewed on agreed upon intervals. When using subscriptions, there are some things you must take in to account.
+If you have subscriptions enabled with Siru Mobile, you can create a new payment that is automatically renewed on agreed upon intervals. When using subscriptions, there are some things you must take into account.
 
 ### Notifications
 
@@ -621,7 +621,7 @@ signature|String|Concatenate the values (including empty values) of merchantId, 
 JSON object with a single property "purchases" which contains array of matching transactions.
 
 <aside class="notice">
-    Siru does not enforce the uniqueness of purchase reference so you may get more than one result. The results are sorted newest first.
+    Siru does not enforce the uniqueness of purchase reference, so you may get more than one result. The results are sorted newest first.
 </aside>
 
 ## Query by uuid
@@ -744,7 +744,7 @@ submerchantReference  | Sub-merchant reference sent by you
 customerReference     | Customer reference sent by you
 purchaseReference     | Purchase reference sent by you
 status         | Purchase current status, see below table
-basePrice      | The original price sent by you
+basePrice      | The original price sent by you
 finalPrice     | The price user was charged with possible commission included
 currency       | Payment currency
 createdAt      | ISO-8601 date when transaction was created
@@ -1097,4 +1097,4 @@ HTTP status | Description
 
 # Maintenance
 
-Occasionally we will do maintenance on Siru Mobile API which may require a temporary down time. Don't worry: we handle all your customers' ongoing purchases gracefully and (if the need for maintenance isn't surprising or urgent) you should also know about all our maintencance windows in advance.
+Occasionally we will do maintenance on Siru Mobile API which may require a temporary downtime. Don't worry: we handle all your customers' ongoing purchases gracefully and (if the need for maintenance isn't surprising or urgent) you should also know about all our maintencance windows in advance.
