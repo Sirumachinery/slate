@@ -418,7 +418,7 @@ This specifies the Value Added Tax class. If your country is not listed here, le
 |0    | Finland   | 0%    |
 |1    | Finland   | 10%   |
 |2    | Finland   | 14%   |
-|3    | Finland   | 24%   |
+|3    | Finland   | 25.5% |
 
 Tax classes may be added, changed and removed as legislation changes. Siru will notify merchants in advance of such changes. Tax class number 0 will, however, always mean a 0% VAT.
 
