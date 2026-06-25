@@ -1,0 +1,1532 @@
+openapi: 3.1.0
+
+info:
+  title: Siru Mobile Payment Gateway API
+  version: "1.0"
+  description: |
+    Siru Mobile API provides merchants a way to accept payments from customers via the
+    customer's mobile phone. Customers are billed on their mobile phone bill.
+
+    ## Glossary
+
+    | Term | Meaning |
+    |------|---------|
+    | Siru Mobile | The payment gateway |
+    | Merchant | Someone who sells products payable with the payment gateway |
+    | Customer, End user | Someone using a merchant application, paying with the payment gateway |
+    | Variant | Payment method sub-API (`variant1`, `variant2`, `variant3`, `variant4`) |
+    | Purchase | A transaction in the Siru Mobile payment gateway |
+
+    ## Get Started
+
+    We will be available for questions all the way from integration to going live.
+
+    1. Contact us to discuss where you will be using Siru Mobile payments.
+    2. We provide sandbox credentials and details on testing and integration.
+    3. Read this documentation from top to bottom.
+    4. Code and test your application against our sandbox.
+    5. When ready to go live, contact us for production environment credentials.
+
+    ## SDK and Integrations
+
+    - [PHP SDK](https://github.com/Sirumachinery/siru-php-sdk)
+    - [Example shop](https://github.com/Sirumachinery/example-shop-php)
+    - Magento plugin — Contact us!
+    - WooCommerce plugin — Contact us!
+
+    ## Environments
+
+    | Environment | Endpoint |
+    |-------------|----------|
+    | Production | https://payment.sirumobile.com |
+    | Sandbox | https://staging.sirumobile.com |
+
+    The sandbox environment is intended for integration and testing. No actual charges are
+    made to end-users in sandbox. Use sandbox credentials for all testing — they cannot be
+    used in production. Contact us when you are ready to go live and we will provide separate
+    production credentials.
+
+    ## Authentication
+
+    Authenticated requests are signed using HMAC-SHA512. A concatenated string is formed
+    from selected request field values, and a `signature` hash is calculated from it using
+    the merchant secret as the key. The signature is included as a `signature` field in
+    each request.
+
+    The exact fields and concatenation order vary per endpoint — see each endpoint's
+    `signature` parameter description for details.
+
+servers:
+  - url: https://payment.sirumobile.com
+    description: Production
+  - url: https://staging.sirumobile.com
+    description: Sandbox — no actual money; spending limits not enforced
+
+tags:
+  - name: Payment
+    description: Create and manage payments
+  - name: Purchase Status
+    description: Query purchase status and history
+  - name: KYC
+    description: |
+      Retrieve verified end-user KYC information after a successful payment.
+      **Available upon request only — contact Siru Mobile developer support or sales.**
+  - name: Subscription
+    description: Cancel active subscriptions
+  - name: Price
+    description: Calculate end-user prices and retrieve price limits
+  - name: Feature Detection
+    description: Check if IP payments (variant2) are available for a given IP address
+  - name: Status
+    description: Check operational status of the Siru Mobile API
+
+paths:
+
+  /payment.json:
+    post:
+      tags:
+        - Payment
+      operationId: createPayment
+      summary: Create payment
+      description: |
+        Creates a new payment at Siru Mobile. Post required parameters as a JSON object in
+        the request body. The API responds with a unique UUID and a URL where the end-user
+        should be redirected to complete the payment.
+
+        If the request is not successful, the API responds with HTTP 400 and an `errors`
+        array containing all validation messages. These should be logged, not shown to the
+        end-user.
+
+        ## Payment Variants
+
+        | Variant | Supported countries | Description |
+        |---------|---------------------|-------------|
+        | variant1 | FI, SE | Payment by calling a premium rate number. Requires a mobile subscription from the selected country; roaming is not allowed. |
+        | variant2 | FI | Fast online payment using mobile internet connection. Billed on the user's mobile subscription. Maximum payment amount is 50 EUR. Use the Feature Detection API to check if variant2 is available for the end-user. |
+        | variant3 | FI, SE, NO | Digital wallet where customers can deposit money and use it as a payment method. When topping up via Siru Mobile gateway, variant1 limitations also apply. basePrice can be between 0.10 and 500.00. |
+        | variant4 | GB, AT, DE | Fast online payment. Maximum basePrice is usually 30–50 EUR depending on country and contract. |
+
+        ## Sandbox Testing
+
+        | Variant | Country | Notes |
+        |---------|---------|-------|
+        | variant1 | FI | Available price points: 5.00, 10.00, 15.00, 25.00. We can provide a Skype number for testing. No actual charges. |
+        | variant1 | SE | Available price points: 2.50, 5.00, 10.00. We can provide a Skype number for testing. No actual charges. |
+        | variant2 | FI | In sandbox you can use any internet connection for payments and Feature Detection API returns `true` for any IP address. To simulate an error, use basePrice `30.50` or `30.60`. |
+        | variant3 | | You can use your own mobile phone number to login or we can provide you with a test wallet with fake money already deposited. |
+        | variant4 | GB | Use your own mobile number or provided test numbers. |
+        | variant4 | AT | Use the test number and fixed price point provided by Siru. |
+        | variant4 | DE | Use the test number, name, birthdate, and fixed price point provided by Siru. |
+
+        ## Signature Calculation
+
+        Drop empty fields, sort remaining fields alphabetically by name, concatenate values
+        with `;`, then calculate HMAC-SHA512 with the merchant secret as key.
+
+        | Field | variant1 | variant2 | variant3 | variant4 |
+        |-------|:--------:|:--------:|:--------:|:--------:|
+        | basePrice | ✓ | ✓ | ✓ | ✓ |
+        | currency | ✓ | ✓ | ✓ | ✓ |
+        | customerPersonalId | ✓ | ✓ | ✓ | ✓ |
+        | customerReference | ✓ | ✓ | ✓ | ✓ |
+        | merchantId | ✓ | ✓ | ✓ | ✓ |
+        | notifyAfterCancel | ✓ | ✓ | ✓ | ✓ |
+        | notifyAfterFailure | ✓ | ✓ | ✓ | ✓ |
+        | notifyAfterSuccess | ✓ | ✓ | ✓ | ✓ |
+        | purchaseCountry | ✓ | ✓ | ✓ | ✓ |
+        | purchaseReference | ✓ | ✓ | ✓ | ✓ |
+        | submerchantReference | ✓ | ✓ | ✓ | ✓ |
+        | variant | ✓ | ✓ | ✓ | ✓ |
+        | customerNumber | ✓ | | | ✓ |
+        | serviceGroup | ✓ | ✓ | | ✓ |
+        | taxClass | ✓ | ✓ | | ✓ |
+        | description | | | | ✓ |
+        | title | | ✓ | | ✓ |
+        | interval | | ✓ | | ✓ |
+        | trialPeriod | | ✓ | | |
+        | instantPay | | ✓ | | |
+
+        ## Common Pitfalls
+
+        **Invalid mobile number:** Use strict validation for `customerNumber`. Common mistakes:
+        missing 0 prefix (national format), missing country code (international format), or
+        both 0 and country code prefix (invalid). Invalid: `3580501234567`, `501234567`.
+
+        **Invalid price point:** For variant1, allowed values may be limited to fixed price
+        points that differ between sandbox and production. Check your API credentials.
+
+        **Invalid variant for country:** Only enabled variants may be used per country. Mixing
+        them causes an API error.
+
+        **Monitoring errors:** Failed API calls are logged automatically. Monitor them in the
+        Merchant panel.
+
+        ## Subscriptions
+
+        If subscriptions are enabled, a payment can be set to automatically renew at agreed
+        intervals. Key points:
+
+        - Provide `notifyAfterSuccess` to receive renewal notifications — it is the only way
+          to know when a payment renews.
+        - Use a unique `purchaseReference` for each new subscription.
+        - Store the UUID returned by this API — it is needed to cancel the subscription.
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentRequest'
+            example:
+              merchantId: 1234
+              basePrice: "5.00"
+              purchaseCountry: "SE"
+              customerReference: "c12345"
+              customerNumber: "0701234567"
+              customerEmail: "john.doe@foo.bar"
+              customerLocale: "sv_SE"
+              variant: "variant1"
+              redirectAfterSuccess: "https://shop.example.com/success"
+              redirectAfterFailure: "https://shop.example.com/fail"
+              redirectAfterCancel: "https://shop.example.com/cancel"
+              signature: "abc123..."
+      responses:
+        "200":
+          description: Payment created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentResponse'
+              example:
+                success: true
+                purchase:
+                  uuid: "f9503276-80bc-4f0e-a995-16c4c7e9d0f7"
+                  redirect: "https://payment.sirumobile.com/payment/call/f9503276-80bc-4f0e-a995-16c4c7e9d0f7"
+        "400":
+          description: |
+            Request error. The response contains an `errors` array with all validation
+            messages. These should be logged, not shown to the end-user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentApiErrorResponse'
+              example:
+                success: false
+                errors:
+                  - "customerNumber: This value is too short. It should have 4 characters or more."
+      callbacks:
+        onSuccess:
+          '{$request.body#/notifyAfterSuccess}':
+            post:
+              summary: Purchase succeeded
+              description: |
+                Sent when a purchase is confirmed. The body contains the same fields as the
+                redirect query parameters. Your server must respond with HTTP 200. If delivery
+                fails, Siru retries for up to 7 days. A second notification may arrive in rare
+                edge cases — handle it gracefully.
+              requestBody:
+                required: true
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/PaymentNotification'
+                    example:
+                      siru_uuid: "f9503276-80bc-4f0e-a995-16c4c7e9d0f7"
+                      siru_merchantId: 1234
+                      siru_submerchantReference: ""
+                      siru_purchaseReference: "p12345"
+                      siru_event: "success"
+                      siru_signature: "abc123..."
+              responses:
+                "200":
+                  description: Notification acknowledged.
+        onFailure:
+          '{$request.body#/notifyAfterFailure}':
+            post:
+              summary: Purchase failed
+              description: Sent when a purchase fails. Same body structure as `onSuccess`.
+              requestBody:
+                required: true
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/PaymentNotification'
+              responses:
+                "200":
+                  description: Notification acknowledged.
+        onCancel:
+          '{$request.body#/notifyAfterCancel}':
+            post:
+              summary: Purchase cancelled
+              description: Sent when a purchase is cancelled. Same body structure as `onSuccess`.
+              requestBody:
+                required: true
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/PaymentNotification'
+              responses:
+                "200":
+                  description: Notification acknowledged.
+
+  /payment/capture/byUuid.json:
+    post:
+      tags:
+        - Payment
+      operationId: capturePayment
+      summary: Capture authorized payment
+      description: |
+        Captures a previously authorized variant2 payment, charging the end-user's mobile
+        subscription.
+
+        The release+capture flow is only available to merchants for whom Siru has explicitly
+        enabled it. In this flow, a successful payment is not charged immediately — instead an
+        authorization hold is created. The merchant must capture the payment within **24 hours**
+        once the order is fulfilled, otherwise the hold is released automatically.
+
+        Capture is only possible when the purchase status is `funds_reserved`. The current
+        status can be checked with `GET /payment/byUuid.json`.
+
+        To release the hold without charging (e.g. when an order is cancelled), use
+        `POST /payment/release/byUuid.json`.
+
+        **Signature calculation:** Concatenate `merchantId` and `uuid` (in that order) with
+        `;` as separator. Calculate HMAC-SHA512 with the merchant secret as key.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaptureReleaseRequest'
+            example:
+              merchantId: 1
+              uuid: "061d488d-ab43-458d-9b5e-0b2005595d7e"
+              signature: "mycalculatedhash"
+      responses:
+        "200":
+          description: Payment captured successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaptureResponse'
+              example:
+                success: true
+                status: "confirmed"
+        "403":
+          description: Invalid signature
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Purchase not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "422":
+          description: Capture failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationErrorResponse'
+              example:
+                errors:
+                  - "Capture failed: CODE"
+
+  /payment/release/byUuid.json:
+    post:
+      tags:
+        - Payment
+      operationId: releasePayment
+      summary: Release authorization hold
+      description: |
+        Releases an authorization hold for a variant2 payment without charging the end-user.
+        Use this when an order is cancelled before the payment has been captured.
+
+        The release+capture flow is only available to merchants for whom Siru has explicitly
+        enabled it.
+
+        **Signature calculation:** Concatenate `merchantId` and `uuid` (in that order) with
+        `;` as separator. Calculate HMAC-SHA512 with the merchant secret as key.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaptureReleaseRequest'
+            example:
+              merchantId: 1
+              uuid: "061d488d-ab43-458d-9b5e-0b2005595d7e"
+              signature: "mycalculatedhash"
+      responses:
+        "200":
+          description: Authorization hold released successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseResponse'
+              example:
+                success: true
+                status: "canceled"
+        "403":
+          description: Invalid signature
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Purchase not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "422":
+          description: Release failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationErrorResponse'
+              example:
+                errors:
+                  - "Release failed: CODE"
+
+  /payment/byPurchaseReference.json:
+    get:
+      tags:
+        - Purchase Status
+      operationId: queryByPurchaseReference
+      summary: Query by purchase reference
+      description: |
+        Search transactions matching a given purchase reference.
+
+        Siru does not enforce uniqueness of purchase references — multiple results may be
+        returned. Results are sorted newest first.
+
+        **Signature calculation:** Concatenate `merchantId`, `submerchantReference`, and
+        `purchaseReference` (in that order, **including empty values**) with `;` as separator.
+        Calculate HMAC-SHA512 with the merchant secret as key.
+      parameters:
+        - $ref: '#/components/parameters/merchantIdParam'
+        - name: submerchantReference
+          in: query
+          required: false
+          schema:
+            type: string
+          description: |
+            Submerchant reference. When provided, only transactions from this submerchant are
+            included; otherwise all matching transactions are returned.
+        - name: purchaseReference
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The purchase reference to search for.
+        - $ref: '#/components/parameters/signatureParam'
+      responses:
+        "200":
+          description: Matching transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionListResponse'
+              example:
+                purchases:
+                  - uuid: "e53c3cfc-6d5b-4af3-ae30-7ae7812c9cf7"
+                    submerchantReference: null
+                    customerReference: null
+                    purchaseReference: "testshop1420070765"
+                    status: "unconfirmed"
+                    basePrice: "12.34"
+                    finalPrice: "12.55"
+                    currency: "EUR"
+                    createdAt: "2013-06-13T12:51:33+0200"
+                    startedAt: "2013-06-13T12:51:58+0200"
+                    finishedAt: null
+                    customerNumber: "358501234567"
+        "403":
+          description: Invalid signature
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Purchase not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /payment/byUuid.json:
+    get:
+      tags:
+        - Purchase Status
+      operationId: queryByUuid
+      summary: Query by UUID
+      description: |
+        Find a single transaction by UUID. Returns the transaction object directly (not wrapped
+        in a `purchases` array).
+
+        **Signature calculation:** Concatenate `merchantId` and `uuid` (in that order) with
+        `;` as separator. Calculate HMAC-SHA512 with the merchant secret as key.
+      parameters:
+        - $ref: '#/components/parameters/merchantIdParam'
+        - name: uuid
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The UUID to query.
+        - $ref: '#/components/parameters/signatureParam'
+      responses:
+        "200":
+          description: Transaction found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        "403":
+          description: Invalid signature
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: UUID not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error:
+                  code: 404
+                  message: "Not Found"
+
+  /payment/byDate.json:
+    get:
+      tags:
+        - Purchase Status
+      operationId: queryByDate
+      summary: Query by date range
+      description: |
+        Search all transactions created during a given time period. The response includes
+        additional fields (`id`, `merchantId`) compared to the other status queries.
+
+        **Signature calculation:** Concatenate `merchantId`, `from`, and `to` (in that order)
+        with `;` as separator. Calculate HMAC-SHA512 with the merchant secret as key.
+      parameters:
+        - $ref: '#/components/parameters/merchantIdParam'
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |
+            Lower date limit (UTC, **inclusive**). Format: `yyyy-mm-dd hh:ii:ss`
+            (e.g. `2017-12-01 00:00:00`).
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |
+            Upper date limit (UTC, **exclusive**). Format: `yyyy-mm-dd hh:ii:ss`
+            (e.g. `2018-01-01 00:00:00`).
+        - $ref: '#/components/parameters/signatureParam'
+      responses:
+        "200":
+          description: List of transactions in the date range
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionListDetailResponse'
+              example:
+                purchases:
+                  - id: 1234567
+                    uuid: "f599cd21-47a2-4bbc-b44b-2cc4b1bb25f1"
+                    merchantId: 18
+                    submerchantReference: null
+                    customerReference: null
+                    purchaseReference: "testshop1420070765"
+                    customerNumber: "XXXXXXX"
+                    basePrice: "5.00"
+                    finalPrice: "8.51"
+                    currency: "EUR"
+                    status: "canceled"
+                    createdAt: "2015-01-01T00:06:05+0000"
+                    startedAt: null
+                    finishedAt: "2015-01-01T00:17:09+0000"
+        "403":
+          description: Invalid signature
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /payment/kyc:
+    get:
+      tags:
+        - KYC
+      operationId: getKyc
+      summary: Query KYC by UUID
+      description: |
+        Look up KYC information for a confirmed payment by UUID. KYC data is available for
+        limited countries only and for limited time after confirmation.
+
+        **This API is only available upon request — contact Siru Mobile developer support
+        or sales.**
+
+        **Signature calculation:** Concatenate `merchantId` and `uuid` (in that order) with
+        `;` as separator. Calculate HMAC-SHA512 with the merchant secret as key.
+      parameters:
+        - $ref: '#/components/parameters/merchantIdParam'
+        - name: uuid
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: UUID of the confirmed purchase.
+        - $ref: '#/components/parameters/signatureParam'
+      responses:
+        "200":
+          description: KYC data found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KycResponse'
+              example:
+                report:
+                  firstName: "James"
+                  lastName: "Smith"
+        "403":
+          description: Invalid signature or KYC API not enabled for this merchant
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Purchase not found or KYC data no longer available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error:
+                  code: 404
+                  message: "Not Found"
+
+  /payment/unsubscribe/byUuid.json:
+    post:
+      tags:
+        - Subscription
+      operationId: unsubscribe
+      summary: Cancel subscription
+      description: |
+        If a purchase was created as a subscription that is automatically renewed by Siru at
+        set intervals, you can cancel it using this endpoint.
+
+        **Signature calculation:** Concatenate `merchantId` and `uuid` (in that order) with
+        `;` as separator. Calculate HMAC-SHA512 with the merchant secret as key.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnsubscribeRequest'
+            example:
+              merchantId: 1
+              uuid: "061d488d-ab43-458d-9b5e-0b2005595d7e"
+              signature: "mycalculatedhash"
+      responses:
+        "200":
+          description: Subscription cancelled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                success: true
+        "403":
+          description: Invalid signature
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Purchase not found or is not a subscription
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error:
+                  code: 404
+                  message: "Not Found"
+
+  /payment/price.json:
+    get:
+      tags:
+        - Price
+      operationId: calculatePrice
+      summary: Calculate end-user price
+      description: |
+        Siru automatically adds possible fees and commissions to the transaction base price.
+        Since the exact formula is somewhat intricate and subject to change, this endpoint
+        allows merchants to calculate the final price charged to the end-user without
+        hard-coding the formula.
+
+        Use this to display accurate pricing to the end-user before initiating payment, or
+        to verify commissions for a given base price.
+
+        > Useful for **variant1** and **variant4** payments only.
+
+        No signature required.
+      parameters:
+        - name: variant
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [variant1, variant4]
+          description: The payment variant.
+        - $ref: '#/components/parameters/merchantIdParam'
+        - name: submerchantReference
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Submerchant reference, if any.
+        - $ref: '#/components/parameters/purchaseCountryParam'
+        - name: taxClass
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/TaxClass'
+          description: |
+            Tax class number. Required when `purchaseCountry` is listed in the Tax class table
+            (currently Finland only).
+        - name: basePrice
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Money'
+          description: The price of the product with VAT included.
+        - name: callback
+          in: query
+          required: false
+          schema:
+            type: string
+          description: JSONP callback name. Only needed for JSONP requests.
+      responses:
+        "200":
+          description: Price calculated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceResponse'
+              example:
+                finalCallPrice: "13.57"
+        "4XX":
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceErrorResponse'
+              example:
+                error: "technical error message in English"
+
+  /payment/maxPrice.json:
+    get:
+      tags:
+        - Price
+      operationId: getMaxPrice
+      summary: Get maximum base price
+      description: |
+        Retrieve the maximum allowed base price for a given country and merchant. The limit
+        is fairly stable and may be hard-coded, but this endpoint allows dynamic retrieval.
+
+        > Individual end-users may have their own spending limits with Siru. This endpoint
+        > does not reflect those limits.
+
+        No signature required.
+      parameters:
+        - name: variant
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [variant1]
+          description: The payment variant. Currently only `variant1` is supported.
+        - $ref: '#/components/parameters/merchantIdParam'
+        - name: submerchantReference
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Submerchant reference, if any.
+        - $ref: '#/components/parameters/purchaseCountryParam'
+        - name: taxClass
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/TaxClass'
+          description: |
+            Tax class number. Required when `purchaseCountry` is listed in the Tax class table
+            (currently Finland only).
+        - name: callback
+          in: query
+          required: false
+          schema:
+            type: string
+          description: JSONP callback name. Only needed for JSONP requests.
+      responses:
+        "200":
+          description: Maximum price retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaxPriceResponse'
+              example:
+                maxBasePrice: "39.40"
+                maxFinalCallPrice: "40.00"
+        "404":
+          description: One of the request parameters was invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceErrorResponse'
+        "500":
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceErrorResponse'
+
+  /payment/ip/feature-check:
+    get:
+      tags:
+        - Feature Detection
+      operationId: checkIp
+      summary: Check IP for variant2 availability
+      description: |
+        Check if IP payments (variant2) are available for a given IP address.
+
+        > In the sandbox environment this endpoint always returns `true`.
+
+        **Signature calculation:** Concatenate `merchantId` and `ip` (in that order,
+        **including empty values**) with `;` as separator. Calculate HMAC-SHA512 with
+        the merchant secret as key.
+      parameters:
+        - $ref: '#/components/parameters/merchantIdParam'
+        - name: ip
+          in: query
+          required: true
+          schema:
+            type: string
+          description: End-user's IP address.
+        - $ref: '#/components/parameters/signatureParam'
+      responses:
+        "200":
+          description: Feature check result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeatureCheckResponse'
+              example:
+                ipPaymentsEnabled: true
+        "403":
+          description: Invalid signature
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error:
+                  code: 403
+                  message: "Forbidden"
+
+  /status:
+    get:
+      tags:
+        - Status
+      operationId: getStatus
+      summary: Check API status
+      description: |
+        Check operational status of the Siru Mobile API. No parameters or authentication
+        required.
+
+        Siru performs occasional maintenance which may require brief downtime. Ongoing
+        purchases are handled gracefully, and planned maintenance windows are communicated
+        in advance.
+      responses:
+        "200":
+          description: Siru Mobile is up and operating normally.
+        "503":
+          description: Temporarily down for maintenance. Usually lasts only a few minutes.
+        "500":
+          description: |
+            Problem with the Siru Mobile API. This response should never occur on the
+            status endpoint.
+
+components:
+
+  parameters:
+    merchantIdParam:
+      name: merchantId
+      in: query
+      required: true
+      schema:
+        type: integer
+      description: Your merchant ID provided by Siru Mobile.
+
+    signatureParam:
+      name: signature
+      in: query
+      required: true
+      schema:
+        type: string
+      description: HMAC-SHA512 hash. See endpoint description for the exact calculation.
+
+    purchaseCountryParam:
+      name: purchaseCountry
+      in: query
+      required: true
+      schema:
+        $ref: '#/components/schemas/PurchaseCountry'
+      description: The country where the merchant sells the item.
+
+  schemas:
+
+    # -----------------------------------------------------------------------
+    # Payment
+    # -----------------------------------------------------------------------
+
+    CreatePaymentRequest:
+      type: object
+      required:
+        - variant
+        - merchantId
+        - purchaseCountry
+        - redirectAfterSuccess
+        - redirectAfterFailure
+        - redirectAfterCancel
+        - basePrice
+        - signature
+      properties:
+        variant:
+          type: string
+          enum: [variant1, variant2, variant3, variant4]
+          description: |
+            Payment variant. Available variants depend on your contract with Siru Mobile.
+
+            - `variant1` — Premium rate call (FI, SE)
+            - `variant2` — IP payment via mobile internet (FI only)
+            - `variant3` — Digital wallet (FI, SE, NO)
+            - `variant4` — Fast online payment (GB, AT, DE)
+        merchantId:
+          type: integer
+          description: Your merchant ID provided by Siru Mobile.
+        submerchantReference:
+          type: string
+          maxLength: 255
+          description: |
+            If the same merchant ID is used on multiple sites, **you must** provide this field
+            to identify the originating site (e.g. domain name or brand name).
+        purchaseCountry:
+          allOf:
+            - $ref: '#/components/schemas/PurchaseCountry'
+          description: Country where you sell the item.
+        purchaseReference:
+          type: string
+          maxLength: 255
+          description: |
+            Your internal ID for the purchase. Visible in the merchant control panel.
+            For subscriptions, must be unique per subscription and is carried forward on renewals.
+        customerReference:
+          type: string
+          maxLength: 255
+          description: |
+            Your internal ID for the customer. Visible in the merchant control panel.
+            Recommended even if not required; your contract may require it.
+        customerLastName:
+          type: string
+          maxLength: 255
+          description: |
+            Customer's last name. **Required when `purchaseCountry` is `DE`.**
+        customerFirstName:
+          type: string
+          maxLength: 255
+          description: |
+            Customer's first name. **Required when `purchaseCountry` is `DE`.**
+        customerPersonalId:
+          type: string
+          description: |
+            Customer's personal ID (national ID or social security number).
+            **Required when `purchaseCountry` is `DE`** — use birthdate in `YYYYMMDD` format
+            (e.g. `19820215`). In other countries this feature is available upon request.
+
+            The personal ID must be valid in the given `purchaseCountry`. Siru compares this
+            to available KYC data and blocks payment if it does not match.
+        customerEmail:
+          type: string
+          maxLength: 255
+          description: |
+            Customer's email address. Visible in the merchant control panel. Recommended even
+            if not required; your contract may require it.
+        customerLocale:
+          allOf:
+            - $ref: '#/components/schemas/Locale'
+          description: |
+            Language of the payment page. Defaults to the default locale of `purchaseCountry`.
+        redirectAfterSuccess:
+          allOf:
+            - $ref: '#/components/schemas/Url'
+          description: |
+            URL where the customer is redirected after a successful payment.
+
+            Siru appends these query parameters:
+            - `siru_uuid` — Siru's unique purchase identifier (36 chars)
+            - `siru_merchantId` — the merchantId from the request
+            - `siru_submerchantReference` — the submerchantReference from the request
+            - `siru_purchaseReference` — the purchaseReference from the request
+            - `siru_event` — `success`, or `funds_reserved` if the merchant has the
+              variant2 reserve+capture flow enabled
+            - `siru_signature` — HMAC-SHA512 of the concatenated values of `siru_uuid`,
+              `siru_merchantId`, `siru_submerchantReference`, `siru_purchaseReference`, and
+              `siru_event` (in that order, including empty values, separated by `;`) with the
+              merchant secret as key.
+
+            **Before treating the purchase as complete, you must either validate
+            `siru_signature` and confirm `siru_event` is `success` (or `funds_reserved`),
+            or verify the payment status via the [GET /payment/byUuid.json](#tag/Purchase-Status/operation/queryByUuid)
+            API.** An attacker may try to direct their browser to the success URL with
+            failure parameters.
+
+            The customer may fail to reach redirect URLs (connection loss, user error). Using
+            `notifyAfterSuccess` for purchase confirmation is strongly recommended.
+        redirectAfterFailure:
+          allOf:
+            - $ref: '#/components/schemas/Url'
+          description: |
+            URL where the customer is redirected after an unsuccessful payment. Siru appends
+            the same query parameters as `redirectAfterSuccess` with `siru_event` = `failure`.
+        redirectAfterCancel:
+          allOf:
+            - $ref: '#/components/schemas/Url'
+          description: |
+            URL where the customer is redirected after cancellation or maintenance downtime.
+            Siru appends the same query parameters as `redirectAfterSuccess` with `siru_event`
+            = `cancel`.
+        notifyAfterSuccess:
+          allOf:
+            - $ref: '#/components/schemas/Url'
+          description: |
+            Callback URL for successful purchase notification. Siru sends a POST request with
+            a JSON body containing the same parameters as the redirect query parameters.
+
+            Retried for up to 7 days on failure. A second notification may arrive in rare edge
+            cases — handle it gracefully (respond with HTTP 200).
+            **Strongly recommended** as redirect URLs are not guaranteed to be reached.
+        notifyAfterFailure:
+          allOf:
+            - $ref: '#/components/schemas/Url'
+          description: Callback URL for failed purchase notification.
+        notifyAfterCancel:
+          allOf:
+            - $ref: '#/components/schemas/Url'
+          description: Callback URL for cancelled purchase notification.
+        basePrice:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+          description: |
+            Price of the product or service. Siru fees are added automatically. Maximum price
+            and available price points depend on country and your contract.
+
+            For all variants except variant2, `basePrice` must always include VAT. For variant2,
+            `basePrice` is given **without VAT** by default — tax is added automatically based
+            on `taxClass`. This behaviour can be changed with the `vatIncluded` field.
+        currency:
+          type: string
+          maxLength: 3
+          description: |
+            Currency code. Selected automatically based on `purchaseCountry`. Only override
+            if agreed with Siru Mobile beforehand.
+        taxClass:
+          allOf:
+            - $ref: '#/components/schemas/TaxClass'
+          description: |
+            VAT class. **Required for variant1, variant2, and variant4 when `purchaseCountry`
+            is `FI`**. Must be omitted for all other countries.
+
+            | Value | VAT % |
+            |-------|-------|
+            | 0 | 0% (always zero) |
+            | 1 | 10% |
+            | 2 | 14% |
+            | 3 | 25.5% |
+
+            Tax classes may change as legislation changes. Siru notifies merchants in advance.
+        vatIncluded:
+          type: boolean
+          nullable: true
+          description: |
+            **variant2 only.** Must be omitted or `null` for all other variants.
+
+            Controls whether `basePrice` is treated as VAT-inclusive or VAT-exclusive.
+            Defaults to `false`, meaning `basePrice` is given without VAT (standard variant2
+            behaviour). Set to `true` to indicate that `basePrice` already includes VAT —
+            Siru will then calculate and deduct the VAT portion automatically based on
+            `taxClass`.
+        serviceGroup:
+          allOf:
+            - $ref: '#/components/schemas/ServiceGroup'
+          description: |
+            Service group. **Required for variant1, variant2, and variant4 when
+            `purchaseCountry` is `FI`**. Must be omitted for all other countries.
+
+            | Value | FICORA title |
+            |-------|-------------|
+            | 1 | Non-profit services |
+            | 2 | Online services |
+            | 3 | Entertainment services |
+            | 4 | Adult entertainment services |
+
+            If multiple groups apply, use the highest number. A customer's mobile subscription
+            may bar payment to certain service groups.
+        customerNumber:
+          type: string
+          description: |
+            Customer's phone number. **Required for variant1 and variant4.**
+
+            Valid formats: international MSISDN (`358501234567`), with leading `+`
+            (`+358 50 1234567`), or national format (`0501234567`, `050 123 4567`). Spaces and
+            a leading `+` are ignored. National format is converted to international format
+            based on `purchaseCountry`.
+
+            Invalid examples: `3580501234567` (double country code), `501234567` (missing
+            national 0 prefix).
+        title:
+          type: string
+          maxLength: 255
+          description: |
+            Short title of the purchased service or product. **Required for variant4.**
+            Included in signature for variant2 and variant4.
+        description:
+          type: string
+          maxLength: 255
+          description: |
+            Longer description of the purchased service or product.
+            Included in signature for variant4 only.
+        interval:
+          type: string
+          description: |
+            Subscription interval. Valid values depend on your contract with Siru Mobile.
+            Included in signature for variant2 and variant4.
+        trialPeriod:
+          type: string
+          description: |
+            Subscription trial period. Valid values depend on your contract with Siru Mobile.
+            Included in signature for variant2 only.
+        instantPay:
+          type: integer
+          deprecated: true
+          description: |
+            **Deprecated.** When using variant2, this value **must** be `1`.
+            Included in signature for variant2.
+        signature:
+          type: string
+          description: |
+            HMAC-SHA512 hash for request authentication. See the endpoint description above
+            for the complete signature fields table and calculation algorithm.
+
+    CreatePaymentResponse:
+      type: object
+      required: [success, purchase]
+      properties:
+        success:
+          type: boolean
+          const: true
+        purchase:
+          type: object
+          required: [uuid, redirect]
+          properties:
+            uuid:
+              type: string
+              format: uuid
+              description: |
+                Unique identifier for the purchase. Store this UUID if using subscriptions —
+                it is needed to cancel via the Subscription API.
+            redirect:
+              type: string
+              format: uri
+              description: URL where the end-user should be redirected to complete payment.
+
+    PaymentApiErrorResponse:
+      type: object
+      required: [success, errors]
+      properties:
+        success:
+          type: boolean
+          const: false
+        errors:
+          type: array
+          items:
+            type: string
+          description: Error messages for logging. Do not display to end-users.
+
+    PaymentNotification:
+      type: object
+      required:
+        - siru_uuid
+        - siru_merchantId
+        - siru_submerchantReference
+        - siru_purchaseReference
+        - siru_event
+        - siru_signature
+      properties:
+        siru_uuid:
+          type: string
+          format: uuid
+          description: Siru's unique identifier for the purchase (36 characters).
+        siru_merchantId:
+          type: integer
+          description: The merchantId from the original request.
+        siru_submerchantReference:
+          type: string
+          description: The submerchantReference from the original request. Empty string if not set.
+        siru_purchaseReference:
+          type: string
+          description: The purchaseReference from the original request. Empty string if not set.
+        siru_event:
+          type: string
+          enum: [success, failure, cancel]
+          description: Outcome of the purchase.
+        siru_signature:
+          type: string
+          description: |
+            HMAC-SHA512 signature for validating the notification. Calculated by concatenating
+            the values of `siru_uuid`, `siru_merchantId`, `siru_submerchantReference`,
+            `siru_purchaseReference`, and `siru_event` (in that order, including empty values)
+            with `;` as separator, then taking the HMAC-SHA512 with the merchant secret as key.
+
+            **Always validate this signature before processing the notification.**
+
+    OperationErrorResponse:
+      type: object
+      required: [errors]
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+          description: Error messages describing why the operation failed.
+
+    CaptureReleaseRequest:
+      type: object
+      required: [merchantId, uuid, signature]
+      properties:
+        merchantId:
+          type: integer
+          description: Your merchant ID.
+        uuid:
+          type: string
+          format: uuid
+          description: UUID of the authorized purchase.
+        signature:
+          type: string
+          description: |
+            HMAC-SHA512 hash. Concatenate `merchantId` and `uuid` (in that order) with `;`
+            as separator. Calculate HMAC-SHA512 with the merchant secret as key.
+
+    CaptureResponse:
+      type: object
+      required: [success, status]
+      properties:
+        success:
+          type: boolean
+          const: true
+        status:
+          type: string
+          const: confirmed
+
+    ReleaseResponse:
+      type: object
+      required: [success, status]
+      properties:
+        success:
+          type: boolean
+          const: true
+        status:
+          type: string
+          const: canceled
+
+    # -----------------------------------------------------------------------
+    # Subscription
+    # -----------------------------------------------------------------------
+
+    UnsubscribeRequest:
+      type: object
+      required: [merchantId, uuid, signature]
+      properties:
+        merchantId:
+          type: integer
+          description: Your merchant ID.
+        uuid:
+          type: string
+          format: uuid
+          description: UUID of the purchase that originally created the subscription.
+        signature:
+          type: string
+          description: |
+            HMAC-SHA512 hash. Concatenate `merchantId` and `uuid` (in that order) with `;`
+            as separator. Calculate HMAC-SHA512 with the merchant secret as key.
+
+    SuccessResponse:
+      type: object
+      required: [success]
+      properties:
+        success:
+          type: boolean
+          const: true
+
+    # -----------------------------------------------------------------------
+    # Purchase Status
+    # -----------------------------------------------------------------------
+
+    Transaction:
+      type: object
+      description: A purchase transaction.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Siru's unique identifier for this transaction.
+        submerchantReference:
+          type: [string, "null"]
+          description: Submerchant reference sent in the original request.
+        customerReference:
+          type: [string, "null"]
+          description: Customer reference sent in the original request.
+        purchaseReference:
+          type: [string, "null"]
+          description: Purchase reference sent in the original request.
+        status:
+          type: string
+          enum: [new, unconfirmed, call_started, funds_reserved, confirmed, canceled, failed]
+          description: |
+            Current purchase status.
+
+            | Status | Meaning |
+            |--------|---------|
+            | `new` | Siru received the purchase; customer has not yet initiated payment |
+            | `unconfirmed` | Customer is undergoing phone number verification |
+            | `call_started` | Customer has initiated payment |
+            | `funds_reserved` | Authorization hold created; awaiting capture or release (release+capture flow only) |
+            | `confirmed` | Payment successful — **final state** |
+            | `canceled` | Customer or system cancelled — **final state** |
+            | `failed` | Purchase failed due to an error — **final state** |
+
+            `confirmed`, `canceled`, and `failed` are final states and will not change.
+            Siru guarantees backward compatibility by only adding or removing non-final states.
+        basePrice:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+          description: The original price sent in the request.
+        finalPrice:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+          description: The price the user was charged, including possible commissions.
+        currency:
+          type: string
+          description: Payment currency (e.g. `EUR`).
+        createdAt:
+          type: string
+          format: date-time
+          description: ISO-8601 datetime when the transaction was created.
+        startedAt:
+          type: [string, "null"]
+          format: date-time
+          description: ISO-8601 datetime when the customer started payment. `null` if not started.
+        finishedAt:
+          type: [string, "null"]
+          format: date-time
+          description: ISO-8601 datetime when the purchase was finalized. `null` if not finished.
+        customerNumber:
+          type: [string, "null"]
+          description: Customer's phone number, if available.
+
+    TransactionDetail:
+      allOf:
+        - $ref: '#/components/schemas/Transaction'
+        - type: object
+          description: |
+            Extended transaction returned by the date range query. Includes `id` and
+            `merchantId` in addition to standard `Transaction` fields.
+          properties:
+            id:
+              type: integer
+              description: Siru's internal numeric ID for the transaction.
+            merchantId:
+              type: integer
+              description: The merchant ID associated with the transaction.
+
+    TransactionListResponse:
+      type: object
+      required: [purchases]
+      properties:
+        purchases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+
+    TransactionListDetailResponse:
+      type: object
+      required: [purchases]
+      properties:
+        purchases:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionDetail'
+
+    # -----------------------------------------------------------------------
+    # KYC
+    # -----------------------------------------------------------------------
+
+    KycResponse:
+      type: object
+      required: [report]
+      properties:
+        report:
+          type: object
+          description: End-user's verified KYC information.
+          required: [firstName, lastName]
+          properties:
+            firstName:
+              type: string
+              description: Verified first name.
+            lastName:
+              type: string
+              description: Verified last name.
+
+    # -----------------------------------------------------------------------
+    # Price
+    # -----------------------------------------------------------------------
+
+    PriceResponse:
+      type: object
+      required: [finalCallPrice]
+      properties:
+        finalCallPrice:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+          description: The final price the end-user will be charged.
+
+    MaxPriceResponse:
+      type: object
+      required: [maxBasePrice, maxFinalCallPrice]
+      properties:
+        maxBasePrice:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+          description: The maximum available base price.
+        maxFinalCallPrice:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+          description: The final price corresponding to `maxBasePrice`.
+
+    # -----------------------------------------------------------------------
+    # Feature Detection
+    # -----------------------------------------------------------------------
+
+    FeatureCheckResponse:
+      type: object
+      required: [ipPaymentsEnabled]
+      properties:
+        ipPaymentsEnabled:
+          type: boolean
+          description: Whether variant2 IP payments are available for the given IP address.
+
+    # -----------------------------------------------------------------------
+    # Common error responses
+    # -----------------------------------------------------------------------
+
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: integer
+              description: HTTP status code.
+              example: 404
+            message:
+              type: string
+              description: Error description.
+              example: "Not Found"
+
+    PriceErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+          description: Technical error message in English. Do not display to end-users.
+
+    # -----------------------------------------------------------------------
+    # Field type schemas
+    # -----------------------------------------------------------------------
+
+    Money:
+      type: string
+      pattern: '^\d+\.\d{2}$'
+      description: |
+        Monetary amount as a string with exactly two decimal places using a decimal point
+        (not comma). Examples: `"13.50"`, `"0.20"`, `"7.15"`.
+
+    PurchaseCountry:
+      type: string
+      enum: [FI, SE, NO, GB, AT, DE]
+      description: |
+        Country where the merchant sells the item. Supported countries:
+        `FI` (Finland), `SE` (Sweden), `NO` (Norway), `GB` (United Kingdom),
+        `AT` (Austria), `DE` (Germany).
+
+    Country:
+      type: string
+      pattern: '^[A-Z]{2}$'
+      description: |
+        ISO 3166-1 alpha-2 country code in upper case. Example: `"FI"`.
+
+    Locale:
+      type: string
+      enum: [fi_FI, sv_SE, nn_NO, en_GB, de_AT, de_DE]
+      description: |
+        Locale in `{language}_{COUNTRY}` format. Supported values: `fi_FI`, `sv_SE`,
+        `nn_NO`, `en_GB` (default), `de_AT`, `de_DE`.
+
+    Url:
+      type: string
+      format: uri
+      maxLength: 1024
+      description: |
+        Valid URI, maximum 1024 characters. Use strictly valid URLs with query strings, e.g.
+        `http://example.com/?variable=value` (not `http://example.com?variable=value`).
+
+    TaxClass:
+      type: integer
+      enum: [0, 1, 2, 3]
+      description: |
+        Finnish VAT class. `0` = 0%, `1` = 10%, `2` = 14%, `3` = 25.5%.
+        Tax class 0 always means 0% VAT. Other classes may change as legislation changes.
+
+    ServiceGroup:
+      type: integer
+      enum: [1, 2, 3, 4]
+      description: |
+        Finnish service group. `1` = Non-profit, `2` = Online, `3` = Entertainment,
+        `4` = Adult entertainment. Use the highest-numbered group if multiple apply.
